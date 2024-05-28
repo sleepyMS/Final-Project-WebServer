@@ -46,7 +46,7 @@ public class PostController {
         return "read";
     }
 
-    @RequestMapping("/delete/{idx}")
+    @RequestMapping("/delete/{num}")
     public  String delete(@PathVariable int idx) {
         postService.delete(idx);
         return "redirect:/list";
@@ -80,4 +80,12 @@ public class PostController {
         postService.save(post);
         return "redirect:/read/" + post.getIdx();
     }
+
+    @RequestMapping("/like/{idx}")
+    public String like(@PathVariable int idx) {
+        postService.increaseLikes(idx);
+        return "redirect:/read/" + idx;
+    }
+
+
 }

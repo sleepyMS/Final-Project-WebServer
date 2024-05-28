@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public interface PostService {
     public ArrayList<PostDto> findAll();
     public PostDto findById(int id);
-    public void delete(int idx);
+    public void delete(int num);
     public PostDto save(PostDto post);
 
     public int count();
+    public PostDto increaseLikes(int idx);
 }

@@ -14,9 +14,9 @@ public class PostServiceImpl implements PostService  {
 
     public PostServiceImpl() {
         System.out.println("PostServiceImpl 객체 생성");
-        db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다."));
-        db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라"));
-        db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다"));    }
+        db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다." ,0));
+        db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라", 0));
+        db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다", 0));    }
 
     @Override
     public ArrayList<PostDto> findAll() {
@@ -54,4 +54,12 @@ public class PostServiceImpl implements PostService  {
     public int count() {
         return 0;
     }
+
+    @Override
+    public PostDto increaseLikes(int idx) {
+        PostDto post = findById(idx);
+        post.setLikes(post.getLikes() + 1);
+        return post;
+    }
+
 }
