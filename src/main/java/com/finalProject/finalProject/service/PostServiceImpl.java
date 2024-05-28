@@ -30,7 +30,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(int idx) {
-        db.removeIf(p -> p.getIdx() == idx);
+        PostDto postToDelete = findById(idx);
+        if (postToDelete != null) {
+            db.remove(postToDelete);
+        }
     }
 
     @Override

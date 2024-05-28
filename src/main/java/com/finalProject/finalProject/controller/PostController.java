@@ -8,15 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 @Controller
 public class PostController {
 
@@ -25,8 +16,7 @@ public class PostController {
 
     @RequestMapping("/")
     public String home(HttpSession session) {
-        // 임의로 userIndex 설정 (로그인된 사용자와 동일한 방식으로)
-        session.setAttribute("userIndex", "user1");  // 예시로 첫 번째 게시글의 userIndex를 설정
+        session.setAttribute("userIndex", "user1");
         return "home";
     }
 
@@ -45,7 +35,6 @@ public class PostController {
     public String read(@PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(idx);
         model.addAttribute("post", post);
-        // 현재 사용자의 userIndex를 세션에서 가져옴
         String currentUser = (String) session.getAttribute("userIndex");
         model.addAttribute("currentUser", currentUser);
         return "read";
