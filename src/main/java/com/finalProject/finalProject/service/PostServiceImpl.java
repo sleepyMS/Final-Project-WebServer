@@ -56,10 +56,13 @@ public class PostServiceImpl implements PostService  {
     }
 
     @Override
-    public PostDto increaseLikes(int idx) {
-        PostDto post = findById(idx);
-        post.setLikes(post.getLikes() + 1);
-        return post;
+    public boolean increaseLikes(int idx) {
+        PostDto post = db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
+        if (post != null && post.getLikes() == 0) {
+            post.setLikes(1);
+            return true;
+        }
+        return false;
     }
 
 }
