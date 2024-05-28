@@ -41,14 +41,14 @@ public class PostController {
     }
 
     @RequestMapping("/read/{idx}")
-    public  String read(@PathVariable int idx, Model model) {
-        model.addAttribute("post", postService.findById(idx));
+    public  String read(@PathVariable int num, Model model) {
+        model.addAttribute("post", postService.findById(num));
         return "read";
     }
 
     @RequestMapping("/delete/{num}")
-    public  String delete(@PathVariable int idx) {
-        postService.delete(idx);
+    public  String delete(@PathVariable int num) {
+        postService.delete(num);
         return "redirect:/list";
     }
 
