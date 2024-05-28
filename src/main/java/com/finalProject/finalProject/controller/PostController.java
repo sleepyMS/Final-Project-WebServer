@@ -40,7 +40,7 @@ public class PostController {
         return "list";
     }
 
-    @RequestMapping("/read/{idx}")
+    @RequestMapping("/read/{num}")
     public  String read(@PathVariable int num, Model model) {
         model.addAttribute("post", postService.findById(num));
         return "read";
@@ -61,7 +61,7 @@ public class PostController {
     // files가 PostDto와 이름이 겹치면 안됨
     @PostMapping(value = "/insert")
     public  String insert(PostDto post)  {
-        post.setIdx(-1);
+        post.setNum(-1);
         postService.save(post);
         return "redirect:/list";
     }
