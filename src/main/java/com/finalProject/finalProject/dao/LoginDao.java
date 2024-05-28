@@ -1,6 +1,8 @@
 package com.finalProject.finalProject.dao;
 
+import com.finalProject.finalProject.dto.LoginDto;
+
 public interface LoginDao {
-    boolean equalEmail();
-    boolean equalPassword();
+    String getEmail();
+    String getPassword();
 }

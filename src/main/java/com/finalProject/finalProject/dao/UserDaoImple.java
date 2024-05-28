@@ -1,44 +1,40 @@
 package com.finalProject.finalProject.dao;
 
+import com.finalProject.finalProject.dto.SignUpDto;
 import com.finalProject.finalProject.dto.UserDto;
+import com.finalProject.finalProject.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
-public class UserDaoImple implements UserDao {
+public class UserDaoImple {
 
-    private List<UserDto> database = new ArrayList<>();
+    @Autowired
+    private LoginService loginService;
 
-    public UserDaoImple() {
-        System.out.println("UserDaoImple 객체 생성");
-        database.add(new UserDto(1, "김", "EWQE", "123", "123", "123", "123", "123", "123"));
-    }
+    @Autowired
+    private SignUpDaoImple signUpDaoImple;
 
-    @Override
-    public int count() {
-        return database.size();
-    }
+    public UserDto setUser(String email, String password){
+        if(loginService.isOk(email, password)) {
+            SignUpDto signUpDto = signUpDaoImple.getAllUser().stream()
+                    .filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password))
+                    .findAny()
+                    .orElse(null);
 
-    @Override
-    public UserDto getUserById(int id) {
-        for (UserDto user : database) {
-            if (user.getId() == id) {
-                return user;
+            if (signUpDto != null) {
+                return new UserDto(
+                        signUpDto.getId(),
+                        signUpDto.getName(),
+                        signUpDto.getEmail(),
+                        signUpDto.getPassword(),
+                        signUpDto.getBirth(),
+                        signUpDto.getMbti(),
+                        signUpDto.getNick(),
+                        signUpDto.getPhone()
+                );
             }
         }
-        return null; // 해당 ID를 가진 사용자가 없을 경우
-    }
-
-    @Override
-    public List<UserDto> getAllUser() {
-        return database;
-    }
-
-    @Override
-    public UserDto insertUser(UserDto userDto) {
-        database.add(userDto);
-        return userDto;
+        return null;
     }
 }
