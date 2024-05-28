@@ -26,6 +26,7 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute UserDto userDto,Model model) {
+//        아무말
         try {
             userDao.insertUser(userDto, -1);
             model.addAttribute("users", userDao.getUser());
