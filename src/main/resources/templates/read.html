@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{menu :: menu}" />
+게시글 상세 페이지  <br/>
+num : <span th:text="${post.num}" />   <br/>
+<span th:text="${post.nickname}" />   <br/>
+<span th:text="${post.title}" />   <br/>
+<textarea rows="5" cols="40" readonly th:text="${post.content}"></textarea><br/>
+좋아요 수 : <span th:text="${post.likes}"></span> <a th:href="@{/like/{num}(num=${post.num})}">좋아요</a><br/>
+
+<!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 -->
+<div class="dropdown">
+    <button class="dropbtn">옵션</button>
+    <div class="dropdown-content">
+        <a th:href="@{/updateForm/{num}(num=${post.num})}">게시글 수정</a>
+        <a th:href="@{/delete/{num}(num=${post.num})}">게시글 삭제</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+package com.finalProject.finalProject.controller;
+
+import com.finalProject.finalProject.dto.PostDto;
+import com.finalProject.finalProject.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Controller
+public class PostController {
+
+    @Autowired
+    private PostService postService;
+
+    @RequestMapping("/")
+    public  String home() {
+        return "home";
+    }
+
+    @RequestMapping("/about")
+    public  String about() {
+        return "about";
+    }
+
+
+    @RequestMapping("/list")
+    public  String list(Model model) {
+        model.addAttribute("posts",
+                postService.findAll());
+        return "list";
+    }
+
+    @RequestMapping("/read/{num}")
+    public  String read(@PathVariable int num, Model model) {
+        model.addAttribute("post", postService.findById(num));
+        return "read";
+    }
+
+    @RequestMapping("/delete/{num}")
+    public  String delete(@PathVariable int num) {
+        postService.delete(num);
+        return "redirect:/list";
+    }
+
+    @RequestMapping("/insertForm")
+    public  String insertForm() {
+        return "insertForm";
+    }
+
+
+    // files가 PostDto와 이름이 겹치면 안됨
+    @PostMapping(value = "/insert")
+    public  String insert(PostDto post)  {
+        post.setNum(-1);
+        postService.save(post);
+        return "redirect:/list";
+    }
+
+
+
+    @RequestMapping("/updateForm/{num}")
+    public  String updateForm(@PathVariable int num, Model model) {
+        model.addAttribute("post", postService.findById(num));
+        return "updateForm";
+    }
+
+    @RequestMapping("/update")
+    public  String update(PostDto post) throws IOException {
+        //post.setImage("/download/" + originalFilename);
+        postService.save(post);
+        return "redirect:/read/" + post.getNum();
+    }
+
+    @RequestMapping("/like/{num}")
+    public String like(@PathVariable int num) {
+        postService.increaseLikes(num);
+        return "redirect:/read/" + num;
+    }
+
+
+}
