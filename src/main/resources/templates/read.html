@@ -13,7 +13,7 @@
 idx : <span th:text="${post.idx}" />   <br/>
 <span th:text="${post.nickname}" />   <br/>
 <span th:text="${post.title}" />   <br/>
-<textarea rows="5" cols="40" readonly>[[${movie.content}]]</textarea><br/>
+<textarea rows="5" cols="40" readonly>[[${post.content}]]</textarea><br/>
 
 <a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
 <a th:href="@{/delete/{idx}(idx=${post.idx})}">게시글 삭제</a>

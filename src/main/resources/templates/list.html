@@ -12,11 +12,11 @@
 E 와 I 게시판 <br/>
 
 <table border="2">
-    <tr th:each="m : ${posts}">
-        <td> [[${m.idx}]] </td>
-        <td> <a th:href="@{/read/{idx}(idx=${m.idx})}">[[${m.nickname}]]</a> </td>
-        <td> <a th:href="@{/read/{idx}(idx=${m.idx})}">[[${m.title}]]</a> </td>
-        <td> <a th:href="@{/delete/{idx}(idx=${m.idx})}">게시글 삭제</a> </td>
+    <tr th:each="p : ${posts}">
+        <td> [[${p.idx}]] </td>
+        <td> <a th:href="@{/read/{idx}(idx=${p.idx})}">[[${p.nickname}]]</a> </td>
+        <td> <a th:href="@{/read/{idx}(idx=${p.idx})}">[[${p.title}]]</a> </td>
+        <td> <a th:href="@{/delete/{idx}(idx=${p.idx})}">게시글 삭제</a> </td>
     </tr>
 </table>
 

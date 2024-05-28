@@ -25,13 +25,13 @@ public class PostServiceImpl implements PostService  {
 
     @Override
     public PostDto findById(int idx) {
-        PostDto find = db.stream().filter(m -> m.getIdx() == idx).findAny().get();
+        PostDto find = db.stream().filter(p -> p.getIdx() == idx).findAny().get();
         return find;
     }
 
     @Override
     public void delete(int idx) {
-        db.remove(db.stream().filter(m -> m.getIdx() == idx).findAny().get());
+        db.remove(db.stream().filter(p -> p.getIdx() == idx).findAny().get());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PostServiceImpl implements PostService  {
             db.add(post);
             return post;
         } else {
-            PostDto temp = db.stream().filter(m -> m.getIdx() == post.getIdx()).findAny().get();
+            PostDto temp = db.stream().filter(p -> p.getIdx() == post.getIdx()).findAny().get();
             temp.setNickname((post.getNickname()));
             temp.setTitle(post.getTitle());
             temp.setContent(post.getContent());
