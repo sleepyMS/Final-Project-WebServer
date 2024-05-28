@@ -1,7 +1,14 @@
 package com.finalProject.finalProject.dao;
 
-import org.springframework.stereotype.Service;
+import com.finalProject.finalProject.dto.UserDto;
 
-@Service
-public class UserDao {
+import java.util.ArrayList;
+import java.util.List;
+
+public interface UserDao {
+    int count();
+    UserDto getUserById(int id);
+    List<UserDto> getUser();
+    UserDto insertUser(UserDto userDto,int id);
+    //UserDto getUserById(int id);
 }
