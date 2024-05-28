@@ -2,20 +2,22 @@ package com.finalProject.finalProject.controller;
 
 import com.finalProject.finalProject.dao.UserDao;
 import com.finalProject.finalProject.dto.UserDto;
+import com.finalProject.finalProject.service.UserServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-//@RequestMapping("/user/auth")
+@RequestMapping("/user/auth")
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserServiceImple userServiceImple;
 
     @RequestMapping("/")
     public String home(){
+
         return "home";
     }
 
@@ -26,13 +28,9 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute UserDto userDto,Model model) {
-        try {
-            userDao.insertUser(userDto, -1);
-            model.addAttribute("users", userDao.getUser());
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
+        userServiceImple.insertUser(userDto, -1);
+        model.addAttribute("users", userServiceImple.getAllUser());
+        System.out.println(userServiceImple.getAllUser());
         return "checkSignUp";
     }
 
