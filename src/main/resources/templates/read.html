@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+</head>
+<body>
+
+<th:block th:replace="~{menu :: menu}" />
+
+게시글 상세 페이지  <br/>
+
+idx : <span th:text="${post.idx}" />   <br/>
+<span th:text="${post.nickname}" />   <br/>
+<span th:text="${post.title}" />   <br/>
+<textarea rows="5" cols="40" readonly>[[${movie.content}]]</textarea><br/>
+
+<a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
+<a th:href="@{/delete/{idx}(idx=${post.idx})}">게시글 삭제</a>
+
+
+</body>
+</html>
