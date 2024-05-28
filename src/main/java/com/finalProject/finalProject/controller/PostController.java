@@ -40,15 +40,15 @@ public class PostController {
         return "list";
     }
 
-    @RequestMapping("/read/{num}")
-    public  String read(@PathVariable int num, Model model) {
-        model.addAttribute("post", postService.findById(num));
+    @RequestMapping("/read/{idx}")
+    public  String read(@PathVariable int idx, Model model) {
+        model.addAttribute("post", postService.findById(idx));
         return "read";
     }
 
-    @RequestMapping("/delete/{num}")
-    public  String delete(@PathVariable int num) {
-        postService.delete(num);
+    @RequestMapping("/delete/{idx}")
+    public  String delete(@PathVariable int idx) {
+        postService.delete(idx);
         return "redirect:/list";
     }
 
@@ -61,16 +61,16 @@ public class PostController {
     // files가 PostDto와 이름이 겹치면 안됨
     @PostMapping(value = "/insert")
     public  String insert(PostDto post)  {
-        post.setNum(-1);
+        post.setIdx(-1);
         postService.save(post);
         return "redirect:/list";
     }
 
 
 
-    @RequestMapping("/updateForm/{num}")
-    public  String updateForm(@PathVariable int num, Model model) {
-        model.addAttribute("post", postService.findById(num));
+    @RequestMapping("/updateForm/{idx}")
+    public  String updateForm(@PathVariable int idx, Model model) {
+        model.addAttribute("post", postService.findById(idx));
         return "updateForm";
     }
 
@@ -78,13 +78,13 @@ public class PostController {
     public  String update(PostDto post) throws IOException {
         //post.setImage("/download/" + originalFilename);
         postService.save(post);
-        return "redirect:/read/" + post.getNum();
+        return "redirect:/read/" + post.getIdx();
     }
 
-    @RequestMapping("/like/{num}")
-    public String like(@PathVariable int num) {
-        postService.increaseLikes(num);
-        return "redirect:/read/" + num;
+    @RequestMapping("/like/{idx}")
+    public String like(@PathVariable int idx) {
+        postService.increaseLikes(idx);
+        return "redirect:/read/" + idx;
     }
 
 

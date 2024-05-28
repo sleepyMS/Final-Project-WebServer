@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PostDto {
-    private int num;
+    private int idx;
     private String nickname;
     private String title;
     private String content;
