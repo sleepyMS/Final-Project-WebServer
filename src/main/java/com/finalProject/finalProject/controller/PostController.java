@@ -68,9 +68,9 @@ public class PostController {
 
 
 
-    @RequestMapping("/updateForm/{idx}")
-    public  String updateForm(@PathVariable int idx, Model model) {
-        model.addAttribute("post", postService.findById(idx));
+    @RequestMapping("/updateForm/{num}")
+    public  String updateForm(@PathVariable int num, Model model) {
+        model.addAttribute("post", postService.findById(num));
         return "updateForm";
     }
 
@@ -78,13 +78,13 @@ public class PostController {
     public  String update(PostDto post) throws IOException {
         //post.setImage("/download/" + originalFilename);
         postService.save(post);
-        return "redirect:/read/" + post.getIdx();
+        return "redirect:/read/" + post.getNum();
     }
 
-    @RequestMapping("/like/{idx}")
-    public String like(@PathVariable int idx) {
-        postService.increaseLikes(idx);
-        return "redirect:/read/" + idx;
+    @RequestMapping("/like/{num}")
+    public String like(@PathVariable int num) {
+        postService.increaseLikes(num);
+        return "redirect:/read/" + num;
     }
 
 

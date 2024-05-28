@@ -24,25 +24,25 @@ public class PostServiceImpl implements PostService  {
     }
 
     @Override
-    public PostDto findById(int idx) {
-        PostDto find = db.stream().filter(p -> p.getIdx() == idx).findAny().get();
+    public PostDto findById(int num) {
+        PostDto find = db.stream().filter(p -> p.getNum() == num).findAny().get();
         return find;
     }
 
     @Override
-    public void delete(int idx) {
-        db.remove(db.stream().filter(p -> p.getIdx() == idx).findAny().get());
+    public void delete(int num) {
+        db.remove(db.stream().filter(p -> p.getNum() == num).findAny().get());
     }
 
     @Override
     public PostDto save(PostDto post) {
-        if ( post.getIdx() == -1) {
-            int idx = db.get(db.size()-1).getIdx() + 1;
-            post.setIdx(idx);
+        if ( post.getNum() == -1) {
+            int num = db.get(db.size()-1).getNum() + 1;
+            post.setNum(num);
             db.add(post);
             return post;
         } else {
-            PostDto temp = db.stream().filter(p -> p.getIdx() == post.getIdx()).findAny().get();
+            PostDto temp = db.stream().filter(p -> p.getNum() == post.getNum()).findAny().get();
             temp.setNickname((post.getNickname()));
             temp.setTitle(post.getTitle());
             temp.setContent(post.getContent());
@@ -56,8 +56,8 @@ public class PostServiceImpl implements PostService  {
     }
 
     @Override
-    public PostDto increaseLikes(int idx) {
-        PostDto post = findById(idx);
+    public PostDto increaseLikes(int num) {
+        PostDto post = findById(num);
         post.setLikes(post.getLikes() + 1);
         return post;
     }

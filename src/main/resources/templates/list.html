@@ -14,9 +14,9 @@ E 와 I 게시판 <br/>
 <table border="2">
     <tr th:each="p : ${posts}">
         <td> [[${p.idx}]] </td>
-        <td> <a th:href="@{/read/{idx}(idx=${p.idx})}">[[${p.nickname}]]</a> </td>
-        <td> <a th:href="@{/read/{idx}(idx=${p.idx})}">[[${p.title}]]</a> </td>
-        <td> <a th:href="@{/delete/{idx}(idx=${p.idx})}">게시글 삭제</a> </td>
+        <td> <a th:href="@{/read/{num}(idx=${p.num})}">[[${p.nickname}]]</a> </td>
+        <td> <a th:href="@{/read/{num}(idx=${p.num})}">[[${p.title}]]</a> </td>
+        <td> <a th:href="@{/delete/{num}(idx=${p.num})}">게시글 삭제</a> </td>
     </tr>
 </table>
 
