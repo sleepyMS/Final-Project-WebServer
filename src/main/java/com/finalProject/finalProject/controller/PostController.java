@@ -44,7 +44,7 @@ public class PostController {
     public String delete(@PathVariable int idx, HttpSession session) {
         PostDto post = postService.findById(idx);
         String currentUser = (String) session.getAttribute("userIndex");
-        if (post.getUserIndex().equals(currentUser)) {
+        if (post != null && post.getUserIndex().equals(currentUser)) {
             postService.delete(idx);
         }
         return "redirect:/list";
@@ -68,18 +68,18 @@ public class PostController {
     public String updateForm(@PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(idx);
         String currentUser = (String) session.getAttribute("userIndex");
-        if (post.getUserIndex().equals(currentUser)) {
+        if (post != null && post.getUserIndex().equals(currentUser)) {
             model.addAttribute("post", post);
             return "updateForm";
         }
         return "redirect:/list";
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public String update(PostDto post, HttpSession session) {
         String currentUser = (String) session.getAttribute("userIndex");
         PostDto existingPost = postService.findById(post.getIdx());
-        if (existingPost.getUserIndex().equals(currentUser)) {
+        if (existingPost != null && existingPost.getUserIndex().equals(currentUser)) {
             postService.save(post);
         }
         return "redirect:/read/" + post.getIdx();

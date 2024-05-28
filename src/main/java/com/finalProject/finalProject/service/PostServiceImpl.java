@@ -12,7 +12,6 @@ public class PostServiceImpl implements PostService {
 
     public PostServiceImpl() {
         System.out.println("PostServiceImpl 객체 생성");
-        // userIndex를 포함한 생성자를 사용
         db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다.", 0, "user1"));
         db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라", 0, "user2"));
         db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다", 0, "user3"));
@@ -30,10 +29,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(int idx) {
-        PostDto postToDelete = findById(idx);
-        if (postToDelete != null) {
-            db.remove(postToDelete);
-        }
+        db.removeIf(p -> p.getIdx() == idx);
     }
 
     @Override
@@ -50,7 +46,7 @@ public class PostServiceImpl implements PostService {
                 existingPost.setTitle(post.getTitle());
                 existingPost.setContent(post.getContent());
                 existingPost.setLikes(post.getLikes());
-                existingPost.setUserIndex(post.getUserIndex());
+                // existingPost.setUserIndex(post.getUserIndex()); // userIndex는 수정하지 않음
             }
             return existingPost;
         }
