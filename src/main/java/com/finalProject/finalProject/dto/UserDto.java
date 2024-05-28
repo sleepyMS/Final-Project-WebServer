@@ -4,10 +4,10 @@ import lombok.*;
 
 @Data
 public class UserDto {
-    public int num;
-    public String name;
-    public String email;
-    public String password;
-    public String mbti;
-    public String nick;
+    private int num;
+    private String name;
+    private String email;
+    private String password;
+    private String mbti;
+    private String nick;
 }
