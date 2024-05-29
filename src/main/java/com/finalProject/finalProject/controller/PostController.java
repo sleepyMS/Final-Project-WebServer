@@ -17,7 +17,7 @@ public class PostController {
     @RequestMapping("/")
     public String home(HttpSession session) {
         session.setAttribute("userIndex", "user1");
-        return "home";
+        return "home2";
     }
 
     @RequestMapping("/about")
