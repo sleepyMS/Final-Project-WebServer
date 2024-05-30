@@ -11,5 +11,5 @@ public interface PostService {
     public PostDto save(PostDto post);
 
     public int count();
-    public PostDto increaseLikes(int idx);
+    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
 }

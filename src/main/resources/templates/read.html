@@ -43,8 +43,8 @@ idx : <span th:text="${post.idx}" />   <br/>
 <textarea rows="5" cols="40" readonly th:text="${post.content}"></textarea><br/>
 좋아요 수 : <span th:text="${post.likes}"></span> <a th:href="@{/like/{idx}(idx=${post.idx})}">좋아요</a><br/>
 
-<!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 -->
-<div class="dropdown">
+<!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 (작성자만 보임) -->
+<div th:if="${currentUser == post.userIndex}" class="dropdown">
     <button class="dropbtn">옵션</button>
     <div class="dropdown-content">
         <a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
