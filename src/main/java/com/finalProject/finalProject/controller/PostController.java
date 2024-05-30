@@ -17,21 +17,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Controller
+@RequestMapping("/post")
 public class PostController {
 
     @Autowired
     private PostService postService;
 
-    @RequestMapping("/")
-    public  String home() {
-        return "home";
-    }
+//    @RequestMapping("/")
+//    public  String home() {
+//        return "home";
+//    }
 
     @RequestMapping("/about")
     public  String about() {
         return "about";
     }
-
 
     @RequestMapping("/list")
     public  String list(Model model) {
@@ -49,7 +49,7 @@ public class PostController {
     @RequestMapping("/delete/{idx}")
     public  String delete(@PathVariable int idx) {
         postService.delete(idx);
-        return "redirect:/list";
+        return "redirect:/post/list";
     }
 
     @RequestMapping("/insertForm")
@@ -63,7 +63,7 @@ public class PostController {
     public  String insert(PostDto post)  {
         post.setIdx(-1);
         postService.save(post);
-        return "redirect:/list";
+        return "redirect:/post/list";
     }
 
 
@@ -78,13 +78,13 @@ public class PostController {
     public  String update(PostDto post) throws IOException {
         //post.setImage("/download/" + originalFilename);
         postService.save(post);
-        return "redirect:/read/" + post.getIdx();
+        return "redirect:/post/read/" + post.getIdx();
     }
 
     @RequestMapping("/like/{idx}")
     public String like(@PathVariable int idx) {
         postService.increaseLikes(idx);
-        return "redirect:/read/" + idx;
+        return "redirect:/post/read/" + idx;
     }
 
 

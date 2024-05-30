@@ -50,7 +50,7 @@ public class UserController {
             System.out.println("Login Success!");
             model.addAttribute("user", user);
             System.out.println(user);
-            return "redirect:/user/auth/";
+            return "redirect:/";
         } else {
             return "redirect:/user/auth/signIn?error=true";
         }
