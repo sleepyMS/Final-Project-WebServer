@@ -1,17 +1,16 @@
 package com.finalProject.finalProject.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class SignUpDto {
     private int id;
     private String name;
     private String email;
     private String password;
+    private String checkPassword;
     private String birth;
     private String mbti;
     private String nick;
