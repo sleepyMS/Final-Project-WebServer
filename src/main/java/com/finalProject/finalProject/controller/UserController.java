@@ -19,10 +19,10 @@ public class UserController {
     @Autowired
     private UserDaoImple userDaoImple;
 
-    @RequestMapping("/")
-    public String home(){
-        return "home";
-    }
+//    @RequestMapping("/")
+//    public String home(){
+//        return "home";
+//    }
 
     @RequestMapping("/signUp")
     public String signUp() {
@@ -34,7 +34,7 @@ public class UserController {
         userServiceImple.insertUser(signUpDto, -1);
         model.addAttribute("users", userServiceImple.getAllUser());
         System.out.println(userServiceImple.getAllUser());
-        return "redirect:/user/auth/";
+        return "redirect:/";
     }
 
     @RequestMapping("/signIn")

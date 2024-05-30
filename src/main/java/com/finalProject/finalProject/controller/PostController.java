@@ -2,11 +2,19 @@ package com.finalProject.finalProject.controller;
 
 import com.finalProject.finalProject.dto.PostDto;
 import com.finalProject.finalProject.service.PostService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class PostController {
@@ -15,73 +23,61 @@ public class PostController {
     private PostService postService;
 
     @RequestMapping("/")
-    public String home(HttpSession session) {
-        session.setAttribute("userIndex", "user1");
-        return "home2";
+    public  String home() {
+        return "home";
     }
 
     @RequestMapping("/about")
-    public String about() {
+    public  String about() {
         return "about";
     }
 
+
     @RequestMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("posts", postService.findAll());
+    public  String list(Model model) {
+        model.addAttribute("posts",
+                postService.findAll());
         return "list";
     }
 
     @RequestMapping("/read/{idx}")
-    public String read(@PathVariable int idx, Model model, HttpSession session) {
-        PostDto post = postService.findById(idx);
-        model.addAttribute("post", post);
-        String currentUser = (String) session.getAttribute("userIndex");
-        model.addAttribute("currentUser", currentUser);
+    public  String read(@PathVariable int idx, Model model) {
+        model.addAttribute("post", postService.findById(idx));
         return "read";
     }
 
     @RequestMapping("/delete/{idx}")
-    public String delete(@PathVariable int idx, HttpSession session) {
-        PostDto post = postService.findById(idx);
-        String currentUser = (String) session.getAttribute("userIndex");
-        if (post != null && post.getUserIndex().equals(currentUser)) {
-            postService.delete(idx);
-        }
+    public  String delete(@PathVariable int idx) {
+        postService.delete(idx);
         return "redirect:/list";
     }
 
     @RequestMapping("/insertForm")
-    public String insertForm() {
+    public  String insertForm() {
         return "insertForm";
     }
 
+
+    // files가 PostDto와 이름이 겹치면 안됨
     @PostMapping(value = "/insert")
-    public String insert(PostDto post, HttpSession session) {
+    public  String insert(PostDto post)  {
         post.setIdx(-1);
-        String currentUser = (String) session.getAttribute("userIndex");
-        post.setUserIndex(currentUser);
         postService.save(post);
         return "redirect:/list";
     }
 
+
+
     @RequestMapping("/updateForm/{idx}")
-    public String updateForm(@PathVariable int idx, Model model, HttpSession session) {
-        PostDto post = postService.findById(idx);
-        String currentUser = (String) session.getAttribute("userIndex");
-        if (post != null && post.getUserIndex().equals(currentUser)) {
-            model.addAttribute("post", post);
-            return "updateForm";
-        }
-        return "redirect:/list";
+    public  String updateForm(@PathVariable int idx, Model model) {
+        model.addAttribute("post", postService.findById(idx));
+        return "updateForm";
     }
 
-    @PostMapping("/update")
-    public String update(PostDto post, HttpSession session) {
-        String currentUser = (String) session.getAttribute("userIndex");
-        PostDto existingPost = postService.findById(post.getIdx());
-        if (existingPost != null && existingPost.getUserIndex().equals(currentUser)) {
-            postService.save(post);
-        }
+    @RequestMapping("/update")
+    public  String update(PostDto post) throws IOException {
+        //post.setImage("/download/" + originalFilename);
+        postService.save(post);
         return "redirect:/read/" + post.getIdx();
     }
 
@@ -90,4 +86,6 @@ public class PostController {
         postService.increaseLikes(idx);
         return "redirect:/read/" + idx;
     }
+
+
 }
