@@ -27,10 +27,19 @@ public class PostController {
         return "about";
     }
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("posts", postService.findAll());
+        model.addAttribute("boards", postService.getAllBoards()); // 모든 게시판 정보를 가져옴
+        model.addAttribute("recentPosts", postService.getRecentPosts()); // 최근 게시글 3개씩을 가져옴
         return "list";
+    }
+
+    @GetMapping("/board/{boardId}")
+    public String viewBoard(@PathVariable int boardId, Model model) {
+        List<PostDto> posts = postService.getPostsByBoardId(boardId); // 해당 게시판의 모든 게시글을 가져옴
+        model.addAttribute("posts", posts);
+        model.addAttribute("boardId", boardId);
+        return "board";
     }
 
     @RequestMapping("/read/{idx}")
@@ -83,5 +92,37 @@ public class PostController {
         } else {
             return "redirect:/post/error"; // 좋아요가 이미 눌려있는 경우 등 예외 처리
         }
+    }
+
+    @GetMapping("/createBoardForm")
+    public String createBoardForm() {
+        return "createBoardForm";
+    }
+
+    @PostMapping("/createBoard")
+    public String createBoard(@RequestParam String title) {
+        postService.createBoard(title);
+        return "redirect:/post/list";
+    }
+
+    @GetMapping("/board/{boardId}/createPostForm")
+    public String createPostForm(@PathVariable int boardId, Model model) {
+        model.addAttribute("boardId", boardId);
+        return "createPostForm";
+    }
+
+    @PostMapping("/board/{boardId}/createPost")
+    public String createPost(@PathVariable int boardId, PostDto postDto) {
+        postDto.setBoardId(boardId);
+        postService.save(postDto);
+        return "redirect:/post/board/{boardId}";
+    }
+
+    @GetMapping("/board")
+    public String board(Model model) {
+        // 서비스에서 게시글 목록을 가져온다고 가정
+        List<PostDto> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
+        return "board";
     }
 }

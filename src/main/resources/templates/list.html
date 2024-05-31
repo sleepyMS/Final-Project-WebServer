@@ -1,24 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>게시판 목록</title>
-</head>
-
 <body>
+<!-- 메뉴 -->
+<a th:href="@{/post/list}">메인화면</a>
+<a th:href="@{/post/createBoardForm}">게시판 생성</a>
+<a th:href="@{/logout}">로그아웃</a>
 
-<th:block th:replace="~{menu::menu}" />
+<!-- 게시판 목록 -->
+<ul>
+    <li th:each="board : ${boards}">
+        <a th:href="@{/post/board/{board.idx}(idx=${board.idx})}" th:text="${board.title}"></a>
+    </li>
+</ul>
 
-E 와 I 게시판 <br/>
-
-<table border="2">
-    <tr th:each="p : ${posts}">
-        <td> [[${p.idx}]] </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
-        <td> <a th:href="|/post/delete/${p.idx}|">게시글 삭제</a> </td>
+<!-- 최근 게시글 목록 -->
+<h2>최근 게시글</h2>
+<table>
+    <thead>
+    <tr>
+        <th>게시판</th>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>삭제</th>
     </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${recentPosts}">
+        <td th:text="${post.boardTitle}"></td>
+        <td th:text="${post.nickname}"></td>
+        <td th:text="${post.title}"></td>
+        <td><a th:href="@{|/post/delete/${post.idx}|}">게시글 삭제</a></td>
+    </tr>
+    </tbody>
 </table>
 
 </body>
-</html>
