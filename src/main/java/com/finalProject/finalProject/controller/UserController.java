@@ -6,6 +6,8 @@ import com.finalProject.finalProject.dto.SignUpDto;
 import com.finalProject.finalProject.dto.UserDto;
 import com.finalProject.finalProject.service.LoginServiceImple;
 import com.finalProject.finalProject.service.UserServiceImple;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,16 +49,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkSignIn", method = RequestMethod.POST)
-    public String checkSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        LoginDto loginDto = loginServiceImple.setLogin(email,password);
+    public String checkSignIn(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request) {
+        LoginDto loginDto = loginServiceImple.setLogin(email, password);
 
-        if (loginServiceImple.isOk(email,password)) {
-            System.out.println("Login Success!");
-            model.addAttribute("user", loginDto);
-            System.out.println(loginDto);
+        if (loginServiceImple.isOk(email, password)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", loginDto);
             return "redirect:/";
         } else {
             return "redirect:/user/auth/signIn?error=true";
         }
+    }
+
+    @RequestMapping("/currentUser")
+    @ResponseBody
+    public UserDto currentUser(HttpSession session) {
+        return (UserDto) session.getAttribute("user");
     }
 }
