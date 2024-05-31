@@ -59,7 +59,7 @@ idx : <span th:text="${post.idx}" />   <br/>
 좋아요 수 : <span th:text="${post.likes}"></span> <a th:href="@{/post/like/{idx}(idx=${post.idx})}">좋아요</a><br/>
 
 <!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 (작성자만 보임) -->
-<div th:if="${currentUser == post.userIdx}" class="dropdown">
+<div th:if="${currentUser.id == post.userIdx}" class="dropdown">
     <button class="dropbtn">옵션</button>
     <div class="dropdown-content">
         <a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
@@ -68,10 +68,11 @@ idx : <span th:text="${post.idx}" />   <br/>
 </div>
 
 <div class="comment-wrap">
-    <form class="comment-input-box" action>
+    <form class="comment-input-box" action="/post/comment/write">
         댓글
         <br>
-        <input type="hidden" th:value="${currentUser}" name="userIdx">
+        <input type="hidden" th:value="${post.idx}" name="postIdx">
+        <input type="hidden" th:value="${currentUser.id}" name="userIdx">
         <input type="text" name="content">
         <button>작성</button>
     </form>
@@ -87,6 +88,7 @@ idx : <span th:text="${post.idx}" />   <br/>
 
                 <div id="update-form-[[${c.idx}]]" class="comment-bax__update">
                     <form action="">
+                        <input type="hidden" th:value="${currentUser.id}" name="userIdx">
                         <input type="text" name="updateContent" th:value="${c.content}">
                         <button type="submit">[완료]</button>
                     </form>

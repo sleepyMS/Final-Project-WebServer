@@ -15,7 +15,7 @@ public class UserDaoImple implements UserDao {
 
     public UserDaoImple() {
         System.out.println("UserDaoImple 객체 생성");
-        database.add(new UserDto(1, "김", "EWQE", "123", "123", "123", "123", "123"));
+        database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123"));
     }
 
     @Override
@@ -27,6 +27,15 @@ public class UserDaoImple implements UserDao {
     public UserDto getUserById(int id) {
         for (UserDto user : database) {
             if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null; // 해당 ID를 가진 사용자가 없을 경우
+    }
+    @Override
+    public UserDto getUserByEmail(String email) {
+        for (UserDto user : database) {
+            if (user.getEmail().equals(email)) {
                 return user;
             }
         }
