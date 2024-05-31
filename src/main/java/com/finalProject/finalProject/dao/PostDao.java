@@ -13,5 +13,4 @@ public interface PostDao {
     boolean increaseLikes(int idx);
     int getLastIdx();
     PostDto updatePost(PostDto post);
-    List<PostDto> getPostsByBoardId(int boardId);
 }
