@@ -50,7 +50,7 @@ public class UserController {
     public String checkSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
         LoginDto loginDto = loginServiceImple.setLogin(email,password);
 
-        if (loginDto != null) {
+        if (loginServiceImple.isOk(email,password)) {
             System.out.println("Login Success!");
             model.addAttribute("user", loginDto);
             System.out.println(loginDto);
