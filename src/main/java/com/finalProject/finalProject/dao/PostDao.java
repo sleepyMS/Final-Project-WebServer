@@ -5,12 +5,12 @@ import com.finalProject.finalProject.dto.PostDto;
 import java.util.ArrayList;
 
 public interface PostDao {
-    public ArrayList<PostDto> findAll();
-    public PostDto findPostById(int id);
-    public void delete(int idx);
-    public PostDto insertPost(PostDto post);
-
-
-    public int count();
-    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
+    ArrayList<PostDto> findAll();
+    PostDto findById(int id);
+    void delete(int idx);
+    PostDto insertPost(PostDto post);
+    int count();
+    boolean increaseLikes(int idx);
+    int getLastIdx(); // 추가된 메서드
+    PostDto updatePost(PostDto post); // 추가된 메서드
 }

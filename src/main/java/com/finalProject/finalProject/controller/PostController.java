@@ -3,6 +3,7 @@ package com.finalProject.finalProject.controller;
 import com.finalProject.finalProject.dto.PostDto;
 import com.finalProject.finalProject.service.CommentService;
 import com.finalProject.finalProject.service.PostService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,11 +45,21 @@ public class PostController {
     }
 
     @RequestMapping("/read/{idx}")
-    public  String read(@PathVariable int idx, Model model) {
-        model.addAttribute("post", postService.findById(idx));
+    public String read(@PathVariable int idx, Model model, HttpSession session) {
+        // 게시글 정보를 가져옴
+        PostDto post = postService.findById(idx);
+        model.addAttribute("post", post);
+
+        // 게시글에 대한 댓글 목록을 가져옴
         model.addAttribute("comments", commentService.getCommentsByPostIdx(idx));
+
+        // 현재 로그인 사용자 정보를 세션에서 가져옴
+        String currentUser = (String) session.getAttribute("userIndex");
+        model.addAttribute("currentUser", currentUser);
+
         return "read";
     }
+
 
     @RequestMapping("/delete/{idx}")
     public  String delete(@PathVariable int idx) {
