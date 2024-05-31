@@ -10,4 +10,5 @@ public interface UserService {
     List<UserDto> getAllUser();
     boolean isOk(String email, String password);
     UserDto getUserById(int id);
+
 }

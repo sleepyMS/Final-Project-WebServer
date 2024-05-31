@@ -16,4 +16,6 @@ public class UserDto {
     private String mbti;
     private String nick;
     private String phone;
+    private boolean isAdmin;
+    private String userOTP;
 }

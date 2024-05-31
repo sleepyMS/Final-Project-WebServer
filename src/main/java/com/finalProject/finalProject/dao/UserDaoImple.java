@@ -15,7 +15,7 @@ public class UserDaoImple implements UserDao {
 
     public UserDaoImple() {
         System.out.println("UserDaoImple 객체 생성");
-        database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123"));
+        database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123",false,""));
     }
 
     @Override

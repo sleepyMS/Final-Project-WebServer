@@ -37,6 +37,16 @@ public class UserController {
         return "signUp";
     }
 
+    @RequestMapping("/checkEmail")
+    public String checkEmail(Model model) {
+        return "checkEmail";
+    }
+
+//    @RequestMapping("/checkEmail/${id}")
+//    public String checkEmail2(@PathVariable int id,Model model) {
+//        return "checkEmail";
+//    }
+
     @RequestMapping(value = "/checkSignIn", method = RequestMethod.POST)
     public String checkSignIn(@RequestParam("email") String email,
                               @RequestParam("password") String password,
@@ -61,8 +71,6 @@ public class UserController {
     @RequestMapping("/signOut")
     public String signOut(HttpSession session){
         session.invalidate(); // 세션 무효화
-        //
-        //
         return "redirect:/";
     }
 
@@ -77,5 +85,27 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/getCurrentUserId")
+    @ResponseBody
+    public int getCurrentUserId(HttpSession session) {
+        UserDto currentUserDto = (UserDto) session.getAttribute("currentUserDto");
+        if (currentUserDto != null) {
+            return currentUserDto.getId();
+        } else {
+            return -1;
+        }
+    }
+
+    @RequestMapping("/myPage/{id}")
+    public String myPage(@PathVariable int id, Model model) {
+        model.addAttribute("user", userServiceImple.getUserById(id));
+        return "myPage";
+    }
+
+    @RequestMapping("/authNum")
+    public String authNum(@RequestParam("email") String email) {
+        userServiceImple.setUserOTP(email);
+        return "redirect:/";
+    }
 }
 

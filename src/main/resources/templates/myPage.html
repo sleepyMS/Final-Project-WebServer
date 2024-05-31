@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+이름: [[${user.name}]]
+<br>
+닉네임 :[[${user.nick}]]
+<br>
+이메일 : [[${user.email}]]
+<br>
+mbti : [[${user.mbti}]]
+<br>
+생년월일: [[${user.birth}]]
+<br>
+전화번호: [[${user.phone}]]
+<br>
+<div th:if="${user.userOTP != ''}">
+    OTP : [[${user.userOTP}]]
+</div>
+</body>
+</html>

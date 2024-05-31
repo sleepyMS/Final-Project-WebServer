@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,6 +13,7 @@
 <a href="/post/list"> [게시판 읽기] </a>
 <a href="/post/insertForm"> [게시판 생성] </a>
 <a href="/post/about"> [빈 탭] </a>
+<a id="myPageLink"></a>
 
 <div id="currentUserEmail"></div>
 
@@ -32,6 +32,17 @@
         console.error('Error:', error);
     });
 
+    fetch('/user/auth/getCurrentUserId')
+    .then(response => response.text())
+    .then(data => {
+        if (data !== '-1') { // ID가 -1이 문자열로 변환되어 비교됨
+            document.getElementById('myPageLink').innerText = '내 정보';
+            document.getElementById('myPageLink').href = `/user/auth/myPage/${data}`; // 템플릿 리터럴 사용
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 </script>
 
 </body>

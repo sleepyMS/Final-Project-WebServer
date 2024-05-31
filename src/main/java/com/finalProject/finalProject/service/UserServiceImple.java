@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class UserServiceImple implements UserService {
@@ -18,7 +19,6 @@ public class UserServiceImple implements UserService {
     public UserDto insertUser(SignUpDto signUpDto) {
         UserDto userDto = new UserDto();
         if(signUpDto != null){
-            userDto.setId(userDaoImple.count() + 1);
             userDto.setEmail(signUpDto.getEmail());
             userDto.setName(signUpDto.getName());
             userDto.setPassword(signUpDto.getPassword());
@@ -26,17 +26,34 @@ public class UserServiceImple implements UserService {
             userDto.setMbti(signUpDto.getMbti());
             userDto.setNick(signUpDto.getNick());
             userDto.setPhone(signUpDto.getPhone());
+            userDto.setUserOTP("");
+
+            if(areYouAdmin(signUpDto.getEmail())){
+                userDto.setId(0);
+                userDto.setAdmin(true);
+            }
+            else {
+                userDto.setId(userDaoImple.count() + 1);
+                userDto.setAdmin(false);
+            }
         }
         userDaoImple.insertUser(userDto);
         return userDto;
     }
-
+    public boolean areYouAdmin(String email){
+        boolean b = false;
+        if(email.contains("admin")) {
+            b = true;
+        }
+        return b;
+    }
 
     @Override
     public List<UserDto> getAllUser() {
         return userDaoImple.getAllUser();
     }
 
+    @Override
     public boolean isOk(String email, String password) {
         return userDaoImple.getAllUser().stream()
                 .anyMatch(m -> m.getEmail().equals(email) && m.getPassword().equals(password));
@@ -45,5 +62,14 @@ public class UserServiceImple implements UserService {
     @Override
     public UserDto getUserById(int id) {
         return userDaoImple.getAllUser().stream().filter(m -> m.getId() == id).findAny().get();
+    }
+
+    //DaoImple에 있어야하나?
+    public void setUserOTP(String email){
+        UserDto userDto = userDaoImple.getUserByEmail(email);
+        if(userDto != null){
+            int otp = (int) (Math.random() * 1000); // 0에서 999 사이의 난수 생성
+            userDto.setUserOTP(String.valueOf(otp));
+        }
     }
 }
