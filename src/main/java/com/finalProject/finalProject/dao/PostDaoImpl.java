@@ -4,6 +4,7 @@ import com.finalProject.finalProject.dto.PostDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PostDaoImpl implements PostDao {
@@ -67,5 +68,10 @@ public class PostDaoImpl implements PostDao {
             existingPost.setLikes(post.getLikes());
         }
         return existingPost;
+    }
+
+    @Override
+    public List<PostDto> getPostsByBoardId(int boardId) {
+        return null;
     }
 }

@@ -14,6 +14,4 @@ public interface PostDao {
     int getLastIdx();
     PostDto updatePost(PostDto post);
     List<PostDto> getPostsByBoardId(int boardId);
-    List<String> getAllBoards(); // 새로 추가된 메서드
-    List<PostDto> getRecentPosts(); // 새로 추가된 메서드
 }
