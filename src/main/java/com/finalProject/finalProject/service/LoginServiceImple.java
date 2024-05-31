@@ -9,7 +9,7 @@ public class LoginServiceImple implements LoginService{
 
     @Autowired
     private UserDaoImple userDaoImple;
-
+//
     @Override
     public boolean isOk(String email, String password) {
         return userDaoImple.getAllUser().stream()
