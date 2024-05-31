@@ -1,9 +1,11 @@
 package com.finalProject.finalProject.dao;
 
 import com.finalProject.finalProject.dto.PostDto;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 public class PostDaoImpl implements PostDao {
     private ArrayList<PostDto> db = new ArrayList<>();
 
@@ -16,31 +18,54 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public ArrayList<PostDto> findAll() {
-        return null;
+        return db;
     }
 
     @Override
-    public PostDto findById(int id) {
-        return null;
+    public PostDto findById(int idx) {
+        return db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
     }
 
     @Override
     public void delete(int idx) {
-
+        db.removeIf(p -> p.getIdx() == idx);
     }
 
     @Override
     public PostDto insertPost(PostDto post) {
-        return null;
+        db.add(post);
+        return post;
     }
 
     @Override
     public int count() {
-        return 0;
+        return db.size();
     }
 
     @Override
     public boolean increaseLikes(int idx) {
+        PostDto post = db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
+        if (post != null && post.getLikes() == 0) {
+            post.setLikes(1);
+            return true;
+        }
         return false;
+    }
+
+    @Override
+    public int getLastIdx() {
+        return db.isEmpty() ? 0 : db.get(db.size() - 1).getIdx();
+    }
+
+    @Override
+    public PostDto updatePost(PostDto post) {
+        PostDto existingPost = findById(post.getIdx());
+        if (existingPost != null) {
+            existingPost.setNickname(post.getNickname());
+            existingPost.setTitle(post.getTitle());
+            existingPost.setContent(post.getContent());
+            existingPost.setLikes(post.getLikes());
+        }
+        return existingPost;
     }
 }
