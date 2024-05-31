@@ -23,14 +23,14 @@ public class CommentController {
         return "redirect:/post/read/" + postIdx;
     }
 
-    @RequestMapping("/update/{postIdx}/{commentIdx}")
-    public String update(@PathVariable("postIdx") int postIdx,
-                         @PathVariable("commentIdx") int commentIdx) {
-
-        commentService.updateComment(commentIdx);
-
-        return "redirect:/post/read/" + postIdx;
-    }
+//    @RequestMapping("/update/{postIdx}/{commentIdx}")
+//    public String update(@PathVariable("postIdx") int postIdx,
+//                         @PathVariable("commentIdx") int commentIdx) {
+//
+//        commentService.updateComment(commentIdx);
+//
+//        return "redirect:/post/read/" + postIdx;
+//    }
 
     @RequestMapping("/delete/{postIdx}/{commentIdx}")
     public String delete(@PathVariable("postIdx") int postIdx,

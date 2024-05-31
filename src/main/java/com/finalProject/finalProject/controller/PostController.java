@@ -1,6 +1,7 @@
 package com.finalProject.finalProject.controller;
 
 import com.finalProject.finalProject.dto.PostDto;
+import com.finalProject.finalProject.dto.UserDto;
 import com.finalProject.finalProject.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,10 @@ public class PostController {
     public String read(@PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(idx);
         model.addAttribute("post", post);
-        String currentUser = (String) session.getAttribute("userIndex");
+        UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
+        System.out.println(1);
+        System.out.println(currentUser);
+        System.out.println(1);
         model.addAttribute("currentUser", currentUser);
         return "read";
     }

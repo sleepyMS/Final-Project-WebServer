@@ -87,6 +87,7 @@ idx : <span th:text="${post.idx}" />   <br/>
 
                 <div id="update-form-[[${c.idx}]]" class="comment-bax__update">
                     <form action="">
+                        <input type="hidden" th:value="${currentUser}" name="userIdx">
                         <input type="text" name="updateContent" th:value="${c.content}">
                         <button type="submit">[완료]</button>
                     </form>
