@@ -50,36 +50,4 @@ public class PostServiceImpl implements PostService {
         return postDao.increaseLikes(idx);
     }
 
-    @Override
-    public void createBoard(String title) {
-        // 게시판 생성 로직
-    }
-
-    @Override
-    public List<PostDto> getPostsByBoardId(int boardId) {
-        // 해당 게시판의 게시글 조회 로직
-        return postDao.getPostsByBoardId(boardId);
-    }
-
-
-
-    @Override
-    public List<PostDto> getRecentPosts() {
-        List<PostDto> recentPosts = new ArrayList<>();
-        List<PostDto> allPosts = postDao.findAll();
-        int count = 0;
-        for (int i = allPosts.size() - 1; i >= 0; i--) {
-            recentPosts.add(allPosts.get(i));
-            count++;
-            if (count == 3) {
-                break;
-            }
-        }
-        return recentPosts;
-    }
-
-    @Override
-    public List<PostDto> getAllPosts() {
-        return postDao.findAll();
-    }
 }
