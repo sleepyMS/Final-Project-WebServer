@@ -1,3 +1,4 @@
+// PostDao.java
 package com.finalProject.finalProject.dao;
 
 import com.finalProject.finalProject.dto.PostDto;
@@ -11,6 +12,8 @@ public interface PostDao {
     PostDto insertPost(PostDto post);
     int count();
     boolean increaseLikes(int idx);
-    int getLastIdx(); // 추가된 메서드
-    PostDto updatePost(PostDto post); // 추가된 메서드
+    boolean decreaseLikes(int idx);
+    boolean isAlreadyLiked(int idx);
+    int getLastIdx();
+    PostDto updatePost(PostDto post);
 }

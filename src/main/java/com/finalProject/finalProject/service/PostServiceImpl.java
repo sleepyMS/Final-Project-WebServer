@@ -1,3 +1,4 @@
+// PostServiceImpl.java
 package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dao.PostDao;
@@ -47,5 +48,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean increaseLikes(int idx) {
         return postDao.increaseLikes(idx);
+    }
+
+    @Override
+    public boolean decreaseLikes(int idx) {
+        return postDao.decreaseLikes(idx);
+    }
+
+    @Override
+    public boolean isAlreadyLiked(int idx) {
+        return postDao.isAlreadyLiked(idx);
     }
 }

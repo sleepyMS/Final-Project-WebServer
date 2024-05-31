@@ -72,11 +72,23 @@ public class PostController {
 
     @RequestMapping("/like/{idx}")
     public String like(@PathVariable int idx) {
-        boolean success = postService.increaseLikes(idx);
-        if (success) {
-            return "redirect:/post/read/" + idx; // 좋아요가 성공적으로 증가했을 경우 게시글 페이지로 리다이렉트
+        boolean alreadyLiked = postService.isAlreadyLiked(idx); // 사용자가 이미 해당 게시물을 좋아요 했는지 확인
+        if (!alreadyLiked) { // 한 번도 좋아요를 누른 적이 없는 경우에만 증가
+            boolean success = postService.increaseLikes(idx); // 좋아요 수 증가
+            if (!success) {
+                return "redirect:/post/error"; // 다른 예외 처리, 예를 들어 게시물이 존재하지 않는 경우
+            }
         } else {
-            return "redirect:/post/error"; // 좋아요가 이미 눌려있는 경우 등 예외 처리
+            postService.decreaseLikes(idx); // 이미 좋아요를 누른 경우에는 감소
         }
+        return "redirect:/post/read/" + idx; // 게시물 페이지로 리다이렉트
+    }
+
+
+    @RequestMapping("/list")
+    public String list(Model model) {
+        List<PostDto> posts = postService.findAll();
+        model.addAttribute("posts", posts);
+        return "list"; // Assuming you have a corresponding Thymeleaf template named "list.html"
     }
 }

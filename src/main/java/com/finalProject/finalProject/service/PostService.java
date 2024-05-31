@@ -1,3 +1,4 @@
+// PostService.java
 package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dto.PostDto;
@@ -11,6 +12,7 @@ public interface PostService {
     public PostDto save(PostDto post);
 
     public int count();
-    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
-
+    boolean increaseLikes(int idx);
+    boolean decreaseLikes(int idx);
+    boolean isAlreadyLiked(int idx);
 }

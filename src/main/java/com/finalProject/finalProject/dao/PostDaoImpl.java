@@ -1,3 +1,4 @@
+// PostDaoImpl.java
 package com.finalProject.finalProject.dao;
 
 import com.finalProject.finalProject.dto.PostDto;
@@ -50,6 +51,22 @@ public class PostDaoImpl implements PostDao {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean decreaseLikes(int idx) {
+        PostDto post = db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
+        if (post != null && post.getLikes() == 1) {
+            post.setLikes(0);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAlreadyLiked(int idx) {
+        PostDto post = db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
+        return post != null && post.getLikes() == 1;
     }
 
     @Override
