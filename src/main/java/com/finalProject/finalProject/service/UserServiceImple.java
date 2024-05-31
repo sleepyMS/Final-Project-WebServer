@@ -27,6 +27,7 @@ public class UserServiceImple implements UserService {
             userDto.setNick(signUpDto.getNick());
             userDto.setPhone(signUpDto.getPhone());
         }
+        userDaoImple.insertUser(userDto);
         return userDto;
     }
 

@@ -33,7 +33,6 @@ public class UserController {
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
         userServiceImple.insertUser(signUpDto);
-        model.addAttribute("users", userServiceImple.getAllUser());
         System.out.println(userServiceImple.getAllUser());
         return "redirect:/";
     }

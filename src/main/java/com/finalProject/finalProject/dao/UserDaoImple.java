@@ -35,6 +35,7 @@ public class UserDaoImple implements UserDao {
 
     @Override
     public List<UserDto> getAllUser() {
+        System.out.println(database);
         return database;
     }
 
