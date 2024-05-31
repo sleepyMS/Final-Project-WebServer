@@ -2,15 +2,15 @@ package com.finalProject.finalProject.dao;
 
 import com.finalProject.finalProject.dto.PostDto;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface PostDao {
-    List<PostDto> findAll();
-    PostDto findById(int idx);
+    ArrayList<PostDto> findAll();
+    PostDto findById(int id);
     void delete(int idx);
     PostDto insertPost(PostDto post);
     int count();
     boolean increaseLikes(int idx);
-    int getLastIdx();
-    PostDto updatePost(PostDto post);
+    int getLastIdx(); // 추가된 메서드
+    PostDto updatePost(PostDto post); // 추가된 메서드
 }

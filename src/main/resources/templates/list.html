@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 목록</title>
+</head>
+
+<body>
+
+<th:block th:replace="~{menu::menu}" />
+
+E 와 I 게시판 <br/>
+
+<table border="2">
+    <tr th:each="p : ${posts}">
+        <td> [[${p.idx}]] </td>
+        <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
+        <td> <a th:href="|/post/delete/${p.idx}|">게시글 삭제</a> </td>
+    </tr>
+</table>
+
+</body>
+</html>

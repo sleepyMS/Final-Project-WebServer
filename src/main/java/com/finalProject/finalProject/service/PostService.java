@@ -2,14 +2,15 @@ package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dto.PostDto;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface PostService {
-    List<PostDto> findAll();
-    PostDto findById(int idx);
-    void delete(int idx);
-    PostDto save(PostDto post);
-    int count();
-    boolean increaseLikes(int idx);
+    public ArrayList<PostDto> findAll();
+    public PostDto findById(int id);
+    public void delete(int idx);
+    public PostDto save(PostDto post);
+
+    public int count();
+    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
 
 }

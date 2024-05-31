@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -15,7 +14,7 @@ public class PostServiceImpl implements PostService {
     private PostDao postDao;
 
     @Override
-    public List<PostDto> findAll() {
+    public ArrayList<PostDto> findAll() {
         return postDao.findAll();
     }
 
@@ -49,5 +48,4 @@ public class PostServiceImpl implements PostService {
     public boolean increaseLikes(int idx) {
         return postDao.increaseLikes(idx);
     }
-
 }
