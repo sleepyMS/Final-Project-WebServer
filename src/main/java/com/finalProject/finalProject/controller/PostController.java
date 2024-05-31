@@ -1,6 +1,9 @@
 package com.finalProject.finalProject.controller;
 
+import com.finalProject.finalProject.dto.CommentDto;
 import com.finalProject.finalProject.dto.PostDto;
+import com.finalProject.finalProject.dto.UserDto;
+import com.finalProject.finalProject.service.CommentService;
 import com.finalProject.finalProject.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping("/about")
     public String about() {
@@ -40,9 +45,12 @@ public class PostController {
     @RequestMapping("/read/{idx}")
     public String read(@PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(idx);
+        UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
+        List<CommentDto> comments = commentService.getCommentsByPostIdx(post.getIdx());
+
         model.addAttribute("post", post);
-        String currentUser = (String) session.getAttribute("userIndex");
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("comments", comments);
         return "read";
     }
 

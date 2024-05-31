@@ -4,7 +4,6 @@ import com.finalProject.finalProject.dto.PostDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class PostDaoImpl implements PostDao {
@@ -12,11 +11,10 @@ public class PostDaoImpl implements PostDao {
 
     public PostDaoImpl() {
         System.out.println("PostDaoImpl 객체 생성");
-        db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다.", 0, "user1", 1, "게시판1")); // boardName 추가
-        db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라", 0, "user2", 1, "게시판1")); // boardName 추가
-        db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다", 0, "user3", 1, "게시판1")); // boardName 추가
+        db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다.", 0, 1));
+        db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라", 0, 2));
+        db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다", 0, 3));
     }
-
 
     @Override
     public ArrayList<PostDto> findAll() {
@@ -69,43 +67,5 @@ public class PostDaoImpl implements PostDao {
             existingPost.setLikes(post.getLikes());
         }
         return existingPost;
-    }
-
-    @Override
-    public List<PostDto> getPostsByBoardId(int boardId) {
-        List<PostDto> posts = new ArrayList<>();
-        for (PostDto post : db) {
-            if (post.getBoardId() == boardId) {
-                posts.add(post);
-            }
-        }
-        return posts;
-    }
-
-    @Override
-    public List<String> getAllBoards() {
-        // 게시판 이름을 가져오는 로직을 구현합니다.
-        List<String> boardNames = new ArrayList<>();
-        for (PostDto post : db) {
-            if (!boardNames.contains(post.getBoardName())) {
-                boardNames.add(post.getBoardName());
-            }
-        }
-        return boardNames;
-    }
-
-    @Override
-    public List<PostDto> getRecentPosts() {
-        // 최근 게시글을 가져오는 로직을 구현합니다.
-        List<PostDto> recentPosts = new ArrayList<>();
-        int count = 0;
-        for (int i = db.size() - 1; i >= 0; i--) {
-            recentPosts.add(db.get(i));
-            count++;
-            if (count == 3) {
-                break;
-            }
-        }
-        return recentPosts;
     }
 }

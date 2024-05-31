@@ -12,12 +12,5 @@ public class PostDto {
     private String title;
     private String content;
     private int likes;
-    private String userIdx; // userIndex 필드 추가
-    private int boardId; // 새로운 필드 추가
-    private String boardName; // 새로운 필드 추가
-
-    public String getBoardName() {
-        // 단순히 예시로 게시글의 제목을 게시판 이름으로 사용합니다.
-        return this.title;
-    }
+    private int userIdx; // userIndex 필드 추가
 }
