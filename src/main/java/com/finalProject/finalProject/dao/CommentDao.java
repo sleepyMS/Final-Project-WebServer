@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CommentDao {
     public void insertComment(CommentDto CommentDto);
+    public int getCount();
     public List<CommentDto> getCommentByPostIdx(int idx);
     public List<CommentDto> getCommentByUserIdx(int idx);
     public void updateComment(CommentDto commentDto);

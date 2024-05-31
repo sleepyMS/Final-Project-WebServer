@@ -35,7 +35,7 @@ public class UserDaoImple implements UserDao {
     @Override
     public UserDto getUserByEmail(String email) {
         for (UserDto user : database) {
-            if (user.getEmail() == email) {
+            if (user.getEmail().equals(email)) {
                 return user;
             }
         }

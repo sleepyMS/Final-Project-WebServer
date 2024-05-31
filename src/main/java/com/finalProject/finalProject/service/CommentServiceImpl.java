@@ -2,6 +2,7 @@ package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dao.CommentDao;
 import com.finalProject.finalProject.dto.CommentDto;
+import com.finalProject.finalProject.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,23 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public boolean insertComment(int postIdx, int userIdx, String commentContent) {
+    public boolean insertComment(int postIdx, int userIdx, String commentContent, UserDto currentUser) {
+        CommentDto comment = new CommentDto();
 
-        return false;
+        try {
+            comment.setIdx(commentDao.getCount()+1);
+            comment.setPostIdx(postIdx);
+            comment.setUserIdx(currentUser.getId());
+            comment.setMbti(currentUser.getMbti());
+            comment.setNick(currentUser.getNick());
+            comment.setContent(commentContent);
+        } catch (Exception e) {
+            return false;
+        }
+
+        commentDao.insertComment(comment);
+
+        return true;
     }
 
     @Override

@@ -23,6 +23,10 @@ public class CommentDaoImpl implements CommentDao {
 
 //    Read
     @Override
+    public int getCount() {
+    return db.size();
+}
+    @Override
     public List<CommentDto> getCommentByPostIdx(int idx) {
         return db.stream()
                 .filter(comment -> comment.getPostIdx() == idx)

@@ -1,6 +1,8 @@
 package com.finalProject.finalProject.controller;
 
+import com.finalProject.finalProject.dto.UserDto;
 import com.finalProject.finalProject.service.CommentService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +18,11 @@ public class CommentController {
     @RequestMapping("/write")
     public String write(@RequestParam("postIdx") int postIdx,
                         @RequestParam("userIdx") int userIdx,
-                        @RequestParam("content") String content) {
+                        @RequestParam("content") String content,
+                        HttpSession session) {
 
-        commentService.insertComment(postIdx, userIdx, content);
+        UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
+        commentService.insertComment(postIdx, userIdx, content, currentUser);
 
         return "redirect:/post/read/" + postIdx;
     }
