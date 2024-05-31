@@ -1,8 +1,8 @@
 package com.finalProject.finalProject.controller;
 
 import com.finalProject.finalProject.dto.PostDto;
+import com.finalProject.finalProject.service.CommentService;
 import com.finalProject.finalProject.service.PostService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +23,8 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private CommentService commentService;
 
 //    @RequestMapping("/")
 //    public  String home() {
@@ -42,12 +44,9 @@ public class PostController {
     }
 
     @RequestMapping("/read/{idx}")
-    public String read(@PathVariable int idx, Model model, HttpSession session) {
-        PostDto post = postService.findById(idx);
-        model.addAttribute("post", post);
-        // 현재 로그인 사용자 정보를 세션에서 가져온다고 가정
-        String currentUser = (String) session.getAttribute("userIndex");
-        model.addAttribute("currentUser", currentUser);
+    public  String read(@PathVariable int idx, Model model) {
+        model.addAttribute("post", postService.findById(idx));
+        model.addAttribute("comments", commentService.getCommentsByPostIdx(idx));
         return "read";
     }
 
@@ -71,8 +70,6 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-
-
     @RequestMapping("/updateForm/{idx}")
     public  String updateForm(@PathVariable int idx, Model model) {
         model.addAttribute("post", postService.findById(idx));
@@ -91,6 +88,5 @@ public class PostController {
         postService.increaseLikes(idx);
         return "redirect:/post/read/" + idx;
     }
-
 
 }

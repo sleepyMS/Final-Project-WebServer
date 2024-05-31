@@ -32,7 +32,22 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
+        .comment-bax__update {
+            display: none;
+        }
+
     </style>
+    <script>
+        function toggleUpdateForm(commentIdx) {
+            var updateForm = document.getElementById("update-form-" + commentIdx);
+            if (updateForm.style.display === "none" || updateForm.style.display === "") {
+                updateForm.style.display = "block";
+            } else {
+                updateForm.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
 <th:block th:replace="~{menu :: menu}" />
@@ -44,7 +59,7 @@ idx : <span th:text="${post.idx}" />   <br/>
 좋아요 수 : <span th:text="${post.likes}"></span> <a th:href="@{/like/{idx}(idx=${post.idx})}">좋아요</a><br/>
 
 <!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 (작성자만 보임) -->
-<div th:if="${currentUser == post.userIndex}" class="dropdown">
+<div th:if="${currentUser == post.userIdx}" class="dropdown">
     <button class="dropbtn">옵션</button>
     <div class="dropdown-content">
         <a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
@@ -52,10 +67,33 @@ idx : <span th:text="${post.idx}" />   <br/>
     </div>
 </div>
 
-<form class="comment-wrap">
-    <input type="text">
-    <button>작성</button>
-</form>
+<div class="comment-wrap">
+    <form class="comment-input-box" action>
+        댓글
+        <br>
+        <input type="hidden" th:value="${currentUser}" name="userIdx">
+        <input type="text" name="content">
+        <button>작성</button>
+    </form>
 
+    <div class="comment-box">
+        <ul th:each="c : ${comments}">
+            <li>
+                <span th:text="${c.nick} "></span>
+                <span th:text=" ${c.mbti} "></span>
+                <span th:text=" ${c.content} "></span>
+                <a onclick="toggleUpdateForm([[${c.idx}]])"> [수정] </a>
+                <a th:href="|post/comment/delete/${post.idx}/${c.idx}|"> [삭제] </a>
+
+                <div id="update-form-[[${c.idx}]]" class="comment-bax__update">
+                    <form action="">
+                        <input type="text" name="updateContent" th:value="${c.content}">
+                        <button type="submit">[완료]</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
