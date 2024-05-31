@@ -4,6 +4,7 @@ import com.finalProject.finalProject.dao.UserDaoImple;
 import com.finalProject.finalProject.dto.LoginDto;
 import com.finalProject.finalProject.dto.SignUpDto;
 import com.finalProject.finalProject.dto.UserDto;
+import com.finalProject.finalProject.service.LoginServiceImple;
 import com.finalProject.finalProject.service.UserServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserDaoImple userDaoImple;
+
+    @Autowired
+    private LoginServiceImple loginServiceImple;
 
 //    @RequestMapping("/")
 //    public String home(){
@@ -44,9 +48,7 @@ public class UserController {
 
     @RequestMapping(value = "/checkSignIn", method = RequestMethod.POST)
     public String checkSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        LoginDto loginDto = new LoginDto();
-        loginDto.setEmail(email);
-        loginDto.setPassword(password);
+        LoginDto loginDto = loginServiceImple.setLogin(email,password);
 
         if (loginDto != null) {
             System.out.println("Login Success!");
