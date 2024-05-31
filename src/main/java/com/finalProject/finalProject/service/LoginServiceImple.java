@@ -1,6 +1,7 @@
 package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dao.UserDaoImple;
+import com.finalProject.finalProject.dto.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,12 @@ public class LoginServiceImple implements LoginService{
                 .anyMatch(m -> m.getEmail().equals(email) && m.getPassword().equals(password));
     }
 
+    public LoginDto setLogin(String email,String password){
+        LoginDto loginDto = new LoginDto();
+        loginDto.setEmail(email);
+        loginDto.setPassword(password);
+
+        return loginDto;
+    }
 
 }
