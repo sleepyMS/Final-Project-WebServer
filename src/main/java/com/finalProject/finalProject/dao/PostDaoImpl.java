@@ -86,9 +86,4 @@ public class PostDaoImpl implements PostDao {
         }
         return existingPost;
     }
-
-    @Override
-    public List<PostDto> getPostsByBoardId(int boardId) {
-        return null;
-    }
 }
