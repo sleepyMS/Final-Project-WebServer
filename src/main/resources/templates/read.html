@@ -62,8 +62,8 @@ idx : <span th:text="${post.idx}" />   <br/>
 <div th:if="${currentUser.id == post.userIdx}" class="dropdown">
     <button class="dropbtn">옵션</button>
     <div class="dropdown-content">
-        <a th:href="@{/post/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
-        <a th:href="@{/post/delete/{idx}(idx=${post.idx})}">게시글 삭제</a>
+        <a th:href="@{/post/updateForm/${post.idx}}">게시글 수정</a>
+        <a th:href="@{/post/delete/${post.idx}}">게시글 삭제</a>
     </div>
 </div>
 

@@ -89,6 +89,6 @@ public class PostController {
     public String list(Model model) {
         List<PostDto> posts = postService.findAll();
         model.addAttribute("posts", posts);
-        return "list"; // Assuming you have a corresponding Thymeleaf template named "list.html"
+        return "list";
     }
 }
