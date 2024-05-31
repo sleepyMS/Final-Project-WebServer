@@ -2,15 +2,20 @@ package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dto.PostDto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface PostService {
-    public ArrayList<PostDto> findAll();
-    public PostDto findById(int id);
-    public void delete(int idx);
-    public PostDto save(PostDto post);
+    List<PostDto> findAll();
+    PostDto findById(int idx);
+    void delete(int idx);
+    PostDto save(PostDto post);
+    int count();
+    boolean increaseLikes(int idx);
+    void createBoard(String title);
+    List<PostDto> getPostsByBoardId(int boardId);
 
-    public int count();
-    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
+    List<String> getAllBoards(); // 모든 게시판 이름을 가져오는 메서드 추가
+    List<PostDto> getRecentPosts(); // 최근 게시글 목록을 가져오는 메서드 추가
 
+    List<PostDto> getAllPosts();
 }
