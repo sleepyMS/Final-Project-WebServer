@@ -1,9 +1,10 @@
 package com.finalProject.finalProject.controller;
 
 import com.finalProject.finalProject.dao.UserDaoImple;
+import com.finalProject.finalProject.dto.LoginDto;
 import com.finalProject.finalProject.dto.SignUpDto;
 import com.finalProject.finalProject.dto.UserDto;
-import com.finalProject.finalProject.service.SignUpServiceImple;
+import com.finalProject.finalProject.service.UserServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private SignUpServiceImple userServiceImple;
+    private UserServiceImple userServiceImple;
 
     @Autowired
     private UserDaoImple userDaoImple;
@@ -31,7 +32,7 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-        userServiceImple.insertUser(signUpDto, -1);
+        userServiceImple.insertUser(signUpDto);
         model.addAttribute("users", userServiceImple.getAllUser());
         System.out.println(userServiceImple.getAllUser());
         return "redirect:/";
@@ -44,12 +45,14 @@ public class UserController {
 
     @RequestMapping(value = "/checkSignIn", method = RequestMethod.POST)
     public String checkSignIn(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        UserDto user = userDaoImple.setUser(email, password);
+        LoginDto loginDto = new LoginDto();
+        loginDto.setEmail(email);
+        loginDto.setPassword(password);
 
-        if (user != null) {
+        if (loginDto != null) {
             System.out.println("Login Success!");
-            model.addAttribute("user", user);
-            System.out.println(user);
+            model.addAttribute("user", loginDto);
+            System.out.println(loginDto);
             return "redirect:/";
         } else {
             return "redirect:/user/auth/signIn?error=true";

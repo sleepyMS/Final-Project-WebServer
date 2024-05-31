@@ -9,8 +9,7 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    @Autowired
-    private
+
     @Autowired
     private CommentDao commentDao;
 
