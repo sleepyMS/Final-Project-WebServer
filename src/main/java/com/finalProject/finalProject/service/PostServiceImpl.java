@@ -61,18 +61,7 @@ public class PostServiceImpl implements PostService {
         return postDao.getPostsByBoardId(boardId);
     }
 
-    @Override
-    public List<String> getAllBoards() {
-        List<String> boardNames = new ArrayList<>();
-        List<PostDto> allPosts = postDao.findAll();
-        for (PostDto post : allPosts) {
-            String boardName = post.getBoardName();
-            if (!boardNames.contains(boardName)) {
-                boardNames.add(boardName);
-            }
-        }
-        return boardNames;
-    }
+
 
     @Override
     public List<PostDto> getRecentPosts() {
