@@ -19,6 +19,8 @@ mbti : [[${user.mbti}]]
 <br>
 <div th:if="${user.userOTP != ''}">
     OTP : [[${user.userOTP}]]
+    <br>
+    <a th:href="@{/user/auth/inputOTP/{id}(id=${user.id})}">OTP 입력</a>
 </div>
 </body>
 </html>

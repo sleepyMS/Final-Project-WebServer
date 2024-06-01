@@ -11,9 +11,7 @@
         비밀번호: <input type="password" id="password" name="password">
         <input type="submit" value="로그인">
     </form>
-    <form action="checkEmail" method="post">
-        <input type="submit" value="비밀번호 변경">
-    </form>
+    <a href="checkEmail">비밀번호 변경</a>
     <div>
         <p th:if="${param.error}" style="color:red;">로그인 실패! 아이디와 비밀번호를 확인하세요.</p>
     </div>

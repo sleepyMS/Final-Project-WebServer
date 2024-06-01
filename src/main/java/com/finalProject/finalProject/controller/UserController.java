@@ -42,6 +42,21 @@ public class UserController {
         return "checkEmail";
     }
 
+    @RequestMapping("/checkOTP")
+    public String checkOTP(@RequestParam("id") int id, @RequestParam("OTP") String OTP) {
+        if (userServiceImple.getUserById(id).getUserOTP().equals(OTP)) {
+            return "changePassword";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @RequestMapping("/inputOTP/{id}")
+    public String inputOTP(@PathVariable int id,Model model) {
+        model.addAttribute("user",userServiceImple.getUserById(id));
+        return "inputOTP";
+    }
+
 //    @RequestMapping("/checkEmail/${id}")
 //    public String checkEmail2(@PathVariable int id,Model model) {
 //        return "checkEmail";
