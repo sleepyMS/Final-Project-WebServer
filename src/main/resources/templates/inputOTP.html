@@ -10,5 +10,8 @@
     OTP 입력: <input type="text" id="OTP" name="OTP">
     <input type="submit" value="입력">
 </form>
+<div>
+    <p th:if="${param.error}" style="color:red;">OTP를 다시 확인해주세요.</p>
+</div>
 </body>
 </html>

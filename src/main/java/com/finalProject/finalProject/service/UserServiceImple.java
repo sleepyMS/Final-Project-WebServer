@@ -40,13 +40,6 @@ public class UserServiceImple implements UserService {
         userDaoImple.insertUser(userDto);
         return userDto;
     }
-    public boolean areYouAdmin(String email){
-        boolean b = false;
-        if(email.contains("admin")) {
-            b = true;
-        }
-        return b;
-    }
 
     @Override
     public List<UserDto> getAllUser() {
@@ -71,5 +64,27 @@ public class UserServiceImple implements UserService {
             int otp = (int) (Math.random() * 1000); // 0에서 999 사이의 난수 생성
             userDto.setUserOTP(String.valueOf(otp));
         }
+    }
+
+    public boolean areYouAdmin(String email){
+        boolean b = false;
+        if(email.contains("admin")) {
+            b = true;
+        }
+        return b;
+    }
+
+    public void changePassword(int id,String currentPassword, String newPassword, String checkNewPassword){
+        UserDto userDto = userDaoImple.getUserById(id);
+        if(currentPassword.equals(userDto.getPassword())){
+            if(newPassword.equals(checkNewPassword)){
+                userDto.setPassword(newPassword);
+                userDto.setUserOTP("");
+            }
+            else
+                System.out.println("check newPassword,checkNewPassword");
+        }
+        else
+            System.out.println("check currentPassword");
     }
 }

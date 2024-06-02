@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/user/auth")
@@ -42,12 +43,18 @@ public class UserController {
         return "checkEmail";
     }
 
-    @RequestMapping("/checkOTP")
-    public String checkOTP(@RequestParam("id") int id, @RequestParam("OTP") String OTP) {
+    @RequestMapping("/changePassword/{id}")
+    public String changePassword(@PathVariable("id") int id, Model model) {
+        model.addAttribute("id",id);
+        return "changePassword" ;
+    }
+
+    @RequestMapping(value ="/checkOTP")
+    public String checkOTP(@RequestParam("id") int id, @RequestParam("OTP") String OTP, RedirectAttributes redirectAttributes) {
         if (userServiceImple.getUserById(id).getUserOTP().equals(OTP)) {
-            return "changePassword";
+            return "redirect:/user/auth/changePassword/" + id;
         } else {
-            return "redirect:/";
+            return "redirect:/user/auth/inputOTP/" + id + "?error=true";
         }
     }
 
@@ -57,10 +64,6 @@ public class UserController {
         return "inputOTP";
     }
 
-//    @RequestMapping("/checkEmail/${id}")
-//    public String checkEmail2(@PathVariable int id,Model model) {
-//        return "checkEmail";
-//    }
 
     @RequestMapping(value = "/checkSignIn", method = RequestMethod.POST)
     public String checkSignIn(@RequestParam("email") String email,
@@ -121,6 +124,16 @@ public class UserController {
     public String authNum(@RequestParam("email") String email) {
         userServiceImple.setUserOTP(email);
         return "redirect:/";
+    }
+
+    @RequestMapping("/resultPassword")
+    public String resultPassword(@RequestParam("currentPassword") String currentPassword
+                                 ,@RequestParam("newPassword") String newPassword
+                                 ,@RequestParam("checkNewPassword") String checkNewPassword
+                                 ,@RequestParam("id") int id
+                                 ) {
+        userServiceImple.changePassword(id,currentPassword,newPassword,checkNewPassword);
+        return "redirect:/user/auth/resultPassword";
     }
 }
 
