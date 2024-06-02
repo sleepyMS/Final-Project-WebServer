@@ -43,6 +43,12 @@ public class UserController {
         return "checkEmail";
     }
 
+    @RequestMapping("/userList")
+    public String userList(Model model) {
+        model.addAttribute("users",userServiceImple.getAllUser());
+        return "userList";
+    }
+
     @RequestMapping("/changePassword/{id}")
     public String changePassword(@PathVariable("id") int id, Model model) {
         model.addAttribute("id",id);
@@ -81,9 +87,12 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-        userServiceImple.insertUser(signUpDto);
-        System.out.println(userServiceImple.getAllUser());
-        return "redirect:/";
+        if(userServiceImple.insertUser(signUpDto) != null) {
+            System.out.println(userServiceImple.getAllUser());
+            return "redirect:/";
+        }
+        else
+            return "redirect:/user/auth/signUp?error=true";
     }
 
     @RequestMapping("/signOut")
@@ -133,7 +142,7 @@ public class UserController {
                                  ,@RequestParam("id") int id
                                  ) {
         userServiceImple.changePassword(id,currentPassword,newPassword,checkNewPassword);
-        return "redirect:/user/auth/resultPassword";
+        return "redirect:/";
     }
 }
 

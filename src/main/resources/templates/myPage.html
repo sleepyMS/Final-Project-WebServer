@@ -17,6 +17,9 @@ mbti : [[${user.mbti}]]
 <br>
 전화번호: [[${user.phone}]]
 <br>
+<div th:if="${user.isAdmin}">
+    <a href="/user/auth/userList">회원정보 보기</a>
+</div>
 <div th:if="${user.userOTP != ''}">
     OTP : [[${user.userOTP}]]
     <br>

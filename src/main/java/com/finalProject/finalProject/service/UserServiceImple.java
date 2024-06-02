@@ -6,6 +6,7 @@ import com.finalProject.finalProject.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,7 +19,16 @@ public class UserServiceImple implements UserService {
     @Override
     public UserDto insertUser(SignUpDto signUpDto) {
         UserDto userDto = new UserDto();
-        if(signUpDto != null){
+        if (signUpDto != null) {
+            // 모든 유저 이메일을 배열로 가져옴
+            String[] allEmails = userDaoImple.getUserEmail();
+
+            // 이메일 중복 확인
+            if (Arrays.asList(allEmails).contains(signUpDto.getEmail())) {
+                System.out.println("중복된 이메일입니다!");
+                return null; // 중복된 이메일일 경우 null을 반환
+            }
+
             userDto.setEmail(signUpDto.getEmail());
             userDto.setName(signUpDto.getName());
             userDto.setPassword(signUpDto.getPassword());
@@ -28,16 +38,16 @@ public class UserServiceImple implements UserService {
             userDto.setPhone(signUpDto.getPhone());
             userDto.setUserOTP("");
 
-            if(areYouAdmin(signUpDto.getEmail())){
+            if (areYouAdmin(signUpDto.getEmail())) {
                 userDto.setId(0);
                 userDto.setAdmin(true);
-            }
-            else {
+            } else {
                 userDto.setId(userDaoImple.count() + 1);
                 userDto.setAdmin(false);
             }
+
+            userDaoImple.insertUser(userDto);
         }
-        userDaoImple.insertUser(userDto);
         return userDto;
     }
 

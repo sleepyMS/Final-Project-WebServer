@@ -15,12 +15,21 @@ public class UserDaoImple implements UserDao {
 
     public UserDaoImple() {
         System.out.println("UserDaoImple 객체 생성");
+        database.add(new UserDto(0, "김정호", "admin", "123", "2000-08-16", "isfp", "JJung", "3924",true,""));
         database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123",false,""));
     }
 
     @Override
     public int count() {
         return database.size();
+    }
+
+    public String[] getUserEmail() {
+        List<String> emails = new ArrayList<>();
+        for (UserDto user : database) {
+            emails.add(user.getEmail());
+        }
+        return emails.toArray(new String[0]);
     }
 
     @Override

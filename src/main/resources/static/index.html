@@ -3,20 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #currentUserEmail {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-<a href="/"> [메인화면] </a>
-메인 페이지
-<a href="/user/auth/signUp" id="signUpLink">회원가입 이동</a>
-<a href="/user/auth/signIn" id="signInLink">로그인 이동</a>
-<a href="/user/auth/checkEmail">비밀번호 변경</a>
-<a href="/post/list">게시판 이동</a>
-<a href="/post/list"> [게시판 읽기] </a>
-<a href="/post/insertForm"> [게시판 생성] </a>
-<a href="/post/about"> [빈 탭] </a>
-<a id="myPageLink"></a>
-
-<div id="currentUserEmail"></div>
+<header>
+    <h1>메인 페이지</h1>
+</header>
+<nav>
+    <a href="/">메인화면</a>
+    <a href="/user/auth/signUp" id="signUpLink">회원가입</a>
+    <a href="/user/auth/signIn" id="signInLink">로그인</a>
+    <a href="/user/auth/checkEmail">비밀번호 변경</a>
+    <a href="/post/list">게시판</a>
+    <a href="/post/insertForm">게시판 생성</a>
+    <a href="/post/about">빈 탭</a>
+    <a id="myPageLink"></a>
+</nav>
+<div class="container">
+    <div id="currentUserEmail"></div>
 
 <script>
     fetch('/user/auth/getCurrentUserEmail')

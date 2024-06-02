@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,7 +10,7 @@
     <br>
     닉네임: <input type="text" id="nick" name="nick">
     <br>
-    이메일: <input type="email" id="email" name="email">
+    이메일: <input type="text" id="email" name="email">
     <br>
     비밀번호: <input type="password" id="password" name="password">
     <br>
@@ -23,5 +23,8 @@
     전화번호: <input type="text" id="phone" name="phone">
     <input type="submit" value="제출">
 </form>
+<div>
+    <p th:if="${param.error}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
+</div>
 </body>
 </html>
