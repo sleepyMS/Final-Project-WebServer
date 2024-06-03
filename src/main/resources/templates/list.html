@@ -13,7 +13,8 @@ E 와 I 게시판 <br/>
         <td> [[${p.idx}]] </td>
         <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
         <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
-        <td> <a th:href="|/post/delete/${p.idx}|">게시글 삭제</a> </td>
+        <td> <a th:href="|/post/delete/${p.category}/${p.idx}|">게시글 삭제</a> </td>
+
     </tr>
 </table>
 
@@ -24,7 +25,7 @@ T 와 F 게시판 <br/>
         <td> [[${q.idx}]] </td>
         <td> <a th:href="|/post/read/${q.idx}|">[[${q.nickname}]]</a> </td>
         <td> <a th:href="|/post/read/${q.idx}|">[[${q.title}]]</a> </td>
-        <td> <a th:href="|/post/delete/${q.idx}|">게시글 삭제</a> </td>
+        <td> <a th:href="|/post/delete/${q.category}/${q.idx}|">게시글 삭제</a> </td>
     </tr>
 </table>
 </body>

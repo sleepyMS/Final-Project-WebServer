@@ -39,9 +39,9 @@ public class PostController {
         return "read";
     }
 
-    @RequestMapping("/delete/{idx}")
-    public String delete(@PathVariable int idx) {
-        postService.delete(idx);
+    @RequestMapping("/delete/{category}/{idx}")
+    public String delete(@PathVariable int category, @PathVariable int idx) {
+        postService.delete(category, idx);
         return "redirect:/post/list";
     }
 

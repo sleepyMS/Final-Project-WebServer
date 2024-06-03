@@ -8,7 +8,7 @@ public interface PostDao {
     ArrayList<PostDto> findAll();
     ArrayList<PostDto> findAll2();
     PostDto findById(int id);
-    void delete(int idx);
+    void delete(int category,int idx);
     PostDto insertPost(PostDto post);
     int count();
     boolean increaseLikes(int idx);

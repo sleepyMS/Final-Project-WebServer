@@ -51,12 +51,17 @@ public class PostDaoImpl implements PostDao {
 
     // 특정 idx에 해당하는 게시글을 삭제하는 메서드
     @Override
-    public void delete(int idx) {
-        boolean removed = db.removeIf(p -> p.getIdx() == idx);
-        if (!removed) {
+    public void delete(int category, int idx) {
+        if (category == 1) {
+            db.removeIf(p -> p.getIdx() == idx);
+        } else if (category == 2) {
             db2.removeIf(q -> q.getIdx() == idx);
+        } else {
+            // 처리할 수 없는 카테고리인 경우 예외 처리 또는 다른 작업 수행
         }
     }
+
+
 
 
     // 새로운 게시글을 추가하거나 업데이트하는 메서드
