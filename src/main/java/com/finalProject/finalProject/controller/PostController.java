@@ -27,7 +27,6 @@ public class PostController {
         return "about";
     }
 
-
     @RequestMapping("/read/{idx}")
     public String read(@PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(idx);
@@ -53,10 +52,16 @@ public class PostController {
 
     @PostMapping("/insert")
     public String insert(PostDto post) {
-        post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
-        postService.save(post); // 게시글 저장
+        if (post.getCategory() == 1) {
+            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
+            postService.save1(post); // E와 I 게시판에 게시글 저장
+        } else if (post.getCategory() == 2) {
+            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
+            postService.save2(post); // T와 F 게시판에 게시글 저장
+        }
         return "redirect:/post/list"; // 게시글 목록 페이지로 리다이렉트
     }
+
 
     @RequestMapping("/updateForm/{idx}")
     public String updateForm(@PathVariable int idx, Model model) {
@@ -66,9 +71,14 @@ public class PostController {
 
     @PostMapping("/update")
     public String update(PostDto post) {
-        postService.save(post); // 게시글 수정
+        if (post.getCategory() == 1) {
+            postService.save1(post); // E와 I 게시판의 게시글 수정
+        } else if (post.getCategory() == 2) {
+            postService.save2(post); // T와 F 게시판의 게시글 수정
+        }
         return "redirect:/post/read/" + post.getIdx(); // 수정된 게시글 페이지로 리다이렉트
     }
+
 
     @RequestMapping("/like/{idx}")
     public String like(@PathVariable int idx) {
@@ -84,11 +94,12 @@ public class PostController {
         return "redirect:/post/read/" + idx; // 게시물 페이지로 리다이렉트
     }
 
-
     @RequestMapping("/list")
     public String list(Model model) {
-        List<PostDto> posts = postService.findAll();
-        model.addAttribute("posts", posts);
+        List<PostDto> posts1 = postService.findAll();
+        List<PostDto> posts2 = postService.findAll2();
+        model.addAttribute("posts1", posts1);
+        model.addAttribute("posts2", posts2);
         return "list";
     }
 }

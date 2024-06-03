@@ -9,13 +9,18 @@
 게시글 생성
 
 <form action="/post/insert" method="post" enctype="multipart/form-data">
+    카테고리:
+    <select name="category">
+        <option value="1">E 와 I 게시판</option>
+        <option value="2">T 와 F 게시판</option>
+        <!-- 필요에 따라 다른 카테고리 옵션들을 추가할 수 있습니다. -->
+    </select><br>
     닉네임: <input type="text" name="nickname"><br>
     제목: <input type="text" name="title"><br>
     내용: <textarea rows="5" cols="40" name="content"></textarea><br>
+
     <input type="submit" value="추가">
 </form>
-
-</body>
 
 </body>
 </html>

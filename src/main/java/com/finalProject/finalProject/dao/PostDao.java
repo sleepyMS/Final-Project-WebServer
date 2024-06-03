@@ -1,4 +1,3 @@
-// PostDao.java
 package com.finalProject.finalProject.dao;
 
 import com.finalProject.finalProject.dto.PostDto;
@@ -7,6 +6,7 @@ import java.util.ArrayList;
 
 public interface PostDao {
     ArrayList<PostDto> findAll();
+    ArrayList<PostDto> findAll2();
     PostDto findById(int id);
     void delete(int idx);
     PostDto insertPost(PostDto post);
@@ -14,6 +14,6 @@ public interface PostDao {
     boolean increaseLikes(int idx);
     boolean decreaseLikes(int idx);
     boolean isAlreadyLiked(int idx);
-    int getLastIdx();
+    int getLastIdx(int category);
     PostDto updatePost(PostDto post);
 }

@@ -6,13 +6,10 @@
 </head>
 
 <body>
-
 <th:block th:replace="~{menu::menu}" />
-
 E 와 I 게시판 <br/>
-
 <table border="2">
-    <tr th:each="p : ${posts}">
+    <tr th:each="p : ${posts1}">
         <td> [[${p.idx}]] </td>
         <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
         <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
@@ -20,5 +17,15 @@ E 와 I 게시판 <br/>
     </tr>
 </table>
 
+<br/>
+T 와 F 게시판 <br/>
+<table border="2">
+    <tr th:each="q : ${posts2}">
+        <td> [[${q.idx}]] </td>
+        <td> <a th:href="|/post/read/${q.idx}|">[[${q.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${q.idx}|">[[${q.title}]]</a> </td>
+        <td> <a th:href="|/post/delete/${q.idx}|">게시글 삭제</a> </td>
+    </tr>
+</table>
 </body>
 </html>
