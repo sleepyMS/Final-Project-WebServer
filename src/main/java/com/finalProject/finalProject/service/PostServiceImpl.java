@@ -21,10 +21,19 @@ public class PostServiceImpl implements PostService {
     public ArrayList<PostDto> findAll2() {
         return postDao.findAll2();
     }
+    @Override
+    public ArrayList<PostDto> findAll3() {
+        return postDao.findAll3();
+    }
 
     @Override
-    public PostDto findById(int idx) {
-        return postDao.findById(idx);
+    public ArrayList<PostDto> findAll4() {
+        return postDao.findAll4();
+    }
+
+    @Override
+    public PostDto findById(int category, int idx) {
+        return postDao.findById(category, idx);
     }
 
     @Override
@@ -52,6 +61,26 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Override
+    public PostDto save3(PostDto post) {
+        if (post.getIdx() == -1) {
+            post.setIdx(postDao.getLastIdx(3) + 1); // P와 J 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
+            return postDao.insertPost(post); // P와 J 게시판에 새로운 게시글 추가
+        } else {
+            return postDao.updatePost(post);
+        }
+    }
+
+    @Override
+    public PostDto save4(PostDto post) {
+        if (post.getIdx() == -1) {
+            post.setIdx(postDao.getLastIdx(4) + 1); // N와 S 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
+            return postDao.insertPost(post); // N와 S 게시판에 새로운 게시글 추가
+        } else {
+            return postDao.updatePost(post);
+        }
+    }
+
 
     @Override
     public int count() {
@@ -59,17 +88,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean increaseLikes(int idx) {
-        return postDao.increaseLikes(idx);
+    public boolean increaseLikes(int category, int idx) {
+        return postDao.increaseLikes(category, idx);
     }
 
     @Override
-    public boolean decreaseLikes(int idx) {
-        return postDao.decreaseLikes(idx);
+    public boolean decreaseLikes(int category, int idx) {
+        return postDao.decreaseLikes(category, idx);
     }
 
     @Override
-    public boolean isAlreadyLiked(int idx) {
-        return postDao.isAlreadyLiked(idx);
+    public boolean isAlreadyLiked(int category, int idx) {
+        return postDao.isAlreadyLiked(category, idx);
     }
 }

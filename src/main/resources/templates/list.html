@@ -7,26 +7,58 @@
 
 <body>
 <th:block th:replace="~{menu::menu}" />
-E 와 I 게시판 <br/>
-<table border="2">
+<a href="#" onclick="openTableInSameWindow('eandi-table')">E 와 I 게시판</a><br/>
+
+<script>
+    function openTableInSameWindow(tableId) {
+        var table = document.getElementById(tableId).outerHTML;
+        var html = '<html><head><title>게시판</title></head><body>' + table + '</body></html>';
+        document.open();
+        document.write(html);
+        document.close();    }
+</script>
+
+<table border="2" id="eandi-table">
     <tr th:each="p : ${posts1}">
         <td> [[${p.idx}]] </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
+        <td> <a th:href="|/post/read/${p.category}/${p.idx}|">[[${p.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${p.category}/${p.idx}|">[[${p.title}]]</a> </td>
         <td> <a th:href="|/post/delete/${p.category}/${p.idx}|">게시글 삭제</a> </td>
-
     </tr>
 </table>
 
 <br/>
-T 와 F 게시판 <br/>
-<table border="2">
+<a href="#" onclick="openTableInSameWindow('tandf-table')">T 와 F 게시판</a><br/>
+<table border="2" id="tandf-table">
     <tr th:each="q : ${posts2}">
         <td> [[${q.idx}]] </td>
-        <td> <a th:href="|/post/read/${q.idx}|">[[${q.nickname}]]</a> </td>
-        <td> <a th:href="|/post/read/${q.idx}|">[[${q.title}]]</a> </td>
+        <td> <a th:href="|/post/read/${q.category}/${q.idx}|">[[${q.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${q.category}/${q.idx}|">[[${q.title}]]</a> </td>
         <td> <a th:href="|/post/delete/${q.category}/${q.idx}|">게시글 삭제</a> </td>
     </tr>
 </table>
+
+<br/>
+<a href="#" onclick="openTableInSameWindow('panj-table')">P 와 J 게시판</a><br/>
+<table border="2" id="panj-table">
+    <tr th:each="w : ${posts3}">
+        <td> [[${w.idx}]] </td>
+        <td> <a th:href="|/post/read/${w.category}/${w.idx}|">[[${w.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${w.category}/${w.idx}|">[[${w.title}]]</a> </td>
+        <td> <a th:href="|/post/delete/${w.category}/${w.idx}|">게시글 삭제</a> </td>
+    </tr>
+</table>
+
+<br/>
+<a href="#" onclick="openTableInSameWindow('nands-table')">N 와 S 게시판</a><br/>
+<table border="2" id="nands-table">
+    <tr th:each="e : ${posts4}">
+        <td> [[${e.idx}]] </td>
+        <td> <a th:href="|/post/read/${e.category}/${e.idx}|">[[${e.nickname}]]</a> </td>
+        <td> <a th:href="|/post/read/${e.category}/${e.idx}|">[[${e.title}]]</a> </td>
+        <td> <a th:href="|/post/delete/${e.category}/${e.idx}|">게시글 삭제</a> </td>
+    </tr>
+</table>
+
 </body>
 </html>
