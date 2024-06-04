@@ -45,6 +45,11 @@ public class PostDaoImpl implements PostDao {
         db.put(4, db4);
     }
 
+    @Override
+    public Map<Integer, List<PostDto>> findAllPosts() {
+        return db;
+    }
+
     // 모든 게시글을 반환하는 메서드
     @Override
     public List<PostDto> findAllByCategory(int category) {

@@ -7,11 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostDao postDao;
+
+    @Override
+    public Map<Integer, List<PostDto>> findAllPosts() {
+        return postDao.findAllPosts();
+    }
 
     @Override
     public List<PostDto> findAllByCategory(int category) {

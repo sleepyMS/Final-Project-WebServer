@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/post")
@@ -96,10 +97,9 @@ public class PostController {
 
     @RequestMapping("/list")
     public String list(Model model) {
-        model.addAttribute("posts1", postService.findAllByCategory(1));
-        model.addAttribute("posts2", postService.findAllByCategory(2));
-        model.addAttribute("posts3", postService.findAllByCategory(3));
-        model.addAttribute("posts4", postService.findAllByCategory(4));
+        Map<Integer, List<PostDto>> allPosts = postService.findAllPosts();
+        model.addAttribute("allPosts", allPosts);
         return "list";
     }
+
 }
