@@ -52,9 +52,10 @@ public class PostDaoImpl implements PostDao {
 
     // 모든 게시글을 반환하는 메서드
     @Override
-    public List<PostDto> findAllByCategory(String category) {
+    public List<PostDto> findPostsByCategory(String category) { // 메서드 이름 변경
         return new ArrayList<>(db.getOrDefault(category, new ArrayList<>()));
     }
+
 
     // 특정 idx에 해당하는 게시글을 반환하는 메서드
     @Override

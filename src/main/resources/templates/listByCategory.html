@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 - 카테고리 [[${category}]]</title>
+</head>
+<body>
+<th:block th:replace="~{menu::menu}" />
+
+<h1 th:text="'카테고리 ' + ${category} + ' 게시판'"></h1>
+
+<table border="2">
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.idx}">1</td>
+        <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+               th:text="${post.nickname}">닉네임</a></td>
+        <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+               th:text="${post.title}">제목</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

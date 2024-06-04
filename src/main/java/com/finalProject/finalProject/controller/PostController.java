@@ -36,6 +36,14 @@ public class PostController {
         return "list";
     }
 
+    @RequestMapping("/list/{category}")
+    public String listByCategory(@PathVariable String category, Model model) {
+        List<PostDto> posts = postService.findPostsByCategory(category);
+        model.addAttribute("posts", posts);
+        model.addAttribute("category", category);
+        return "listByCategory";
+    }
+
     @RequestMapping("/read/{category}/{idx}")
     public String read(@PathVariable String category, @PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(category, idx);

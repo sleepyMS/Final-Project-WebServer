@@ -5,7 +5,6 @@ import com.finalProject.finalProject.dto.PostDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,8 +19,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> findAllByCategory(String category) {
-        return postDao.findAllByCategory(category); // 카테고리에 해당하는 모든 게시글 반환
+    public List<PostDto> findPostsByCategory(String category) { // 메서드 이름 변경
+        return postDao.findPostsByCategory(category); // 카테고리에 해당하는 모든 게시글 반환
     }
 
     @Override
