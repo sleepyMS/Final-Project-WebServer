@@ -115,18 +115,23 @@ public class UserServiceImple implements UserService {
         return b;
     }
 
-    public void changePassword(int id,String currentPassword, String newPassword, String checkNewPassword){
+    public int changePassword(int id,String currentPassword, String newPassword, String checkNewPassword){
         UserDto userDto = userDaoImple.getUserById(id);
         if(currentPassword.equals(userDto.getPassword())){
             if(newPassword.equals(checkNewPassword)){
                 userDto.setPassword(newPassword);
                 userDto.setUserOTP("");
+                return 0;
             }
-            else
+            else {
                 System.out.println("check newPassword,checkNewPassword");
+                return 1;
+            }
         }
-        else
+        else {
             System.out.println("check currentPassword");
+            return 2;
+        }
     }
 
     public void changeMbti(int id,String mbti) {

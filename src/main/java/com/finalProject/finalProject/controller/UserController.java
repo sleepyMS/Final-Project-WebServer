@@ -172,14 +172,23 @@ public class UserController {
     }
 
     @RequestMapping("/resultPassword")
-    public String resultPassword(@RequestParam("currentPassword") String currentPassword
-                                 ,@RequestParam("newPassword") String newPassword
-                                 ,@RequestParam("checkNewPassword") String checkNewPassword
-                                 ,@RequestParam("id") int id
-                                 ) {
-        userServiceImple.changePassword(id,currentPassword,newPassword,checkNewPassword);
-        return "redirect:/";
+    public String resultPassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("checkNewPassword") String checkNewPassword,
+                                 @RequestParam("id") int id,
+                                 RedirectAttributes redirectAttributes) {
+        int check = userServiceImple.changePassword(id, currentPassword, newPassword, checkNewPassword);
+        System.out.println(check);
+        if (check == 0) {
+            return "redirect:/";
+        } else {
+            redirectAttributes.addFlashAttribute("passwordChangeStatus", check);
+            return "redirect:/user/auth/changePassword/" + id;
+        }
     }
+
+
+
 
     @RequestMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") int id){
