@@ -65,6 +65,11 @@ public class UserController {
         return "redirect:/user/auth/myPage/" + id ;
     }
 
+    @RequestMapping("/authNum")
+    public String authNum(@RequestParam("email") String email) {
+        userServiceImple.setUserOTP(email);
+        return "redirect:/";
+    }
 
     @RequestMapping(value ="/checkOTP")
     public String checkOTP(@RequestParam("id") int id, @RequestParam("OTP") String OTP, RedirectAttributes redirectAttributes) {
@@ -98,13 +103,26 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-        if(userServiceImple.insertUser(signUpDto) != null) {
-            System.out.println(userServiceImple.getAllUser());
-            return "redirect:/";
+//        int validationCode = userServiceImple.validationSignUp(signUpDto);
+//
+//        if (validationCode == -1) {
+//            if (userServiceImple.insertUser(signUpDto) != null) {
+//                System.out.println(userServiceImple.getAllUser());
+//                return "redirect:/";
+//            }
+//        } else {
+//            model.addAttribute("i", validationCode);
+//            return "signUp"; // 기존 signUp.html 페이지로 이동
+//        }
+//        return "signUp"; // 예기치 않은 경우
+        if (userServiceImple.insertUser(signUpDto) != null) {
+                System.out.println(userServiceImple.getAllUser());
+                return "redirect:/";
         }
         else
-            return "redirect:/user/auth/signUp?error=true";
+           return "redirect:/user/auth/signIn?error=true";
     }
+
 
     @RequestMapping("/signOut")
     public String signOut(HttpSession session){
@@ -147,13 +165,6 @@ public class UserController {
     }
 
 
-    @RequestMapping("/authNum")
-    public String authNum(@RequestParam("email") String email) {
-        userServiceImple.setUserOTP(email);
-        return "redirect:/";
-    }
-
-
     @RequestMapping("/changePassword/{id}")
     public String changePassword(@PathVariable("id") int id, Model model) {
         model.addAttribute("id",id);
@@ -168,6 +179,12 @@ public class UserController {
                                  ) {
         userServiceImple.changePassword(id,currentPassword,newPassword,checkNewPassword);
         return "redirect:/";
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") int id){
+        userServiceImple.deleteUser(userServiceImple.getUserById(id));
+        return "redirect:/user/auth/userList";
     }
 }
 

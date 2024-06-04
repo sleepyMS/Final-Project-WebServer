@@ -33,6 +33,14 @@ public class UserDaoImple implements UserDao {
         return emails.toArray(new String[0]);
     }
 
+    public String[] getUserNick() {
+        List<String> nicks = new ArrayList<>();
+        for (UserDto user : database) {
+            nicks.add(user.getNick());
+        }
+        return nicks.toArray(new String[0]);
+    }
+
     public int getMaxId() {
         return database.stream()
                 .mapToInt(UserDto::getId)
@@ -68,6 +76,11 @@ public class UserDaoImple implements UserDao {
     @Override
     public UserDto insertUser(UserDto userDto) {
         database.add(userDto);
+        return userDto;
+    }
+
+    public UserDto deleteUser(UserDto userDto){
+        database.remove(userDto);
         return userDto;
     }
 }
