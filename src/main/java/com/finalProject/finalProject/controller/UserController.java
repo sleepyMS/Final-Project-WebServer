@@ -103,24 +103,24 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-//        int validationCode = userServiceImple.validationSignUp(signUpDto);
-//
-//        if (validationCode == -1) {
-//            if (userServiceImple.insertUser(signUpDto) != null) {
-//                System.out.println(userServiceImple.getAllUser());
-//                return "redirect:/";
-//            }
-//        } else {
-//            model.addAttribute("i", validationCode);
-//            return "signUp"; // 기존 signUp.html 페이지로 이동
-//        }
-//        return "signUp"; // 예기치 않은 경우
-        if (userServiceImple.insertUser(signUpDto) != null) {
+        int validationCode = userServiceImple.validationSignUp(signUpDto);
+
+        if (validationCode == -1) {
+            if (userServiceImple.insertUser(signUpDto) != null) {
                 System.out.println(userServiceImple.getAllUser());
                 return "redirect:/";
+            }
+        } else {
+            model.addAttribute("i", validationCode);
+            return "signUp"; // 기존 signUp.html 페이지로 이동
         }
-        else
-           return "redirect:/user/auth/signIn?error=true";
+        return "signUp"; // 예기치 않은 경우
+//        if (userServiceImple.insertUser(signUpDto) != null) {
+//                System.out.println(userServiceImple.getAllUser());
+//                return "redirect:/";
+//        }
+//        else
+//           return "redirect:/user/auth/signIn?error=true";
     }
 
 

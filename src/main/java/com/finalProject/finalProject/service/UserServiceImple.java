@@ -46,35 +46,35 @@ public class UserServiceImple implements UserService {
         return userDto;
     }
 
-//    public int validationSignUp(SignUpDto signUpDto) {
-//        if (signUpDto == null) {
-//            return -1;
-//        }
-//
-//        // 모든 유저 이메일을 배열로 가져옴
-//        String[] allEmails = userDaoImple.getUserEmail();
-//        String[] allNicks = userDaoImple.getUserNick();
-//
-//        // 닉네임 중복 확인
-//        if (Arrays.asList(allNicks).contains(signUpDto.getNick())) {
-//            System.out.println("This is a duplicate nick!");
-//            return 0;
-//        }
-//
-//        // 이메일 중복 확인
-//        if (Arrays.asList(allEmails).contains(signUpDto.getEmail())) {
-//            System.out.println("This is a duplicate email!");
-//            return 1;
-//        }
-//
-//        // 비밀번호 확인
-//        if (!signUpDto.getPassword().equals(signUpDto.getCheckPassword())) {
-//            System.out.println("Check password");
-//            return 2;
-//        }
-//
-//        return -1; // 유효성 검사 통과
-//    }
+    public int validationSignUp(SignUpDto signUpDto) {
+        if (signUpDto == null) {
+            return -1;
+        }
+
+        // 모든 유저 이메일을 배열로 가져옴
+        String[] allEmails = userDaoImple.getUserEmail();
+        String[] allNicks = userDaoImple.getUserNick();
+
+        // 닉네임 중복 확인
+        if (Arrays.asList(allNicks).contains(signUpDto.getNick())) {
+            System.out.println("This is a duplicate nick!");
+            return 0;
+        }
+
+        // 이메일 중복 확인
+        if (Arrays.asList(allEmails).contains(signUpDto.getEmail())) {
+            System.out.println("This is a duplicate email!");
+            return 1;
+        }
+
+        // 비밀번호 확인
+        if (!signUpDto.getPassword().equals(signUpDto.getCheckPassword())) {
+            System.out.println("Check password");
+            return 2;
+        }
+
+        return -1; // 유효성 검사 통과
+    }
 
     @Override
     public List<UserDto> getAllUser() {

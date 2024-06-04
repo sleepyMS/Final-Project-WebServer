@@ -25,10 +25,10 @@
     <input type="submit" value="제출">
 </form>
 <div>
-    <p th:if="${i == 2}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
+    <p th:if="${i == 1}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
 </div>
 <div>
-    <p th:if="${i == 1}" style="color:red;">회원가입 실패! 비밀번호를 확인해주세요.</p>
+    <p th:if="${i == 2}" style="color:red;">회원가입 실패! 비밀번호를 확인해주세요.</p>
 </div>
 <div>
     <p th:if="${i == 0}" style="color:red;">회원가입 실패! 이미 존재하는 닉네임입니다..</p>
