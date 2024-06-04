@@ -16,11 +16,13 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public boolean insertComment(int postIdx, int userIdx, String commentContent, UserDto currentUser) {
+    public boolean insertComment(int postIdx, String commentContent, UserDto currentUser) {
         CommentDto comment = new CommentDto();
 
         try {
+            // 수정할 것
             comment.setIdx(commentDao.getCount()+1);
+
             comment.setPostIdx(postIdx);
             comment.setUserIdx(currentUser.getId());
             comment.setMbti(currentUser.getMbti());
@@ -37,7 +39,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> getCommentsByPostIdx(int idx) {
-        return null;
+
+        return commentDao.getCommentByPostIdx(idx);
     }
 
     @Override

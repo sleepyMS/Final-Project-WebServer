@@ -15,28 +15,28 @@ public class PostServiceImpl implements PostService {
     private PostDao postDao;
 
     @Override
-    public Map<Integer, List<PostDto>> findAllPosts() {
+    public Map<String, List<PostDto>> findAllPosts() {
         return postDao.findAllPosts();
     }
 
     @Override
-    public List<PostDto> findAllByCategory(int category) {
+    public List<PostDto> findAllByCategory(String category) {
         return postDao.findAllByCategory(category); // 카테고리에 해당하는 모든 게시글 반환
     }
 
     @Override
-    public PostDto findById(int category, int idx) {
+    public PostDto findById(String category, int idx) {
         return postDao.findById(category, idx);
     }
 
     @Override
-    public void delete(int category, int idx) {
+    public void delete(String category, int idx) {
         postDao.delete(category, idx);
     }
 
     @Override
     public PostDto save(PostDto post) {
-        int category = post.getCategory();
+        String category = post.getCategory();
         if (post.getIdx() == -1) {
             post.setIdx(postDao.getLastIdx(category) + 1); // 해당 카테고리의 마지막 idx를 가져와서 새로운 idx를 설정
             return postDao.insertPost(post); // 해당 카테고리에 새로운 게시글 추가
@@ -51,17 +51,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean increaseLikes(int category, int idx) {
+    public boolean increaseLikes(String category, int idx) {
         return postDao.increaseLikes(category, idx);
     }
 
     @Override
-    public boolean decreaseLikes(int category, int idx) {
+    public boolean decreaseLikes(String category, int idx) {
         return postDao.decreaseLikes(category, idx);
     }
 
     @Override
-    public boolean isAlreadyLiked(int category, int idx) {
+    public boolean isAlreadyLiked(String category, int idx) {
         return postDao.isAlreadyLiked(category, idx);
     }
 }

@@ -22,7 +22,7 @@ public class CommentController {
                         HttpSession session) {
 
         UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
-        commentService.insertComment(postIdx, userIdx, content, currentUser);
+        commentService.insertComment(postIdx, content, currentUser);
 
         return "redirect:/post/read/" + postIdx;
     }

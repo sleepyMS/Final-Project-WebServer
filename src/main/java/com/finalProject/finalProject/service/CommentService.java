@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface CommentService {
 
-    public boolean insertComment(int postIdx, int userIdx, String commentContent, UserDto currentUser);
+    public boolean insertComment(int postIdx, String commentContent, UserDto currentUser);
 
 
-    List<CommentDto> getCommentsByPostIdx(int idx);
-    List<CommentDto> getCommentsByUserIdx(int idx);
-    void updateComment(CommentDto commentDto);
-    void deleteComment(long idx);
-    void deleteCommentsByPostIdx(long idx);
+    public List<CommentDto> getCommentsByPostIdx(int idx);
+    public List<CommentDto> getCommentsByUserIdx(int idx);
+    public void updateComment(CommentDto commentDto);
+    public void deleteComment(long idx);
+    public void deleteCommentsByPostIdx(long idx);
 }

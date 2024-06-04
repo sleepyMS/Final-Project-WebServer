@@ -9,7 +9,7 @@
 
 <!-- 동적으로 모든 카테고리를 렌더링 -->
 <div th:each="entry : ${allPosts}">
-    <a href="#" th:onclick="'openTableInSameWindow(' + 'table-' + ${entry.key} + ')'">
+    <a href="#" th:onclick="'openTableInSameWindow('table-' + ${entry.key} + '')'">
         <span th:text="'카테고리 ' + ${entry.key} + ' 게시판'"></span>
     </a><br/>
 
@@ -20,7 +20,7 @@
                    th:text="${post.nickname}">닉네임</a></td>
             <td><a th:href="|/post/read/${post.category}/${post.idx}|"
                    th:text="${post.title}">제목</a></td>
-            <td><a th:href="|/post/delete/${post.category}/${post.idx}|">게시글 삭제</a></td>
+<!--            <td><a th:href="|/post/delete/${post.category}/${post.idx}|">게시글 삭제</a></td>-->
         </tr>
     </table>
     <br/>
