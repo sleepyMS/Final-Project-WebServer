@@ -10,10 +10,13 @@
 <h1 th:text="'카테고리 ' + ${category} + ' 게시판'"></h1>
 
 <table border="2">
-    <tr th:each="post : ${posts}">
-        <td th:text="${post.idx}">1</td>
+    <!-- 역순으로 최신글이 먼저 보이도록 변경 -->
+    <tr th:each="post, postStat : ${posts}">
+        <td th:text="${posts.size() - postStat.index}">1</td>
+        <!-- 닉네임을 역순으로 표시 -->
         <td><a th:href="|/post/read/${post.category}/${post.idx}|"
                th:text="${post.nickname}">닉네임</a></td>
+        <!-- 제목을 역순으로 표시 -->
         <td><a th:href="|/post/read/${post.category}/${post.idx}|"
                th:text="${post.title}">제목</a></td>
     </tr>

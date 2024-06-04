@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +40,12 @@ public class PostController {
     @RequestMapping("/list/{category}")
     public String listByCategory(@PathVariable String category, Model model) {
         List<PostDto> posts = postService.findPostsByCategory(category);
+        Collections.reverse(posts); // 리스트를 역순으로 정렬
         model.addAttribute("posts", posts);
         model.addAttribute("category", category);
         return "listByCategory";
     }
+
 
     @RequestMapping("/read/{category}/{idx}")
     public String read(@PathVariable String category, @PathVariable int idx, Model model, HttpSession session) {
