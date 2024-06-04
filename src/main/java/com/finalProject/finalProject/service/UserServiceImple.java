@@ -6,6 +6,7 @@ import com.finalProject.finalProject.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -18,6 +19,7 @@ public class UserServiceImple implements UserService {
 
     @Override
     public UserDto insertUser(SignUpDto signUpDto) {
+        LocalDate localDate = LocalDate.now();
         UserDto userDto = new UserDto();
         if (signUpDto != null) {
             // 모든 유저 이메일을 배열로 가져옴
@@ -37,12 +39,13 @@ public class UserServiceImple implements UserService {
             userDto.setNick(signUpDto.getNick());
             userDto.setPhone(signUpDto.getPhone());
             userDto.setUserOTP("");
+            userDto.setCurrentDate(localDate);
 
             if (areYouAdmin(signUpDto.getEmail())) {
                 userDto.setId(0);
                 userDto.setAdmin(true);
             } else {
-                userDto.setId(userDaoImple.count() + 1);
+                userDto.setId(userDaoImple.getMaxId() + 1);
                 userDto.setAdmin(false);
             }
 
@@ -96,5 +99,11 @@ public class UserServiceImple implements UserService {
         }
         else
             System.out.println("check currentPassword");
+    }
+
+    public void changeMbti(int id,String mbti) {
+        UserDto userDto = userDaoImple.getUserById(id);
+        userDto.setMbti(mbti);
+        userDto.setCurrentDate(LocalDate.now());
     }
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MBTI 변경</title>
+</head>
+<body>
+<div style="color: red;">신중히 변경하세요!</div>
+<form action="/user/auth/resultMbti" method="post">
+    <input type="hidden" name="id" th:value="${id}">
+    변경 MBTI: <input type="text" id="mbti" name="mbti">
+    <br>
+    <input type="submit" value="변경">
+</form>
+</body>
+</html>

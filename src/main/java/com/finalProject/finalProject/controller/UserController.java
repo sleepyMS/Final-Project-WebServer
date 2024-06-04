@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/user/auth")
 public class UserController {
@@ -49,11 +51,20 @@ public class UserController {
         return "userList";
     }
 
-    @RequestMapping("/changePassword/{id}")
-    public String changePassword(@PathVariable("id") int id, Model model) {
+    @RequestMapping("/changeMbti/{id}")
+    public String changeMbti(@PathVariable("id") int id, Model model) {
         model.addAttribute("id",id);
-        return "changePassword" ;
+        return "changeMbti";
     }
+
+    @RequestMapping("/resultMbti")
+    public String resultMbti(@RequestParam("id") int id,
+                             @RequestParam("mbti") String mbti,
+                             Model model) {
+        userServiceImple.changeMbti(id,mbti);
+        return "redirect:/user/auth/myPage/" + id ;
+    }
+
 
     @RequestMapping(value ="/checkOTP")
     public String checkOTP(@RequestParam("id") int id, @RequestParam("OTP") String OTP, RedirectAttributes redirectAttributes) {
@@ -125,14 +136,28 @@ public class UserController {
 
     @RequestMapping("/myPage/{id}")
     public String myPage(@PathVariable int id, Model model) {
-        model.addAttribute("user", userServiceImple.getUserById(id));
+        UserDto userDto =  userServiceImple.getUserById(id);
+        LocalDate localDate = LocalDate.now();
+        int userDate = userDto.getCurrentDate().getDayOfYear();
+        int currentDate = localDate.getDayOfYear();
+        model.addAttribute("user", userDto);
+        model.addAttribute("userDate", userDate);
+        model.addAttribute("currentDate", currentDate);
         return "myPage";
     }
+
 
     @RequestMapping("/authNum")
     public String authNum(@RequestParam("email") String email) {
         userServiceImple.setUserOTP(email);
         return "redirect:/";
+    }
+
+
+    @RequestMapping("/changePassword/{id}")
+    public String changePassword(@PathVariable("id") int id, Model model) {
+        model.addAttribute("id",id);
+        return "changePassword" ;
     }
 
     @RequestMapping("/resultPassword")

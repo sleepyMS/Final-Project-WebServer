@@ -2,6 +2,9 @@ package com.finalProject.finalProject.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
