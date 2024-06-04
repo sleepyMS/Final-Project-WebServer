@@ -13,5 +13,5 @@ public class PostDto {
     private String content;
     private int likes;
     private int userIdx; // userIndex 필드 추가
-    private int category; // 카테고리 필드 추가
+    private String category; // 카테고리 필드 추가
 }

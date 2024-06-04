@@ -19,7 +19,8 @@ public class CommentDaoImpl implements CommentDao {
 
 //    Create
     @Override
-    public void insertComment(CommentDto CommentDto) { db.add(CommentDto); }
+    public void insertComment(CommentDto CommentDto) { db.add(CommentDto);
+        System.out.println(db);}
 
 //    Read
     @Override
@@ -32,6 +33,7 @@ public class CommentDaoImpl implements CommentDao {
                 .filter(comment -> comment.getPostIdx() == idx)
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<CommentDto> getCommentByUserIdx(int idx) {
         return db.stream()

@@ -29,10 +29,22 @@ public class PostController {
         return "about";
     }
 
+    @RequestMapping("/list")
+    public String list(Model model) {
+        Map<String, List<PostDto>> allPosts = postService.findAllPosts();
+        model.addAttribute("allPosts", allPosts);
+        return "list";
+    }
+
     @RequestMapping("/read/{category}/{idx}")
-    public String read(@PathVariable int category, @PathVariable int idx, Model model, HttpSession session) {
+    public String read(@PathVariable String category, @PathVariable int idx, Model model, HttpSession session) {
         PostDto post = postService.findById(category, idx);
         UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
+
+        if (currentUser == null) {
+            return "redirect:/user/auth/signIn";
+        }
+
         List<CommentDto> comments = commentService.getCommentsByPostIdx(post.getIdx());
 
         if (post == null) {
@@ -48,7 +60,7 @@ public class PostController {
 
 
     @RequestMapping("/delete/{category}/{idx}")
-    public String delete(@PathVariable int category, @PathVariable int idx) {
+    public String delete(@PathVariable String category, @PathVariable int idx) {
         postService.delete(category, idx);
         return "redirect:/post/list";
     }
@@ -65,9 +77,8 @@ public class PostController {
         return "redirect:/post/list"; // 게시글 목록 페이지로 리다이렉트
     }
 
-
     @RequestMapping("/updateForm/{idx}")
-    public String updateForm(@PathVariable int category, @PathVariable int idx, Model model) {
+    public String updateForm(@PathVariable String category, @PathVariable int idx, Model model) {
         model.addAttribute("post", postService.findById(category ,idx));
         return "updateForm";
     }
@@ -75,12 +86,11 @@ public class PostController {
     @PostMapping("/update")
     public String update(PostDto post) {
         postService.save(post); // 게시글 수정
-        return "redirect:/post/read/" + post.getCategory() + "/" + post.getIdx(); // 수정된 게시글 페이지로 리다이렉트
+        return "redirect:/post/read/" + post.getIdx(); // 수정된 게시글 페이지로 리다이렉트
     }
 
-
     @RequestMapping("/like/{category}/{idx}")
-    public String like(@PathVariable int category, @PathVariable int idx, HttpServletRequest request) {
+    public String like(@PathVariable String category, @PathVariable int idx, HttpServletRequest request) {
         boolean alreadyLiked = postService.isAlreadyLiked(category, idx); // 사용자가 이미 해당 게시물을 좋아요 했는지 확인
         if (!alreadyLiked) { // 한 번도 좋아요를 누른 적이 없는 경우에만 증가
             boolean success = postService.increaseLikes(category, idx); // 좋아요 수 증가
@@ -93,13 +103,4 @@ public class PostController {
         String referer = request.getHeader("Referer");
         return "redirect:" + referer; // 이전 페이지로 리다이렉트
     }
-
-
-    @RequestMapping("/list")
-    public String list(Model model) {
-        Map<Integer, List<PostDto>> allPosts = postService.findAllPosts();
-        model.addAttribute("allPosts", allPosts);
-        return "list";
-    }
-
 }
