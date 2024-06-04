@@ -59,20 +59,8 @@ public class PostController {
 
     @PostMapping("/insert")
     public String insert(PostDto post) {
-        if (post.getCategory() == 1) {
-            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
-            postService.save1(post); // E와 I 게시판에 게시글 저장
-        } else if (post.getCategory() == 2) {
-            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
-            postService.save2(post); // T와 F 게시판에 게시글 저장
-        } else if (post.getCategory() == 3) {
-            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
-            postService.save3(post); // P와 J 게시판에 게시글 저장
-        } else if (post.getCategory() == 4) {
-            post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
-            postService.save4(post); // N와 S 게시판에 게시글 저장
-        }
-
+        post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
+        postService.save(post); // 게시글 저장
         return "redirect:/post/list"; // 게시글 목록 페이지로 리다이렉트
     }
 
@@ -85,16 +73,8 @@ public class PostController {
 
     @PostMapping("/update")
     public String update(PostDto post) {
-        if (post.getCategory() == 1) {
-            postService.save1(post); // E와 I 게시판의 게시글 수정
-        } else if (post.getCategory() == 2) {
-            postService.save2(post); // T와 F 게시판의 게시글 수정
-        } else if (post.getCategory() == 3) {
-            postService.save3(post); // P와 J 게시판의 게시글 수정
-        } else if (post.getCategory() == 4) {
-            postService.save4(post); // N와 S 게시판의 게시글 수정
-        }
-        return "redirect:/post/read/" + post.getIdx(); // 수정된 게시글 페이지로 리다이렉트
+        postService.save(post); // 게시글 수정
+        return "redirect:/post/read/" + post.getCategory() + "/" + post.getIdx(); // 수정된 게시글 페이지로 리다이렉트
     }
 
 
@@ -116,14 +96,10 @@ public class PostController {
 
     @RequestMapping("/list")
     public String list(Model model) {
-        List<PostDto> posts1 = postService.findAll();
-        List<PostDto> posts2 = postService.findAll2();
-        List<PostDto> posts3 = postService.findAll3();
-        List<PostDto> posts4 = postService.findAll4();
-        model.addAttribute("posts1", posts1);
-        model.addAttribute("posts2", posts2);
-        model.addAttribute("posts3", posts3);
-        model.addAttribute("posts4", posts4);
+        model.addAttribute("posts1", postService.findAllByCategory(1));
+        model.addAttribute("posts2", postService.findAllByCategory(2));
+        model.addAttribute("posts3", postService.findAllByCategory(3));
+        model.addAttribute("posts4", postService.findAllByCategory(4));
         return "list";
     }
 }

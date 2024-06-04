@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -13,22 +14,8 @@ public class PostServiceImpl implements PostService {
     private PostDao postDao;
 
     @Override
-    public ArrayList<PostDto> findAll() {
-        return postDao.findAll();
-    }
-
-    @Override
-    public ArrayList<PostDto> findAll2() {
-        return postDao.findAll2();
-    }
-    @Override
-    public ArrayList<PostDto> findAll3() {
-        return postDao.findAll3();
-    }
-
-    @Override
-    public ArrayList<PostDto> findAll4() {
-        return postDao.findAll4();
+    public List<PostDto> findAllByCategory(int category) {
+        return postDao.findAllByCategory(category); // 카테고리에 해당하는 모든 게시글 반환
     }
 
     @Override
@@ -42,45 +29,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostDto save1(PostDto post) {
+    public PostDto save(PostDto post) {
+        int category = post.getCategory();
         if (post.getIdx() == -1) {
-            post.setIdx(postDao.getLastIdx(1) + 1); // E와 I 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
-            return postDao.insertPost(post); // E와 I 게시판에 새로운 게시글 추가
+            post.setIdx(postDao.getLastIdx(category) + 1); // 해당 카테고리의 마지막 idx를 가져와서 새로운 idx를 설정
+            return postDao.insertPost(post); // 해당 카테고리에 새로운 게시글 추가
         } else {
             return postDao.updatePost(post);
         }
     }
-
-    @Override
-    public PostDto save2(PostDto post) {
-        if (post.getIdx() == -1) {
-            post.setIdx(postDao.getLastIdx(2) + 1); // T와 F 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
-            return postDao.insertPost(post); // T와 F 게시판에 새로운 게시글 추가
-        } else {
-            return postDao.updatePost(post);
-        }
-    }
-
-    @Override
-    public PostDto save3(PostDto post) {
-        if (post.getIdx() == -1) {
-            post.setIdx(postDao.getLastIdx(3) + 1); // P와 J 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
-            return postDao.insertPost(post); // P와 J 게시판에 새로운 게시글 추가
-        } else {
-            return postDao.updatePost(post);
-        }
-    }
-
-    @Override
-    public PostDto save4(PostDto post) {
-        if (post.getIdx() == -1) {
-            post.setIdx(postDao.getLastIdx(4) + 1); // N와 S 게시판의 마지막 idx를 가져와서 새로운 idx를 설정
-            return postDao.insertPost(post); // N와 S 게시판에 새로운 게시글 추가
-        } else {
-            return postDao.updatePost(post);
-        }
-    }
-
 
     @Override
     public int count() {
