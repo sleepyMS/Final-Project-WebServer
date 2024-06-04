@@ -3,9 +3,11 @@ package com.finalProject.finalProject.service;
 import com.finalProject.finalProject.dao.UserDaoImple;
 import com.finalProject.finalProject.dto.SignUpDto;
 import com.finalProject.finalProject.dto.UserDto;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -18,17 +20,9 @@ public class UserServiceImple implements UserService {
 
     @Override
     public UserDto insertUser(SignUpDto signUpDto) {
+        LocalDate localDate = LocalDate.now();
         UserDto userDto = new UserDto();
         if (signUpDto != null) {
-            // 모든 유저 이메일을 배열로 가져옴
-            String[] allEmails = userDaoImple.getUserEmail();
-
-            // 이메일 중복 확인
-            if (Arrays.asList(allEmails).contains(signUpDto.getEmail())) {
-                System.out.println("중복된 이메일입니다!");
-                return null; // 중복된 이메일일 경우 null을 반환
-            }
-
             userDto.setEmail(signUpDto.getEmail());
             userDto.setName(signUpDto.getName());
             userDto.setPassword(signUpDto.getPassword());
@@ -37,18 +31,49 @@ public class UserServiceImple implements UserService {
             userDto.setNick(signUpDto.getNick());
             userDto.setPhone(signUpDto.getPhone());
             userDto.setUserOTP("");
+            userDto.setCurrentDate(localDate);
 
             if (areYouAdmin(signUpDto.getEmail())) {
                 userDto.setId(0);
                 userDto.setAdmin(true);
             } else {
-                userDto.setId(userDaoImple.count() + 1);
+                userDto.setId(userDaoImple.getMaxId() + 1);
                 userDto.setAdmin(false);
             }
 
             userDaoImple.insertUser(userDto);
         }
         return userDto;
+    }
+
+    public int validationSignUp(SignUpDto signUpDto) {
+        if (signUpDto == null) {
+            return -1;
+        }
+
+        // 모든 유저 이메일을 배열로 가져옴
+        String[] allEmails = userDaoImple.getUserEmail();
+        String[] allNicks = userDaoImple.getUserNick();
+
+        // 닉네임 중복 확인
+        if (Arrays.asList(allNicks).contains(signUpDto.getNick())) {
+            System.out.println("This is a duplicate nick!");
+            return 0;
+        }
+
+        // 이메일 중복 확인
+        if (Arrays.asList(allEmails).contains(signUpDto.getEmail())) {
+            System.out.println("This is a duplicate email!");
+            return 1;
+        }
+
+        // 비밀번호 확인
+        if (!signUpDto.getPassword().equals(signUpDto.getCheckPassword())) {
+            System.out.println("Check password");
+            return 2;
+        }
+
+        return -1; // 유효성 검사 통과
     }
 
     @Override
@@ -66,6 +91,12 @@ public class UserServiceImple implements UserService {
     public UserDto getUserById(int id) {
         return userDaoImple.getAllUser().stream().filter(m -> m.getId() == id).findAny().get();
     }
+
+    public UserDto deleteUser(UserDto userDto){
+        userDaoImple.deleteUser(userDto);
+        return userDto;
+    }
+
 
     //DaoImple에 있어야하나?
     public void setUserOTP(String email){
@@ -97,4 +128,11 @@ public class UserServiceImple implements UserService {
         else
             System.out.println("check currentPassword");
     }
+
+    public void changeMbti(int id,String mbti) {
+        UserDto userDto = userDaoImple.getUserById(id);
+        userDto.setMbti(mbti);
+        userDto.setCurrentDate(LocalDate.now());
+    }
+
 }

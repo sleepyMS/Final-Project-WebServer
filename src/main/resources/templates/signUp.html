@@ -6,25 +6,32 @@
 </head>
 <body>
 <form action="/user/auth/checkSignUp" method="POST">
-    이름: <input type="text" id="name" name="name">
+    이름: <input type="text" id="name" name="name" >
     <br>
-    닉네임: <input type="text" id="nick" name="nick">
+    닉네임: <input type="text" id="nick" name="nick" >
     <br>
-    이메일: <input type="text" id="email" name="email">
+    이메일: <input type="text" id="email" name="email" >
     <br>
-    비밀번호: <input type="password" id="password" name="password">
+    비밀번호: <input type="password" id="password" name="password" >
     <br>
-    비밀번호 확인: <input type="password" id="checkPassword" name="checkPassword">
+    비밀번호 확인: <input type="password" id="checkPassword" name="checkPassword" >
     <br>
-    생년월일: <input type="date" id="birth" name="birth">
+    생년월일: <input type="date" id="birth" name="birth" >
     <br>
-    mbti: <input type="text" id="mbti" name="mbti">
+    MBTI: <input type="text" id="mbti" name="mbti" >
     <br>
-    전화번호: <input type="text" id="phone" name="phone">
+    전화번호: <input type="text" id="phone" name="phone" >
+    <br>
     <input type="submit" value="제출">
 </form>
 <div>
-    <p th:if="${param.error}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
+    <p th:if="${i == 1}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
+</div>
+<div>
+    <p th:if="${i == 2}" style="color:red;">회원가입 실패! 비밀번호를 확인해주세요.</p>
+</div>
+<div>
+    <p th:if="${i == 0}" style="color:red;">회원가입 실패! 이미 존재하는 닉네임입니다..</p>
 </div>
 </body>
 </html>

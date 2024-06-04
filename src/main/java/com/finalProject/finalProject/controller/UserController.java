@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/user/auth")
 public class UserController {
@@ -49,10 +51,24 @@ public class UserController {
         return "userList";
     }
 
-    @RequestMapping("/changePassword/{id}")
-    public String changePassword(@PathVariable("id") int id, Model model) {
+    @RequestMapping("/changeMbti/{id}")
+    public String changeMbti(@PathVariable("id") int id, Model model) {
         model.addAttribute("id",id);
-        return "changePassword" ;
+        return "changeMbti";
+    }
+
+    @RequestMapping("/resultMbti")
+    public String resultMbti(@RequestParam("id") int id,
+                             @RequestParam("mbti") String mbti,
+                             Model model) {
+        userServiceImple.changeMbti(id,mbti);
+        return "redirect:/user/auth/myPage/" + id ;
+    }
+
+    @RequestMapping("/authNum")
+    public String authNum(@RequestParam("email") String email) {
+        userServiceImple.setUserOTP(email);
+        return "redirect:/";
     }
 
     @RequestMapping(value ="/checkOTP")
@@ -87,13 +103,26 @@ public class UserController {
 
     @RequestMapping("/checkSignUp")
     public String checkSignUp(@ModelAttribute SignUpDto signUpDto, Model model) {
-        if(userServiceImple.insertUser(signUpDto) != null) {
-            System.out.println(userServiceImple.getAllUser());
-            return "redirect:/";
+        int validationCode = userServiceImple.validationSignUp(signUpDto);
+
+        if (validationCode == -1) {
+            if (userServiceImple.insertUser(signUpDto) != null) {
+                System.out.println(userServiceImple.getAllUser());
+                return "redirect:/";
+            }
+        } else {
+            model.addAttribute("i", validationCode);
+            return "signUp"; // 기존 signUp.html 페이지로 이동
         }
-        else
-            return "redirect:/user/auth/signUp?error=true";
+        return "signUp"; // 예기치 않은 경우
+//        if (userServiceImple.insertUser(signUpDto) != null) {
+//                System.out.println(userServiceImple.getAllUser());
+//                return "redirect:/";
+//        }
+//        else
+//           return "redirect:/user/auth/signIn?error=true";
     }
+
 
     @RequestMapping("/signOut")
     public String signOut(HttpSession session){
@@ -125,14 +154,21 @@ public class UserController {
 
     @RequestMapping("/myPage/{id}")
     public String myPage(@PathVariable int id, Model model) {
-        model.addAttribute("user", userServiceImple.getUserById(id));
+        UserDto userDto =  userServiceImple.getUserById(id);
+        LocalDate localDate = LocalDate.now();
+        int userDate = userDto.getCurrentDate().getDayOfYear();
+        int currentDate = localDate.getDayOfYear();
+        model.addAttribute("user", userDto);
+        model.addAttribute("userDate", userDate);
+        model.addAttribute("currentDate", currentDate);
         return "myPage";
     }
 
-    @RequestMapping("/authNum")
-    public String authNum(@RequestParam("email") String email) {
-        userServiceImple.setUserOTP(email);
-        return "redirect:/";
+
+    @RequestMapping("/changePassword/{id}")
+    public String changePassword(@PathVariable("id") int id, Model model) {
+        model.addAttribute("id",id);
+        return "changePassword" ;
     }
 
     @RequestMapping("/resultPassword")
@@ -143,6 +179,12 @@ public class UserController {
                                  ) {
         userServiceImple.changePassword(id,currentPassword,newPassword,checkNewPassword);
         return "redirect:/";
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") int id){
+        userServiceImple.deleteUser(userServiceImple.getUserById(id));
+        return "redirect:/user/auth/userList";
     }
 }
 

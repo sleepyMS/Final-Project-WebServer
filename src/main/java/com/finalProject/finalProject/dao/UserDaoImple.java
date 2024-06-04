@@ -5,6 +5,7 @@ import com.finalProject.finalProject.dto.UserDto;
 import com.finalProject.finalProject.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class UserDaoImple implements UserDao {
 
     public UserDaoImple() {
         System.out.println("UserDaoImple 객체 생성");
-        database.add(new UserDto(0, "김정호", "admin", "123", "2000-08-16", "isfp", "JJung", "3924",true,""));
-        database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123",false,""));
+        database.add(new UserDto(0, "김정호", "admin", "123", "2000-08-16", "isfp", "JJung", "3924",true,"",LocalDate.of(2024, 4, 24)));
+        database.add(new UserDto(1, "김", "123", "123", "123", "123", "123", "123",false,"", LocalDate.of(2024, 5, 25)));
     }
 
     @Override
@@ -30,6 +31,21 @@ public class UserDaoImple implements UserDao {
             emails.add(user.getEmail());
         }
         return emails.toArray(new String[0]);
+    }
+
+    public String[] getUserNick() {
+        List<String> nicks = new ArrayList<>();
+        for (UserDto user : database) {
+            nicks.add(user.getNick());
+        }
+        return nicks.toArray(new String[0]);
+    }
+
+    public int getMaxId() {
+        return database.stream()
+                .mapToInt(UserDto::getId)
+                .max()
+                .orElse(0); // 데이터베이스가 비어있을 경우 0 반환
     }
 
     @Override
@@ -63,4 +79,8 @@ public class UserDaoImple implements UserDao {
         return userDto;
     }
 
+    public UserDto deleteUser(UserDto userDto){
+        database.remove(userDto);
+        return userDto;
+    }
 }

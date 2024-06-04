@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,5 @@ public class UserDto {
     private String phone;
     private boolean isAdmin;
     private String userOTP;
+    private LocalDate currentDate;
 }
