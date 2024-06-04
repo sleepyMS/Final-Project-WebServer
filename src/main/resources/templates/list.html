@@ -14,13 +14,16 @@
     </a><br/>
 
     <table border="2" th:id="'table-' + ${entry.key}">
+        <!-- 역순으로 순회하도록 변경 -->
         <tr th:each="post, postStat : ${entry.value}">
             <th:block th:if="${postStat.index < 2}">
-                <td th:text="${post.idx}">1</td>
+                <!-- 인덱스를 역순으로 표시하기 위해 entry.value.size() - postStat.index로 변경 -->
+                <td th:text="${entry.value.size() - postStat.index}"></td>
+                <!-- 제목과 내용을 역순으로 표시 -->
                 <td><a th:href="|/post/read/${post.category}/${post.idx}|"
-                       th:text="${post.nickname}">닉네임</a></td>
+                       th:text="${entry.value[entry.value.size() - postStat.index - 1].nickname}">닉네임</a></td>
                 <td><a th:href="|/post/read/${post.category}/${post.idx}|"
-                       th:text="${post.title}">제목</a></td>
+                       th:text="${entry.value[entry.value.size() - postStat.index - 1].title}">제목</a></td>
             </th:block>
         </tr>
     </table>
