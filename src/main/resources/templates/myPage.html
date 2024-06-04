@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+이름: [[${user.name}]]
+<br>
+닉네임 :[[${user.nick}]]
+<br>
+이메일 : [[${user.email}]]
+<br>
+MBTI : [[${user.mbti}]]
+<br>
+생년월일: [[${user.birth}]]
+<br>
+전화번호: [[${user.phone}]]
+<br>
+<a th:if="${currentDate - userDate > 30}" th:href="@{/user/auth/changeMbti/{id}(id=${user.id})}">MBTI 변경가능</a>
+<p th:unless="${currentDate - userDate > 30}" style="color: red;">MBTI 변경이 불가능합니다. (1달마다 갱신 가능)</p>
+
+<div th:if="${user.isAdmin}">
+    <a href="/user/auth/userList">회원정보 보기</a>
+</div>
+<div th:if="${user.userOTP != ''}">
+    OTP : [[${user.userOTP}]]
+    <br>
+    <a th:href="@{/user/auth/inputOTP/{id}(id=${user.id})}">OTP 입력</a>
+</div>
+</body>
+</html>

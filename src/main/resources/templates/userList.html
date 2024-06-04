@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #dddddd;
+            text-align: center; /* Center align text in all table cells */
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        thead {
+            background-color: #009879;
+            color: black;
+        }
+        tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .delete-button {
+            color: white;
+            background-color: red;
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            display: inline-block; /* Align button inline */
+        }
+    </style>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Birth</th>
+        <th>MBTI</th>
+        <th>Nickname</th>
+        <th>Admin</th>
+        <th>User OTP</th>
+        <th>Mbti date</th>
+        <th>삭제</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td>[[${user.id}]]</td>
+        <td>[[${user.name}]]</td>
+        <td>[[${user.email}]]</td>
+        <td>[[${user.password}]]</td>
+        <td>[[${user.birth}]]</td>
+        <td>[[${user.mbti}]]</td>
+        <td>[[${user.nick}]]</td>
+        <td>[[${user.isAdmin}]]</td>
+        <td>[[${user.userOTP}]]</td>
+        <td>[[${user.currentDate}]]</td>
+        <td>
+            <a th:href="@{/user/auth/deleteUser/{id}(id=${user.id})}" class="delete-button">삭제</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
