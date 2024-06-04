@@ -4,21 +4,37 @@
     <meta charset="UTF-8">
     <title>게시판 목록</title>
 </head>
-
 <body>
-
 <th:block th:replace="~{menu::menu}" />
 
-E 와 I 게시판 <br/>
+<!-- 동적으로 모든 카테고리를 렌더링 -->
+<div th:each="entry : ${allPosts}">
+    <a href="#" th:onclick="'openTableInSameWindow(' + 'table-' + ${entry.key} + ')'">
+        <span th:text="'카테고리 ' + ${entry.key} + ' 게시판'"></span>
+    </a><br/>
 
-<table border="2">
-    <tr th:each="p : ${posts}">
-        <td> [[${p.idx}]] </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.nickname}]]</a> </td>
-        <td> <a th:href="|/post/read/${p.idx}|">[[${p.title}]]</a> </td>
-        <td> <a th:href="|/post/delete/${p.idx}|">게시글 삭제</a> </td>
-    </tr>
-</table>
+    <table border="2" th:id="'table-' + ${entry.key}">
+        <tr th:each="post : ${entry.value}">
+            <td th:text="${post.idx}">1</td>
+            <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+                   th:text="${post.nickname}">닉네임</a></td>
+            <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+                   th:text="${post.title}">제목</a></td>
+            <td><a th:href="|/post/delete/${post.category}/${post.idx}|">게시글 삭제</a></td>
+        </tr>
+    </table>
+    <br/>
+</div>
+
+<script>
+    function openTableInSameWindow(tableId) {
+        var table = document.getElementById(tableId).outerHTML;
+        var html = '<html><head><title>게시판</title></head><body>' + table + '</body></html>';
+        document.open();
+        document.write(html);
+        document.close();
+    }
+</script>
 
 </body>
 </html>
