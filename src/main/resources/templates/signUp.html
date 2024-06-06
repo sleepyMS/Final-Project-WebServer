@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입</title>
 </head>
 <body>
 <form action="/user/auth/checkSignUp" method="POST">
@@ -18,12 +18,13 @@
     <br>
     생년월일: <input type="date" id="birth" name="birth" >
     <br>
-    MBTI: <input type="text" id="mbti" name="mbti" >
+    MBTI: <input type="text" id="mbti" name="mbti" th:value="${gptMbti}" >
     <br>
     전화번호: <input type="text" id="phone" name="phone" >
     <br>
     <input type="submit" value="제출">
 </form>
+<a th:href="@{/bot/prompt}">Mbti 검사하러가기</a>
 <div>
     <p th:if="${i == 1}" style="color:red;">회원가입 실패! 중복된 이메일 입니다.</p>
 </div>
@@ -31,7 +32,7 @@
     <p th:if="${i == 2}" style="color:red;">회원가입 실패! 비밀번호를 확인해주세요.</p>
 </div>
 <div>
-    <p th:if="${i == 0}" style="color:red;">회원가입 실패! 이미 존재하는 닉네임입니다..</p>
+    <p th:if="${i == 0}" style="color:red;">회원가입 실패! 이미 존재하는 닉네임입니다.</p>
 </div>
 </body>
 </html>

@@ -18,6 +18,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/user/auth")
+@SessionAttributes("gptMbti") // gptMbti를 세션에 저장
 public class UserController {
 
     @Autowired
@@ -115,12 +116,13 @@ public class UserController {
             return "signUp"; // 기존 signUp.html 페이지로 이동
         }
         return "signUp"; // 예기치 않은 경우
-//        if (userServiceImple.insertUser(signUpDto) != null) {
-//                System.out.println(userServiceImple.getAllUser());
-//                return "redirect:/";
-//        }
-//        else
-//           return "redirect:/user/auth/signIn?error=true";
+    }
+
+    @ModelAttribute
+    public void addMbtiToModel(Model model) {
+        if (!model.containsAttribute("gptMbti")) {
+            model.addAttribute("gptMbti", "");
+        }
     }
 
 
@@ -176,18 +178,15 @@ public class UserController {
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("checkNewPassword") String checkNewPassword,
                                  @RequestParam("id") int id,
-                                 RedirectAttributes redirectAttributes) {
+                                 Model model) {
         int check = userServiceImple.changePassword(id, currentPassword, newPassword, checkNewPassword);
-        System.out.println(check);
         if (check == 0) {
             return "redirect:/";
         } else {
-            redirectAttributes.addFlashAttribute("passwordChangeStatus", check);
-            return "redirect:/user/auth/changePassword/" + id;
+            model.addAttribute("passwordChangeStatus", check);
+            return "redirect:/user/auth/changePassword/"+id;
         }
     }
-
-
 
 
     @RequestMapping("/deleteUser/{id}")

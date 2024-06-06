@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="mbtiForm" action="/bot/chat" method="POST">
+    <!-- Hidden input으로 prompt 값을 설정 -->
+    <input type="hidden" id="prompt" name="prompt"
+           value="각각의 MBTI 차원(외향형/내향형, 직관형/감각형, 사고형/감정형, 판단형/인식형)을 구별할 수 있는 선택형 질문을 3개씩 제공해주세요.
+            각 차원별로 구별할 수 있는 질문을 작성해주시고, 질문 번호 형식은 아래 예시와 같이 만들어 주세요.예시:
+        1.'새로운 사람들을 만나는 것이 즐겁습니까?'
+        #2. '새로운 환경에 적응하는 것이 쉽습니까?'
+        #3. '주변 사람들과의 대화를 즐깁니까?'
+        #4. '미래에 대한 비전을 가지고 있습니까?'
+        #5. '새로운 아이디어에 대한 관심이 많습니까?'
+        #6. '문제 해결 시 전체적인 그림을 고려하는 경향이 있습니까?'
+        #7. '문제를 해결할 때 객관적인 판단을 하시나요?'
+        #8. '감정보다는 사실에 더 중점을 둘 때가 많습니까?'
+        #9. '의견이 충돌할 때 비판적으로 접근하십니까?'
+        #10. '일을 계획하고 그에 맞게 진행하는 것을 선호하십니까?'
+        #11. '일정을 계획하여 일을 처리하는 것을 선호하십니까?'
+        #12. '일을 처리할 때 명확한 마감 기한이 도움이 되십니까?'
+        각 질문의 앞에 번호를 붙인 뒤 2번부터는 #문자를 앞에 붙여 주세요."> <!-- 수정: value 속성으로 값을 설정 -->
+    <!-- "Mbti 질문 생성" 버튼 -->
+    <input type="button" value="Mbti 질문 생성" onclick="submitForm()">
+</form>
+
+<!-- JavaScript 코드 -->
+<script>
+    function submitForm() {
+        // 폼을 선택하고 submit() 메서드 호출
+        document.getElementById("mbtiForm").submit();
+    }
+</script>
+</body>
+</html>

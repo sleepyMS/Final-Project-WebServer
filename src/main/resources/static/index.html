@@ -51,11 +51,12 @@
     <a href="/post/list">게시판</a>
     <a href="/post/insertForm">게시판 생성</a>
     <a href="/post/about">빈 탭</a>
+    <a href="/bot/prompt">프롬프트 입력</a>
     <a id="myPageLink"></a>
 </nav>
 <div class="container">
     <div id="currentUserEmail"></div>
-
+</div>
 <script>
     fetch('/user/auth/getCurrentUserEmail')
     .then(response => response.text())
@@ -64,7 +65,7 @@
             document.getElementById('signUpLink').style.display = 'none'; // 회원가입 이동 링크 숨김
             document.getElementById('signInLink').innerText = '로그아웃'; // 로그인 이동 링크를 로그아웃으로 변경
             document.getElementById('signInLink').href = '/user/auth/signOut'; // 로그인 이동 링크를 로그아웃 처리하는 URL로 변경
-            document.getElementById('currentUserEmail').innerText = '현재 사용자 이메일: ' + data;
+            document.getElementById('currentUserEmail').innerText = '현재 사용자 닉네임: ' + data;
         }
     })
     .catch(error => {
