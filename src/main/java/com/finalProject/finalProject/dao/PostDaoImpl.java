@@ -23,7 +23,7 @@ public class PostDaoImpl implements PostDao {
         db1.add(new PostDto(3, "ESTJ에디", "조원을 통솔하는 방법", "강하게 조원을 밀어붙치고, 따라오지 않을 경우 버리지않고, 챙겨야합니다.", 0, 3, "test1"));
         db.put("test1", db1);
 
-        // T와 F 게시판 데이터 (카테고리 2)
+        // T와 F 게시판 데이터 (카테고리 2)//
         List<PostDto> db2 = new ArrayList<>();
         db2.add(new PostDto(1, "ENTJ도라에몽", "운다고 해결되는게 아니야!!", "문제해결을 위해 직접 나서서 해야 뭐든것이 풀린다고! 울지마 뚝!", 0, 2, "test2"));
         db2.add(new PostDto(2, "ISFJ노진구", "슬픈 영화를 보면 왜 눈물이 날까?", "나는 눈물이 많아ㅠㅠㅠ 나도 가끔은 이성적이고 싶다구~", 0, 2, "test2"));
