@@ -1,16 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>everymbtime</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #currentUserEmail {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <a href="/"> [메인화면] </a>
-    메인 페이지
-    <a href="user/auth/signUp">회원가입 이동</a>
-    <a href="user/auth/signIn">로그인 이동</a>
-    <a href="/post/list">게시판 이동</a>
-    <a href="/post/insertForm"> [게시판 생성] </a>
-    <a href="/post/about"> [빈 탭] </a>
+<header>
+    <h1>every <a>MBTI</a> me</h1>
+</header>
+<nav>
+    <a href="/">메인화면</a>
+    <a href="/user/auth/signUp" id="signUpLink">회원가입</a>
+    <a href="/user/auth/signIn" id="signInLink">로그인</a>
+    <a href="/user/auth/checkEmail">비밀번호 변경</a>
+    <a href="/post/list">게시판</a>
+    <a href="/post/insertForm">게시판 생성</a>
+    <a href="/post/about">빈 탭</a>
+    <a id="myPageLink"></a>
+</nav>
+<div class="container">
+    <div id="currentUserEmail"></div>
+
+    <script>
+        fetch('/user/auth/getCurrentUserEmail')
+        .then(response => response.text())
+        .then(data => {
+            if (data !== "No user logged in") {
+                document.getElementById('signUpLink').style.display = 'none'; // 회원가입 이동 링크 숨김
+                document.getElementById('signInLink').innerText = '로그아웃'; // 로그인 이동 링크를 로그아웃으로 변경
+                document.getElementById('signInLink').href = '/user/auth/signOut'; // 로그인 이동 링크를 로그아웃 처리하는 URL로 변경
+                document.getElementById('currentUserEmail').innerText = '현재 사용자 이메일: ' + data;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        fetch('/user/auth/getCurrentUserId')
+        .then(response => response.text())
+        .then(data => {
+            if (data !== '-1') { // ID가 -1이 문자열로 변환되어 비교됨
+                document.getElementById('myPageLink').innerText = '내 정보';
+                document.getElementById('myPageLink').href = `/user/auth/myPage/${data}`; // 템플릿 리터럴 사용
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    </script>
+
 </body>
 </html>
