@@ -37,7 +37,8 @@ public class UserController {
     }
 
     @RequestMapping("/signUp")
-    public String signUp() {
+    public String signUp(Model model) {
+        model.addAttribute("signUpDto", new SignUpDto()); // 새로운 SignUpDto 객체를 모델에 추가
         return "signUp";
     }
 
@@ -112,11 +113,13 @@ public class UserController {
                 return "redirect:/";
             }
         } else {
+            model.addAttribute("signUpDto", signUpDto);  // 유효성 검사 실패 시 SignUpDto 객체를 모델에 추가
             model.addAttribute("i", validationCode);
             return "signUp"; // 기존 signUp.html 페이지로 이동
         }
         return "signUp"; // 예기치 않은 경우
     }
+
 
     @ModelAttribute
     public void addMbtiToModel(Model model) {

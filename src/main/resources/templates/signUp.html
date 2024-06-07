@@ -5,22 +5,22 @@
     <title>회원가입</title>
 </head>
 <body>
-<form action="/user/auth/checkSignUp" method="POST">
-    이름: <input type="text" id="name" name="name" >
+<form action="/user/auth/checkSignUp" method="POST" th:object="${signUpDto}">
+    이름: <input type="text" id="name" name="name" th:field="*{name}">
     <br>
-    닉네임: <input type="text" id="nick" name="nick" >
+    닉네임: <input type="text" id="nick" name="nick" th:field="*{nick}">
     <br>
-    이메일: <input type="text" id="email" name="email" >
+    이메일: <input type="text" id="email" name="email" th:field="*{email}">
     <br>
-    비밀번호: <input type="password" id="password" name="password" >
+    비밀번호: <input type="password" id="password" name="password" th:field="*{password}">
     <br>
-    비밀번호 확인: <input type="password" id="checkPassword" name="checkPassword" >
+    비밀번호 확인: <input type="password" id="checkPassword" name="checkPassword" th:field="*{checkPassword}">
     <br>
-    생년월일: <input type="date" id="birth" name="birth" >
+    생년월일: <input type="date" id="birth" name="birth" th:field="*{birth}">
     <br>
-    MBTI: <input type="text" id="mbti" name="mbti" th:value="${gptMbti}" >
+    MBTI: <input type="text" id="mbti" name="mbti" th:value="${gptMbti}">
     <br>
-    전화번호: <input type="text" id="phone" name="phone" >
+    전화번호: <input type="text" id="phone" name="phone" th:field="*{phone}">
     <br>
     <input type="submit" value="제출">
 </form>
