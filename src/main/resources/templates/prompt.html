@@ -3,6 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #mbtiForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="button"] {
+            width: 200px;
+            height: 50px;
+            font-size: 18px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
 </head>
 <body>
 <form id="mbtiForm" action="/bot/chat" method="POST">

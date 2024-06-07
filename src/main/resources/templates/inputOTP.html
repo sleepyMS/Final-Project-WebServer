@@ -2,16 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>OTP 입력</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input[type="text"], input[type="submit"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        p {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <form action="/user/auth/checkOTP" method="POST">
     <input type="hidden" name="id" th:value="${user.id}">
-    OTP 입력: <input type="text" id="OTP" name="OTP">
+    <label for="OTP">OTP 입력:</label>
+    <input type="text" id="OTP" name="OTP">
     <input type="submit" value="입력">
 </form>
 <div>
-    <p th:if="${param.error}" style="color:red;">OTP를 다시 확인해주세요.</p>
+    <p th:if="${param.error}">OTP를 다시 확인해주세요.</p>
 </div>
 </body>
 </html>
