@@ -18,30 +18,30 @@ public class PostDaoImpl implements PostDao {
 
         // E와 I 게시판 데이터 (카테고리 1)
         List<PostDto> db1 = new ArrayList<>();
-        db1.add(new PostDto(1, "IIII준형", "집에서 시간 때우는 법", "잠을 많이 잔다.", 0, 1, "test1"));
-        db1.add(new PostDto(2, "EEEE철수", "축제 즐기는 방법", "부어라 마셔라", 0, 2, "test1"));
-        db1.add(new PostDto(3, "EEEE영희", "조원을 통솔하는 방법", "강하게 말한다", 0, 3, "test1"));
+        db1.add(new PostDto(1, "ENFP뽀로로", "나랑 만나서 놀 I형 사람을 구해요~", "저는 처음 보는 사람한테도 말 잘 걸어요. 연락주세요! 010-1234-5678", 0, 1, "test1"));
+        db1.add(new PostDto(2, "INFP포비", "팀플할때 너무 힘들어요ㅠ", "제가 조장이 되었습니다. 어떻게 해야할지 댓글로 조언 부탁드려요.", 0, 2, "test1"));
+        db1.add(new PostDto(3, "ESTJ에디", "조원을 통솔하는 방법", "강하게 조원을 밀어붙치고, 따라오지 않을 경우 버리지않고, 챙겨야합니다.", 0, 3, "test1"));
         db.put("test1", db1);
 
         // T와 F 게시판 데이터 (카테고리 2)
         List<PostDto> db2 = new ArrayList<>();
-        db2.add(new PostDto(1, "TTTT짱구", "논리적인 사고", "논리적으로 생각한다.", 0, 2, "test2"));
-        db2.add(new PostDto(2, "FFFF훈이", "감정적인 소통", "감정적으로 소통한다.", 0, 2, "test2"));
-        db2.add(new PostDto(3, "TTTT맹구", "효율적인 업무 처리", "효율적으로 처리한다.", 0, 3, "test2"));
+        db2.add(new PostDto(1, "ENTJ도라에몽", "운다고 해결되는게 아니야!!", "문제해결을 위해 직접 나서서 해야 뭐든것이 풀린다고! 울지마 뚝!", 0, 2, "test2"));
+        db2.add(new PostDto(2, "ISFJ노진구", "슬픈 영화를 보면 왜 눈물이 날까?", "나는 눈물이 많아ㅠㅠㅠ 나도 가끔은 이성적이고 싶다구~", 0, 2, "test2"));
+        db2.add(new PostDto(3, "ESFJ이슬이", "나는 슈퍼인싸! 친구들을 다 챙기고싶어", "친구들이 너무 좋고, 공감받으며 나도 행복해!!", 0, 3, "test2"));
         db.put("test2", db2);
 
         // P와 J 게시판 데이터 (카테고리 3)
         List<PostDto> db3 = new ArrayList<>();
-        db3.add(new PostDto(1, "PPPP진구", "계획따위 없어", "무계획이야 나는", 0, 1, "test3"));
-        db3.add(new PostDto(2, "JJJJ비실", "오늘 뭐할까", "실천해보자", 0, 2, "test3"));
-        db3.add(new PostDto(3, "JJJJ이슬", "몇시에 할지", "시간단위 생각", 0, 3, "test3"));
+        db3.add(new PostDto(1, "ISTP비실이", "나는 계획따위 없어 무계획이야", "너는 다 계획이 있니? 나는 없어ㅎㅎ", 0, 1, "test3"));
+        db3.add(new PostDto(2, "ESTP퉁퉁이", "오늘은 눈에 보이는 친구들 괴롭혀야지~", "항상 즉흥적으로 괴롭히는건 즐거워!", 0, 2, "test3"));
+        db3.add(new PostDto(3, "ENFJ영수", "몇시 몇분 몇초 나는 항상 생각해!", "항상 어떤일을 할때 계획을 세워 난. 너희는 어떠니?", 0, 3, "test3"));
         db.put("test3", db3);
 
         // N와 S 게시판 데이터 (카테고리 4)
         List<PostDto> db4 = new ArrayList<>();
-        db4.add(new PostDto(1, "NNNN퉁퉁", "상상력 풍부", "만약에 ~한다면", 0, 1, "test4"));
-        db4.add(new PostDto(2, "SSSS도라", "현실 직시해", "지금 나의 상태는?", 0, 2, "test4"));
-        db4.add(new PostDto(3, "NNNN에몽", "내가 죽으면", "오늘 죽게된다면?", 0, 3, "test4"));
+        db4.add(new PostDto(1, "ENTP짱구", "내가 만약 좀비가 된다면???", "내가 좀비가 된다면 당장 친구들부터 잡아먹어야지", 0, 1, "test4"));
+        db4.add(new PostDto(2, "ISTP철수", "취업예정입니다. 어떤 공부해야할까요?", "우선 자격증과 포트폴리오부터 시작해보려고 합니다. 조언 댓글로 부탁해요~", 0, 2, "test4"));
+        db4.add(new PostDto(3, "ESFP맹구", "바퀴벌래가 되면 난 바로 누구든 잡아버릴래", "바로 에프킬라로 잡아버릴테니 내 눈앞에 띄지마!!!", 0, 3, "test4"));
         db.put("test4", db4);
     }
 

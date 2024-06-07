@@ -3,32 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .category-link {
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+        }
+        .category-link:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-<th:block th:replace="~{menu::menu}" />
+<header>
+    <h1>게시판 목록</h1>
+</header>
+<nav>
+    <a href="/">메인화면</a>
+    <a href="/user/auth/signUp" id="signUpLink">회원가입</a>
+    <a href="/user/auth/signIn" id="signInLink">로그인</a>
+    <a href="/user/auth/checkEmail">비밀번호 변경</a>
+    <a href="/post/list">게시판</a>
+    <a href="/post/insertForm">게시글 생성</a>
+    <a id="myPageLink"></a>
+</nav>
+<div class="container">
+    <!-- 동적으로 모든 카테고리를 렌더링 -->
+    <div th:each="entry : ${allPosts}">
+        <a th:href="@{/post/list/{category}(category=${entry.key})}" class="category-link">
+            <span th:text="'카테고리 ' + ${entry.key} + ' 게시판'"></span>
+        </a>
 
-<!-- 동적으로 모든 카테고리를 렌더링 -->
-<div th:each="entry : ${allPosts}">
-    <a th:href="@{/post/list/{category}(category=${entry.key})}">
-        <span th:text="'카테고리 ' + ${entry.key} + ' 게시판'"></span>
-    </a><br/>
-
-    <table border="2" th:id="'table-' + ${entry.key}">
-        <!-- 역순으로 순회하도록 변경 -->
-        <tr th:each="post, postStat : ${entry.value}">
-            <th:block th:if="${postStat.index < 2}">
-                <!-- 인덱스를 역순으로 표시하기 위해 entry.value.size() - postStat.index로 변경 -->
-                <td th:text="${entry.value.size() - postStat.index}"></td>
-                <!-- 제목과 내용을 역순으로 표시 -->
-                <td><a th:href="|/post/read/${post.category}/${post.idx}|"
-                       th:text="${entry.value[entry.value.size() - postStat.index - 1].nickname}">닉네임</a></td>
-                <td><a th:href="|/post/read/${post.category}/${post.idx}|"
-                       th:text="${entry.value[entry.value.size() - postStat.index - 1].title}">제목</a></td>
-            </th:block>
-        </tr>
-    </table>
-    <br/>
+        <table th:id="'table-' + ${entry.key}">
+            <!-- 역순으로 순회하도록 변경 -->
+            <tr th:each="post, postStat : ${entry.value}">
+                <th:block th:if="${postStat.index < 2}">
+                    <!-- 인덱스를 역순으로 표시하기 위해 entry.value.size() - postStat.index로 변경 -->
+                    <td th:text="${entry.value.size() - postStat.index}"></td>
+                    <!-- 제목과 내용을 역순으로 표시 -->
+                    <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+                           th:text="${entry.value[entry.value.size() - postStat.index - 1].nickname}">닉네임</a></td>
+                    <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+                           th:text="${entry.value[entry.value.size() - postStat.index - 1].title}">제목</a></td>
+                </th:block>
+            </tr>
+        </table>
+    </div>
 </div>
-
 </body>
 </html>
