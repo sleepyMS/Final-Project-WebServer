@@ -3,19 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 생성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button, input[type="submit"] {
+            padding: 10px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
-<th:block th:replace="~{menu :: menu}" />
-게시글 생성
+<header>
+    <h1>게시글 생성</h1>
+</header>
+<nav>
+    <a href="/">메인화면</a>
+    <a href="/user/auth/signUp" id="signUpLink">회원가입</a>
+    <a href="/user/auth/signIn" id="signInLink">로그인</a>
+    <a href="/user/auth/checkEmail">비밀번호 변경</a>
+    <a href="/post/list">게시판</a>
+    <a href="/post/insertForm">게시글 생성</a>
+    <a id="myPageLink"></a>
+</nav>
+<div class="container">
 
-<form action="/insert"  method="post" enctype="multipart/form-data">
-닉네임 : <input type="text" name="nickname" ><br/>
-title : <input type="text" name="title" ><br/>
-<textarea rows="5" cols="40" name="content"></textarea><br/>
-<input type="submit" value="추가" />
-</form>
+    <form action="/post/insert" method="post" enctype="multipart/form-data">
+        <label for="category">카테고리:</label>
+        <select name="category" id="category">
+            <option value="test1">test1 게시판</option>
+            <option value="test2">test2 게시판</option>
+            <option value="test3">test3 게시판</option>
+            <option value="test4">test4 게시판</option>
+            <!-- 필요에 따라 다른 카테고리 옵션들을 추가할 수 있습니다. -->
+        </select>
+        <input type="text" id="newCategory" placeholder="새 게시판 생성">
+        <button type="button" onclick="addOption()">추가</button>
 
-</body>
+<!--        <label for="nickname">닉네임:</label>-->
+        <input type="hidden" th:value="${currentUser}" name="nickname" id="nickname">
+
+        <label for="title">제목:</label>
+        <input type="text" name="title" id="title">
+
+        <label for="content">내용:</label>
+        <textarea rows="5" cols="40" name="content" id="content"></textarea>
+
+        <input type="submit" value="추가">
+    </form>
+</div>
+
+<script>
+    function addOption() {
+        var select = document.getElementById("category");
+        var newCategoryInput = document.getElementById("newCategory");
+        var newCategory = newCategoryInput.value.trim();
+        if (newCategory !== "") {
+            var option = document.createElement("option");
+            option.text = newCategory;
+            option.value = newCategory; // 새로운 카테고리의 value를 문자열로 설정
+            select.add(option);
+            newCategoryInput.value = ""; // 입력 필드 초기화
+        }
+    }
+</script>
 
 </body>
 </html>

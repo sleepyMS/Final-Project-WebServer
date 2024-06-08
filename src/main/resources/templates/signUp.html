@@ -1,26 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #5cb85c;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            color: red;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<form action="/user/auth/checkSignUp" method="POST">
-    이름: <input type="text" id="name" name="name">
-    <br>
-    닉네임: <input type="text" id="nick" name="nick">
-    <br>
-    이메일: <input type="email" id="email" name="email">
-    <br>
-    비밀번호: <input type="password" id="password" name="password">
-    <br>
-    비밀번호 확인: <input type="password" id="checkPassword" name="checkPassword">
-    <br>
-    생년월일: <input type="date" id="birth" name="birth">
-    <br>
-    mbti: <input type="text" id="mbti" name="mbti">
-    <br>
-    전화번호: <input type="text" id="phone" name="phone">
+<form action="/user/auth/checkSignUp" method="POST" th:object="${signUpDto}">
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name">
+
+    <label for="nick">닉네임:</label>
+    <input type="text" id="nick" name="nick">
+    <div>
+        <p th:if="${i == 0}">회원가입 실패! 이미 존재하는 닉네임입니다.</p>
+    </div>
+
+    <label for="email">이메일:</label>
+    <input type="text" id="email" name="email">
+    <div>
+        <p th:if="${i == 1}">회원가입 실패! 중복된 이메일 입니다.</p>
+    </div>
+
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password">
+    <div>
+        <p th:if="${i == 2}">회원가입 실패! 비밀번호를 확인해주세요.</p>
+    </div>
+
+    <label for="checkPassword">비밀번호 확인:</label>
+    <input type="password" id="checkPassword" name="checkPassword">
+
+    <label for="birth">생년월일:</label>
+    <input type="date" id="birth" name="birth">
+
+    <label for="mbti">MBTI:</label>
+    <input type="text" placeholder="검사 해보세요~" id="mbti" name="mbti" th:value="${gptMbti}">
+    <a th:href="@{/bot/prompt}">MBTI 검사하기</a>
+
+    <label for="phone">전화번호:</label>
+    <input type="text" id="phone" name="phone">
+
     <input type="submit" value="제출">
 </form>
 </body>

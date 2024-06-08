@@ -1,69 +1,79 @@
 package com.finalProject.finalProject.service;
 
+import com.finalProject.finalProject.dao.PostDao;
 import com.finalProject.finalProject.dto.PostDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
+    @Autowired
+    private PostDao postDao;
 
-    private ArrayList<PostDto> db = new ArrayList<>();
+    @Override
+    public Map<String, List<PostDto>> findAllPostsReverse() {
+        // 역순으로 만들 DB 그릇
+        Map<String, List<PostDto>> reversedDb = new HashMap<>();
 
-    public PostServiceImpl() {
-        System.out.println("PostServiceImpl 객체 생성");
-        db.add(new PostDto(1, "ISTJ준형", "집에서 시간 때우는 법", "잠을 많이 잔다.", 0, "user1"));
-        db.add(new PostDto(2, "ENFP철수", "축제 즐기는 방법", "부어라 마셔라", 0, "user2"));
-        db.add(new PostDto(3, "ESTJ영희", "조원을 통솔하는 방법", "강하게 말한다", 0, "user3"));
+        // 역순으로 만들어서 그릇에 담기
+        for (Map.Entry<String, List<PostDto>> entry : postDao.findAllPosts().entrySet()) {
+            List<PostDto> reversedList = new ArrayList<>(entry.getValue());
+            Collections.reverse(reversedList);
+            reversedDb.put(entry.getKey(), reversedList);
+        }
+
+        return reversedDb;
     }
 
     @Override
-    public ArrayList<PostDto> findAll() {
-        return db;
+    public List<PostDto> findPostsByCategory(String category) { // 메서드 이름 변경
+        return postDao.findPostsByCategory(category); // 카테고리에 해당하는 모든 게시글 반환
+    }
+    @Override
+    public List<PostDto> findPostsByUserId(int userId) { // 메서드 이름 변경
+        return postDao.findPostsByUserId(userId); // 유저에 해당하는 모든 게시글 반환
     }
 
     @Override
-    public PostDto findById(int idx) {
-        return db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
+    public PostDto findById(String category, int idx) {
+        return postDao.findById(category, idx);
     }
 
     @Override
-    public void delete(int idx) {
-        db.removeIf(p -> p.getIdx() == idx);
+    public void delete(String category, int idx) {
+        postDao.delete(category, idx);
     }
 
     @Override
     public PostDto save(PostDto post) {
+        String category = post.getCategory();
         if (post.getIdx() == -1) {
-            int idx = db.isEmpty() ? 1 : db.get(db.size() - 1).getIdx() + 1;
-            post.setIdx(idx);
-            db.add(post);
-            return post;
+            post.setIdx(postDao.getLastIdx(category) + 1); // 해당 카테고리의 마지막 idx를 가져와서 새로운 idx를 설정
+            return postDao.insertPost(post); // 해당 카테고리에 새로운 게시글 추가
         } else {
-            PostDto existingPost = db.stream().filter(p -> p.getIdx() == post.getIdx()).findAny().orElse(null);
-            if (existingPost != null) {
-                existingPost.setNickname(post.getNickname());
-                existingPost.setTitle(post.getTitle());
-                existingPost.setContent(post.getContent());
-                existingPost.setLikes(post.getLikes());
-                // existingPost.setUserIndex(post.getUserIndex()); // userIndex는 수정하지 않음
-            }
-            return existingPost;
+            return postDao.updatePost(post);
         }
     }
 
     @Override
     public int count() {
-        return db.size();
+        return postDao.count();
     }
 
     @Override
-    public boolean increaseLikes(int idx) {
-        PostDto post = db.stream().filter(p -> p.getIdx() == idx).findAny().orElse(null);
-        if (post != null && post.getLikes() == 0) {
-            post.setLikes(1);
-            return true;
-        }
-        return false;
+    public boolean increaseLikes(String category, int idx) {
+        return postDao.increaseLikes(category, idx);
+    }
+
+    @Override
+    public boolean decreaseLikes(String category, int idx) {
+        return postDao.decreaseLikes(category, idx);
+    }
+
+    @Override
+    public boolean isAlreadyLiked(String category, int idx) {
+        return postDao.isAlreadyLiked(category, idx);
     }
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 200px;
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 2px solid #dee2e6;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f3f5;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+
+        .header a {
+            color: white;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div th:replace="~{menu::menu}"></div>
+</div>
+
+<h1 th:text="|유저 ${posts[0].nickname}가 작성한 게시판|"></h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>닉네임</th>
+        <th>제목</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.idx}">1</td>
+        <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+               th:text="${post.nickname}">닉네임</a></td>
+        <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+               th:text="${post.title}">제목</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>OTP 입력</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -19,9 +20,9 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 300px;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="submit"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
@@ -29,27 +30,14 @@
             border-radius: 3px;
         }
         input[type="submit"] {
-            width: 100%;
-            padding: 10px;
             background-color: #5cb85c;
             border: none;
-            border-radius: 3px;
             color: white;
             font-size: 16px;
             cursor: pointer;
         }
         input[type="submit"]:hover {
             background-color: #4cae4c;
-        }
-        a {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: #5cb85c;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
         }
         p {
             color: red;
@@ -58,21 +46,14 @@
     </style>
 </head>
 <body>
-<form action="/user/auth/checkSignIn" method="POST">
-    <h2>로그인</h2>
-    <label for="email">아이디:</label>
-    <input type="text" id="email" name="email"> <br>
-
-    <label for="password">비밀번호:</label>
-    <input type="password" id="password" name="password">
-    <br/>
-    <a href="checkEmail">비밀번호 변경</a>
-
-    <div>
-        <p th:if="${param.error}">로그인 실패! 아이디와 비밀번호를 확인하세요.</p>
-    </div>
-
-    <input type="submit" value="로그인">
+<form action="/user/auth/checkOTP" method="POST">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <label for="OTP">OTP 입력:</label>
+    <input type="text" id="OTP" name="OTP">
+    <input type="submit" value="입력">
 </form>
+<div>
+    <p th:if="${param.error}">OTP를 다시 확인해주세요.</p>
+</div>
 </body>
 </html>

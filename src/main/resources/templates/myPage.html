@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info label {
+            font-weight: bold;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #5cb85c;
+            text-decoration: none;
+            text-align: center;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        p {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="info">
+        <label>이름:</label> [[${user.name}]]
+    </div>
+    <div class="info">
+        <label>닉네임:</label> [[${user.nick}]]
+    </div>
+    <div class="info">
+        <label>이메일:</label> [[${user.email}]]
+    </div>
+    <div class="info">
+        <label>MBTI:</label> [[${user.mbti}]]
+    </div>
+    <div class="info">
+        <label>생년월일:</label> [[${user.birth}]]
+    </div>
+    <div class="info">
+        <label>전화번호:</label> [[${user.phone}]]
+    </div>
+
+    <a th:if="${currentDate - userDate > 30}" th:href="@{/user/auth/changeMbti/{id}(id=${user.id})}">MBTI 변경가능</a>
+    <p th:unless="${currentDate - userDate > 30}">MBTI 변경이 불가능합니다. (1달마다 갱신 가능)</p>
+
+    <div th:if="${user.isAdmin}">
+        <a href="/user/auth/userList">회원정보 보기</a>
+    </div>
+    <div th:if="${user.userOTP != ''}">
+        <div class="info">
+            <label>OTP:</label> [[${user.userOTP}]]
+        </div>
+        <a th:href="@{/user/auth/inputOTP/{id}(id=${user.id})}">OTP 입력</a>
+    </div>
+</div>
+</body>
+</html>
