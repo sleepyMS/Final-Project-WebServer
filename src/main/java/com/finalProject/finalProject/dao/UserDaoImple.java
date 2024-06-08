@@ -11,7 +11,6 @@ public class UserDaoImple {
 
     @Autowired
     private LoginService loginService;
-
     @Autowired
     private SignUpDaoImple signUpDaoImple;
 
