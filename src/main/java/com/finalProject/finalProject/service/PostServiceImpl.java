@@ -1,7 +1,9 @@
 package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dao.PostDao;
+import com.finalProject.finalProject.dao.UserDao;
 import com.finalProject.finalProject.dto.PostDto;
+import com.finalProject.finalProject.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import java.util.*;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostDao postDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public Map<String, List<PostDto>> findAllPostsReverse() {
@@ -48,6 +52,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto save(PostDto post) {
+        UserDto user = userDao.getUserById(post.getUserIdx());
+        post.setNickname(user.getMbti() + user.getName());
         String category = post.getCategory();
         if (post.getIdx() == -1) {
             post.setIdx(postDao.getLastIdx(category) + 1); // 해당 카테고리의 마지막 idx를 가져와서 새로운 idx를 설정

@@ -77,9 +77,13 @@ public class PostController {
     }
 
     @RequestMapping("/insertForm")
-    public String insertForm(HttpSession session, Model model) {
+    public String insertForm(HttpSession session,
+                             Model model) {
 
         UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
+        if (currentUser == null) {
+            return "signIn";
+        }
         model.addAttribute("currentUser", currentUser.getNick());
         return "insertForm";
     }

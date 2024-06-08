@@ -16,8 +16,8 @@ public class UserDaoImple implements UserDao {
 
     public UserDaoImple() {
          System.out.println("UserDaoImple 객체 생성");
-        database.add(new UserDto(0, "최민석", "admin", "123", "2000-08-16", "ENFJ", "밍식", "3924",true,"",LocalDate.of(2024, 4, 24)));
-        database.add(new UserDto(1, "김정호", "123", "123", "123", "ISFJ", "정오", "123",false,"", LocalDate.of(2024, 5, 24)));
+        database.add(new UserDto(0, "최민석", "admin", "123", "2001-10-17", "ENFJ", "밍식", "3924",true,"",LocalDate.of(2024, 4, 24)));
+        database.add(new UserDto(1, "김정호", "123", "123", "2000-08-16", "ISFJ", "정오", "123",false,"", LocalDate.of(2024, 5, 24)));
         database.add(new UserDto(2, "박준형", "234", "234", "123", "ISTJ", "주녕", "123",false,"", LocalDate.of(2024, 5, 25)));
     }
 
