@@ -8,13 +8,13 @@
 <th:block th:replace="~{menu :: menu}" />
 게시글 수정
 
-<form action="/update" th:object="${post}" method="post">
-idx : <input type="text" readonly th:field="*{idx}"><br/>
-nickname : <input type="text" th:field="*{nickname}"><br/>
-title : <input type="text" th:field="*{title}"><br/>
+<form th:action="|/post/update/${category}|" th:object="${post}" method="post">
+    idx : <input type="text" readonly th:field="*{idx}"><br/>
+    nickname : <input type="text" th:field="*{nickname}"><br/>
+    title : <input type="text" th:field="*{title}"><br/>
 
-<textarea rows="5" cols="40" th:field="*{content}"> </textarea><br/>
-<input type="submit" value="수정" />
+    <textarea rows="5" cols="40" th:field="*{content}"> </textarea><br/>
+    <input type="submit" value="수정" />
 </form>
 
 

@@ -43,7 +43,7 @@ public class CustomBotController {
     }
 
     @RequestMapping("/resultMbti")
-    public String resultMbti(@RequestParam("mbti") String mbti,Model model){
+    public String resultMbti(@RequestParam("mbti") String mbti, Model model){
         model.addAttribute("gptMbti",mbti);
         return "signUp";
     }

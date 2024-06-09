@@ -183,11 +183,14 @@ public class UserController {
                                  @RequestParam("id") int id,
                                  Model model) {
         int check = userServiceImple.changePassword(id, currentPassword, newPassword, checkNewPassword);
+        System.out.println(2);
         if (check == 0) {
             return "redirect:/";
         } else {
-            model.addAttribute("passwordChangeStatus", check);
-            return "redirect:/user/auth/changePassword/"+id;
+            // Directly add num attribute to the model
+            model.addAttribute("num", check);
+            model.addAttribute("id",id);
+            return "changePassword"; // Return the view name without redirect
         }
     }
 

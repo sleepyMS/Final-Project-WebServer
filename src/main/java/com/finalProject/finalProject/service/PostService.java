@@ -2,15 +2,18 @@ package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.dto.PostDto;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public interface PostService {
-    public ArrayList<PostDto> findAll();
-    public PostDto findById(int id);
-    public void delete(int idx);
-    public PostDto save(PostDto post);
-
-    public int count();
-    boolean increaseLikes(int idx); // 좋아요 증가 메서드 수정
-
+    Map<String, List<PostDto>> findAllPostsReverse();
+    List<PostDto> findPostsByCategory(String category); // 메서드 이름 변경
+    List<PostDto> findPostsByUserId(int userId); // 메서드 이름 변경
+    PostDto findById(String category, int idx);
+    void delete(String category, int idx);
+    PostDto save(PostDto post);
+    int count();
+    boolean increaseLikes(String category, int idx);
+    boolean decreaseLikes(String category, int idx);
+    boolean isAlreadyLiked(String category, int idx);
 }

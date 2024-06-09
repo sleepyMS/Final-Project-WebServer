@@ -13,13 +13,14 @@ public class CommentDaoImpl implements CommentDao {
     public CommentDaoImpl() {
         System.out.println("CommentDaoImple 객체 생성");
         db.add(new CommentDto(1, 1, 1, "ENFJ", "min", "test1"));
-        db.add(new CommentDto(1, 1, 1, "ENFJ", "min", "test2"));
-        db.add(new CommentDto(1, 1, 1, "ENFJ", "min", "test3"));
+        db.add(new CommentDto(2, 1, 1, "ENFJ", "min", "test2"));
+        db.add(new CommentDto(3, 1, 1, "ENFJ", "min", "test3"));
     }
 
 //    Create
     @Override
-    public void insertComment(CommentDto CommentDto) { db.add(CommentDto); }
+    public void insertComment(CommentDto CommentDto) { db.add(CommentDto);
+        System.out.println(db);}
 
 //    Read
     @Override
@@ -32,6 +33,7 @@ public class CommentDaoImpl implements CommentDao {
                 .filter(comment -> comment.getPostIdx() == idx)
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<CommentDto> getCommentByUserIdx(int idx) {
         return db.stream()

@@ -4,18 +4,88 @@
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .post-details {
+            margin-bottom: 20px;
+        }
+
+        .post-details span {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            resize: none;
+            background-color: #f1f1f1;
+        }
+
+        .likes {
+            display: flex;
+            align-items: center;
+        }
+
+        .likes span {
+            margin-right: 10px;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .likes a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
         .dropdown {
             position: relative;
             display: inline-block;
         }
 
+        .dropdown .dropbtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #f1f1f1;
+            background-color: #ffffff;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
         .dropdown-content a {
@@ -26,21 +96,97 @@
         }
 
         .dropdown-content a:hover {
-            background-color: #ddd;
+            background-color: #f1f1f1;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        .comment-bax__update {
-            display: none;
+        .comment-wrap {
+            margin-top: 30px;
         }
 
+        .comment-input-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .comment-input-box input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .comment-input-box button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comment-box li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comment-box li:last-child {
+            border-bottom: none;
+        }
+
+        .comment-box span {
+            color: #555;
+        }
+
+        .comment-box a {
+            text-decoration: none;
+            color: #007bff;
+            margin-left: 10px;
+        }
+
+        .comment-bax__update {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .comment-bax__update form {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-bax__update input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .comment-bax__update button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
     <script>
         function toggleUpdateForm(commentIdx) {
-            var updateForm = document.getElementById("update-form-" + commentIdx);
+            var updateForm = document.getElementById("update-command-" + commentIdx);
             if (updateForm.style.display === "none" || updateForm.style.display === "") {
                 updateForm.style.display = "block";
             } else {
@@ -50,51 +196,70 @@
     </script>
 </head>
 <body>
-<th:block th:replace="~{menu :: menu}" />
-게시글 상세 페이지  <br/>
-idx : <span th:text="${post.idx}" />   <br/>
-<span th:text="${post.nickname}" />   <br/>
-<span th:text="${post.title}" />   <br/>
-<textarea rows="5" cols="40" readonly th:text="${post.content}"></textarea><br/>
-좋아요 수 : <span th:text="${post.likes}"></span> <a th:href="@{/post/like/{idx}(idx=${post.idx})}">좋아요</a><br/>
-
-<!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 (작성자만 보임) -->
-<div th:if="${currentUser.id == post.userIdx}" class="dropdown">
-    <button class="dropbtn">옵션</button>
-    <div class="dropdown-content">
-        <a th:href="@{/updateForm/{idx}(idx=${post.idx})}">게시글 수정</a>
-        <a th:href="@{/delete/{idx}(idx=${post.idx})}">게시글 삭제</a>
+<div class="container">
+    <th:block th:replace="~{menu :: menu}" />
+    <h1>게시글 상세 페이지</h1>
+    <div class="post-details">
+        <span>Post Idx : <span th:text="${post.idx}"></span></span>
+        <span><span th:text="${post.nickname}"></span></span>
+        <span><span th:text="${post.title}"></span></span>
+        <textarea rows="5" cols="40" readonly th:text="${post.content}"></textarea>
+        <div class="likes">
+            <span>좋아요 수 : <span th:text="${post.likes}"></span></span>
+            <a th:href="@{|/post/like/${post.category}/${post.idx}|}">좋아요</a>
+        </div>
     </div>
-</div>
 
-<div class="comment-wrap">
-    <form class="comment-input-box" action="/post/comment/write">
-        댓글
-        <br>
-        <input type="hidden" th:value="${post.idx}" name="postIdx">
-        <input type="hidden" th:value="${currentUser.id}" name="userIdx">
-        <input type="text" name="content">
-        <button>작성</button>
-    </form>
+    <!-- 드롭다운 메뉴로 수정 및 삭제 버튼 추가 (작성자만 보임) -->
+    <div th:if="${currentUser != null and post != null}">
+        <div th:if="${currentUser?.id == post.userIdx}" class="dropdown">
+            <button class="dropbtn">옵션</button>
+            <div class="dropdown-content">
+                <a th:href="|/post/updateForm/${post.category}/${post.idx}|">게시글 수정</a>
+                <a th:href="|/post/delete/${post.category}/${post.idx}|">게시글 삭제</a>
+            </div>
+        </div>
+    </div>
 
-    <div class="comment-box">
-        <ul th:each="c : ${comments}">
-            <li>
-                <span th:text="${c.nick} "></span>
-                <span th:text=" ${c.mbti} "></span>
-                <span th:text=" ${c.content} "></span>
-                <a onclick="toggleUpdateForm([[${c.idx}]])"> [수정] </a>
-                <a th:href="|post/comment/delete/${post.idx}/${c.idx}|"> [삭제] </a>
+    <!-- 사용자가 로그인되어 있을 때만 사용자 ID 출력 -->
+    <div th:if="${currentUser != null}">
+        <p th:text="|Current User NickName: ${currentUser.nick}|"></p>
+    </div>
 
-                <div id="update-form-[[${c.idx}]]" class="comment-bax__update">
-                    <form action="">
-                        <input type="hidden" th:value="${currentUser.id}" name="userIdx">
-                        <input type="text" name="updateContent" th:value="${c.content}">
-                        <button type="submit">[완료]</button>
-                    </form>
-                </div>
-            </li>
-        </ul>
+    <div class="comment-wrap">
+        <form class="comment-input-box" action="/post/comment/write">
+            댓글
+            <br>
+            <input type="hidden" th:value="${post.idx}" name="postIdx">
+            <input type="hidden" th:value="${post.category}" name="category">
+            <input type="text" name="content">
+            <button>작성</button>
+        </form>
+
+        <div class="comment-box">
+            <ul th:each="c : ${comments}">
+                <li>
+                    <span th:text="${c.nick} "></span>
+                    <span th:text=" ${c.mbti} "></span>
+                    <span th:text=" ${c.content} "></span>
+                    <span th:if="${currentUser?.id == c.userIdx}">
+                        <a th:onclick="|toggleUpdateForm(${c.idx})|"> [수정] </a>
+                        <a th:href="|/post/comment/delete/${post.category}/${post.idx}/${c.idx}|"> [삭제] </a>
+                    </span>
+
+                    <div th:id="|update-command-${c.idx}|" class="comment-bax__update">
+                        <form action="/post/comment/update">
+                            <input type="hidden" th:value="${post.category}" name="category" id="category">
+                            <input type="hidden" th:value="${post.idx}" name="postIdx" id="postIdx">
+                            <input type="hidden" th:value="${c.idx}" name="commentIdx" id="commentIdx">
+                            <input type="hidden" th:value="${currentUser.id}" name="userIdx" id="userIdx">
+                            <input type="text" name="updateContent" th:value="${c.content}" id="updateContent">
+                            <button type="submit">[완료]</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 </body>
