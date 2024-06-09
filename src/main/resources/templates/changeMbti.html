@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>MBTI 변경</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<div style="color: red;">신중히 변경하세요!</div>
+<div class="warning">신중히 변경하세요!</div>
 <form action="/user/auth/resultMbti" method="post">
     <input type="hidden" name="id" th:value="${id}">
     변경 MBTI: <input type="text" id="mbti" name="mbti">

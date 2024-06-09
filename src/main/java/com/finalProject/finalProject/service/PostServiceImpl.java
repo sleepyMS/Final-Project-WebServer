@@ -53,7 +53,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto save(PostDto post) {
         UserDto user = userDao.getUserById(post.getUserIdx());
-        post.setNickname(user.getMbti() + user.getName());
+        post.setNickname(user.getMbti() + user.getNick());
         String category = post.getCategory();
         if (post.getIdx() == -1) {
             post.setIdx(postDao.getLastIdx(category) + 1); // 해당 카테고리의 마지막 idx를 가져와서 새로운 idx를 설정

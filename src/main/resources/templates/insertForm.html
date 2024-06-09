@@ -69,8 +69,6 @@
 </header>
 <nav>
     <a href="/">메인화면</a>
-    <a href="/user/auth/signUp" id="signUpLink">회원가입</a>
-    <a href="/user/auth/signIn" id="signInLink">로그인</a>
     <a href="/user/auth/checkEmail">비밀번호 변경</a>
     <a href="/post/list">게시판</a>
     <a href="/post/insertForm">게시글 생성</a>
@@ -81,9 +79,9 @@
     <form action="/post/insert" method="post" enctype="multipart/form-data">
         <label for="category">카테고리:</label>
         <select name="category" id="category">
-            <option value="F 게시판">F 게시판</option>
+            <option value="E와 I 게시판">E와 I 게시판</option>
             <option value="T와 F 게시판">T와 F 게시판</option>
-            <option value="J 게시판">J 게시판</option>
+            <option value="P와 J 게시판">P와 J 게시판</option>
             <option value="N와 S 게시판">N와 S 게시판</option>
             <!-- 필요에 따라 다른 카테고리 옵션들을 추가할 수 있다. -->
         </select>

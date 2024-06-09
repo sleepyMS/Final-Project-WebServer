@@ -85,9 +85,9 @@
         <table th:id="'table-' + ${entry.key}">
             <!-- 역순으로 순회하도록 변경 -->
             <tr th:each="post, postStat : ${entry.value}">
-                <th:block th:if="${postStat.index < 2}">
+                <th:block th:if="${postStat.index < 3}">
                     <td th:text="${post.idx}"></td>
-                    <td><a th:href="|/post/read/${post.category}/${post.idx}|"
+                    <td><a th:href="|/post/user/${post.userIdx}|"
                            th:text="${post.nickname}">닉네임</a></td>
                     <td><a th:href="|/post/read/${post.category}/${post.idx}|"
                            th:text="${post.title}">제목</a></td>

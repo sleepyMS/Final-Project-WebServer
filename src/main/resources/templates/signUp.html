@@ -21,7 +21,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 400px;
         }
-        input[type="text"], input[type="password"], input[type="date"] {
+        input[type="text"], input[type="password"], input[type="date"],input[type="email"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
@@ -59,39 +59,40 @@
 </head>
 <body>
 <form action="/user/auth/checkSignUp" method="POST" th:object="${signUpDto}">
+
+    <a th:href="@{/bot/prompt}">MBTI 검사하기</a>
+    <label for="mbti">MBTI:</label>
+    <input type="text" placeholder="검사 해보세요~" id="mbti" name="mbti" th:value="${gptMbti}" required>
+
     <label for="name">이름:</label>
-    <input type="text" id="name" name="name">
+    <input type="text" id="name" name="name" required>
 
     <label for="nick">닉네임:</label>
-    <input type="text" id="nick" name="nick">
+    <input type="text" id="nick" name="nick" required>
     <div>
         <p th:if="${i == 0}">회원가입 실패! 이미 존재하는 닉네임입니다.</p>
     </div>
 
     <label for="email">이메일:</label>
-    <input type="text" id="email" name="email">
+    <input type="email" id="email" name="email" required>
     <div>
         <p th:if="${i == 1}">회원가입 실패! 중복된 이메일 입니다.</p>
     </div>
 
     <label for="password">비밀번호:</label>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" required>
     <div>
         <p th:if="${i == 2}">회원가입 실패! 비밀번호를 확인해주세요.</p>
     </div>
 
     <label for="checkPassword">비밀번호 확인:</label>
-    <input type="password" id="checkPassword" name="checkPassword">
+    <input type="password" id="checkPassword" name="checkPassword" required>
 
     <label for="birth">생년월일:</label>
-    <input type="date" id="birth" name="birth">
-
-    <label for="mbti">MBTI:</label>
-    <input type="text" placeholder="검사 해보세요~" id="mbti" name="mbti" th:value="${gptMbti}">
-    <a th:href="@{/bot/prompt}">MBTI 검사하기</a>
+    <input type="date" id="birth" name="birth" required>
 
     <label for="phone">전화번호:</label>
-    <input type="text" id="phone" name="phone">
+    <input type="text" id="phone" name="phone" required>
 
     <input type="submit" value="제출">
 </form>
