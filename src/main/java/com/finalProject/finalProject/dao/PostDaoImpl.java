@@ -31,7 +31,7 @@ public class PostDaoImpl implements PostDao {
         db2.add(new PostDto(10, "ISTJ주녕", "나는 슈퍼인싸! 친구들을 다 챙기고싶어", "친구들이 너무 좋고, 공감받으며 나도 행복해!!", 0, 2, "T와 F 게시판"));
         db.put("T와 F 게시판", db2);
 
-        // ㅓ 게시판 데이터 (카테고리 3)
+        // J 게시판 데이터 (카테고리 3)
         List<PostDto> db3 = new ArrayList<>();
         db3.add(new PostDto(3, "ENFJ밍식", "나는 계획따위 없어 무계획이야", "너는 다 계획이 있니? 나는 없어ㅎㅎ", 0, 0, "P 게시판"));
         db3.add(new PostDto(4, "ISTJ주녕", "오늘은 눈에 보이는 친구들 괴롭혀야지~", "항상 즉흥적으로 괴롭히는건 즐거워!", 0, 2, "P 게시판"));

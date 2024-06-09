@@ -26,6 +26,7 @@ public class UserDaoImple implements UserDao {
         return database.size();
     }
 
+    @Override
     public String[] getUserEmail() {
         List<String> emails = new ArrayList<>();
         for (UserDto user : database) {
@@ -34,6 +35,7 @@ public class UserDaoImple implements UserDao {
         return emails.toArray(new String[0]);
     }
 
+    @Override
     public String[] getUserNick() {
         List<String> nicks = new ArrayList<>();
         for (UserDto user : database) {
@@ -42,6 +44,7 @@ public class UserDaoImple implements UserDao {
         return nicks.toArray(new String[0]);
     }
 
+    @Override
     public int getMaxId() {
         return database.stream()
                 .mapToInt(UserDto::getId)
