@@ -53,6 +53,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto save(PostDto post) {
         UserDto user = userDao.getUserById(post.getUserIdx());
+        System.out.println(post.getUserIdx());
         post.setNickname(user.getMbti() + user.getNick());
         String category = post.getCategory();
         if (post.getIdx() == -1) {

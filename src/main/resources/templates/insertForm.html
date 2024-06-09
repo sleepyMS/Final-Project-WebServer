@@ -79,17 +79,17 @@
     <form action="/post/insert" method="post" enctype="multipart/form-data">
         <label for="category">카테고리:</label>
         <select name="category" id="category">
-            <option value="E와 I 게시판">E와 I 게시판</option>
-            <option value="T와 F 게시판">T와 F 게시판</option>
-            <option value="P와 J 게시판">P와 J 게시판</option>
-            <option value="N와 S 게시판">N와 S 게시판</option>
+            <option value="E or I Board">E와 I 게시판</option>
+            <option value="T or F Board">T와 F 게시판</option>
+            <option value="P or J Board">P와 J 게시판</option>
+            <option value="N or S Board">N와 S 게시판</option>
             <!-- 필요에 따라 다른 카테고리 옵션들을 추가할 수 있다. -->
         </select>
         <input type="text" id="newCategory" placeholder="새 게시판 생성">
         <button type="button" onclick="addOption()">추가</button>
 
 <!--        <label for="nickname">닉네임:</label>-->
-        <input type="hidden" th:value="${currentUser}" name="nickname" id="nickname">
+<!--        <input type="hidden" th:value="${currentUser}" name="nickname" id="nickname">-->
 
         <label for="title">제목:</label>
         <input type="text" name="title" id="title">

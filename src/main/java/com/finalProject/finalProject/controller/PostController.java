@@ -89,8 +89,10 @@ public class PostController {
     }
 
     @PostMapping("/insert")
-    public String insert(PostDto post) {
+    public String insert(PostDto post,HttpSession session) {
+        UserDto currentUser = (UserDto) session.getAttribute("currentUserDto");
         post.setIdx(-1); // 새로운 게시글을 추가할 때 idx를 -1로 설정
+        post.setUserIdx(currentUser.getId());
         postService.save(post); // 게시글 저장
         return "redirect:/post/list"; // 게시글 목록 페이지로 리다이렉트
     }

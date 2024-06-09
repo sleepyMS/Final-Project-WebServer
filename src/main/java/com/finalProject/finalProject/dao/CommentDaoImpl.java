@@ -12,9 +12,9 @@ public class CommentDaoImpl implements CommentDao {
     private List<CommentDto> db = new ArrayList<>();
     public CommentDaoImpl() {
         System.out.println("CommentDaoImple 객체 생성");
-        db.add(new CommentDto(1, 1, 1, "ENFJ", "min", "test1"));
-        db.add(new CommentDto(2, 1, 1, "ENFJ", "min", "test2"));
-        db.add(new CommentDto(3, 1, 1, "ENFJ", "min", "test3"));
+        db.add(new CommentDto(1, 1, 0, "ENFJ", "밍식", "test1"));
+        db.add(new CommentDto(2, 1, 0, "ENFJ", "밍식", "test2"));
+        db.add(new CommentDto(3, 1, 0, "ENFJ", "밍식", "test3"));
     }
 
 //    Create
