@@ -166,6 +166,8 @@ public class UserController {
         model.addAttribute("user", userDto);
         model.addAttribute("userDate", userDate);
         model.addAttribute("currentDate", currentDate);
+        System.out.println(userDate);
+        System.out.println(currentDate);
         return "myPage";
     }
 

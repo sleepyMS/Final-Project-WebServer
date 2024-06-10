@@ -45,7 +45,7 @@ public class UserServiceImple implements UserService {
         }
         return userDto;
     }
-
+    @Override
     public int validationSignUp(SignUpDto signUpDto) {
         if (signUpDto == null) {
             return -1;
@@ -91,13 +91,13 @@ public class UserServiceImple implements UserService {
     public UserDto getUserById(int id) {
         return userDaoImple.getAllUser().stream().filter(m -> m.getId() == id).findAny().get();
     }
-
+    @Override
     public UserDto deleteUser(UserDto userDto){
         userDaoImple.deleteUser(userDto);
         return userDto;
     }
 
-
+    @Override
     //DaoImple에 있어야하나?
     public void setUserOTP(String email){
         UserDto userDto = userDaoImple.getUserByEmail(email);
@@ -106,7 +106,7 @@ public class UserServiceImple implements UserService {
             userDto.setUserOTP(String.valueOf(otp));
         }
     }
-
+    @Override
     public boolean areYouAdmin(String email){
         boolean b = false;
         if(email.contains("admin")) {
@@ -114,7 +114,7 @@ public class UserServiceImple implements UserService {
         }
         return b;
     }
-
+    @Override
     public int changePassword(int id,String currentPassword, String newPassword, String checkNewPassword){
         UserDto userDto = userDaoImple.getUserById(id);
         if(currentPassword.equals(userDto.getPassword())){
@@ -133,7 +133,7 @@ public class UserServiceImple implements UserService {
             return 2;
         }
     }
-
+    @Override
     public void changeMbti(int id,String mbti) {
         UserDto userDto = userDaoImple.getUserById(id);
         userDto.setMbti(mbti);
